@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import * as jsplumb from '@jsplumb/browser-ui'
-import $ from 'jquery';
+import $, { event } from 'jquery';
 
 
 @Component({
@@ -19,6 +19,8 @@ export class AppComponent implements AfterViewInit{
   instance!: jsplumb.JsPlumbInstance;
   allNodes: any[]=[];
   zoom: number= 1;
+  draggable: boolean = false;
+
 
   constructor(private renderer: Renderer2) {}
 
@@ -28,10 +30,15 @@ export class AppComponent implements AfterViewInit{
 
   }
 
+  resizeMouseDown($event: MouseEvent) {
+    if($event.target instanceof Element) {
+      $event.target.parentElement?.setAttribute('jtk-not-draggable','true')
+    }
+  }
+
   ngAfterViewInit(): void {
     this.instance = jsplumb.newInstance({
       container: this.container.nativeElement,
-
     });
     const nodes = this.instance.getSelector(".node")
     this.instance.manageAll(nodes);
@@ -54,6 +61,12 @@ export class AppComponent implements AfterViewInit{
         endpoint: "Dot",
       })
     }
+
+    this.instance.bind(jsplumb.EVENT_DRAG_MOVE, ($event: Event)=>{
+      console.log("Move")
+          })
+
+
 
     this.instance.bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
       const source = this.instance.getManagedElement(params.sourceId)
