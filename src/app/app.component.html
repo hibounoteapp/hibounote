@@ -1,24 +1,37 @@
 <div class="select-none absolute w-full h-full bg-gray-200">
-  <div #main class="w-full h-full" id="main">
-    <div class="max-w-48 min-h-20 border-2 border-black absolute node top-10 left-2 p-2">
-      <div class=" bg-teal-700 w-4 h-4 rounded absolute bottom-0 right-0" ></div>
+  <button class=" bg-blue-400 absolute bottom-0" (click)="createNode()">Criar node</button>
+  <div #main class="w-full h-full" id="main" >
+    <div class="min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute node top-10 left-2 p-2 overflow-hidden">
+      <div class=" bg-teal-700 w-4 h-4 rounded absolute bottom-0 right-0"
+      (mousedown)="resizeMouseDown($event)"
+      (window:mouseup)="resizeMouseUp($event)"></div>
       <div class=" bg-slate-900 w-5 h-5 rounded linkAction"></div>
       <p class="font-bold">Title</p>
       <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, quis saepe ad nulla officiis vel molestias.</p>
     </div>
-    <div class="w-48 min-h-20 border-2 border-black absolute node top-60 left-2 p-2">
-      <div class=" bg-teal-700 w-4 h-4 absolute bottom-0 right-0" (mousedown)="resizeMouseDown($event)"></div>
+    <div class="min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute node top-60 left-2 p-2 overflow-hidden">
+      <div class=" bg-teal-700 w-4 h-4 absolute bottom-0 right-0"
+        (mousedown)="resizeMouseDown($event)"
+        (window:mouseup)="resizeMouseUp($event)"
+        ></div>
+      <div>
       <div class=" bg-slate-900 w-5 h-5 rounded linkAction"></div>
       <p class="font-bold">Title</p>
       <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, quis saepe ad nulla officiis vel molestias.</p>
+      </div>
     </div>
 
-    <div class="w-52 h-48 border-2 border-black absolute node left-60 top-2 p-2">
-      <div class="min-w-20 h-20 border-2 border-black absolute node left-2 p-2">
+    <div class="min-w-48 max-w-60 min-h-40 max-h-44  border-2 border-black absolute node left-60 top-2 p-2 overflow-hidden">
+      <div class=" bg-teal-700 w-4 h-4 rounded  absolute bottom-0 right-0"
+      (mousedown)="resizeMouseDown($event)"
+      (window:mouseup)="resizeMouseUp($event)"></div>
+      <div class="min-w-48 max-w-60 min-h-20 max-h-44  border-2 border-black absolute node left-2 p-2 overflow-hidden">
         <div class=" bg-slate-900 w-5 h-5 rounded linkAction"></div>
         <p class="font-bold text-xs">little title</p>
         <p class="text-xs">Lorem ipsum dolor sit amet.</p>
-        <div class=" bg-teal-700 w-4 h-4 rounded  absolute bottom-0 right-0"></div>
+        <div class=" bg-teal-700 w-4 h-4 rounded  absolute bottom-0 right-0"
+        (mousedown)="resizeMouseDown($event)"
+        (window:mouseup)="resizeMouseUp($event)"></div>
       </div>
     </div>
 

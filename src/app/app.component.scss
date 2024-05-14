@@ -1,4 +1,9 @@
 .jtk-group-collapsed {
-  @apply h-10 overflow-hidden
+  @apply h-10 overflow-hidden;
+  
+}
+
+.jtk-drag-select * {
+  background: #f0d;
 }
 

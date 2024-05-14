@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import * as jsplumb from '@jsplumb/browser-ui'
-import $, { event } from 'jquery';
-
+import * as jsplumb from '@jsplumb/browser-ui';
+import interact from 'interactjs'
+import $ from 'jquery'
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ export class AppComponent implements AfterViewInit{
   instance!: jsplumb.JsPlumbInstance;
   allNodes: any[]=[];
   zoom: number= 1;
-  draggable: boolean = false;
+  draggable: boolean = true;
 
 
   constructor(private renderer: Renderer2) {}
@@ -31,10 +31,31 @@ export class AppComponent implements AfterViewInit{
   }
 
   resizeMouseDown($event: MouseEvent) {
-    if($event.target instanceof Element) {
-      $event.target.parentElement?.setAttribute('jtk-not-draggable','true')
-    }
+    this.draggable = false;
+
+
   }
+
+  resizeMouseUp($event: MouseEvent) {
+    this.draggable = true;
+  }
+
+  createNode() {
+    let div = document.createElement('div');
+    div.style.minWidth= '100px'
+    div.style.maxWidth= '300px'
+    div.style.minHeight= '100px'
+    div.style.maxHeight= '300px'
+    div.style.backgroundColor = '#00f00f'
+    div.style.position = 'absolute'
+    div.className = 'node'
+
+
+    this.container.nativeElement.appendChild(div)
+    this.instance.manage(div)
+  }
+
+
 
   ngAfterViewInit(): void {
     this.instance = jsplumb.newInstance({
@@ -49,9 +70,7 @@ export class AppComponent implements AfterViewInit{
 
     this.instance.addToGroup('GROUP',nodes[3])
 
-    for (let index = 0; index < nodes.length; index++) {
-      const element = nodes[index];
-      const link = element.firstChild
+    for (const element of [nodes]) {
       this.instance.addSourceSelector('.linkAction',{
         anchor: 'Continuous',
         endpoint: "Dot",
@@ -62,11 +81,47 @@ export class AppComponent implements AfterViewInit{
       })
     }
 
-    this.instance.bind(jsplumb.EVENT_DRAG_MOVE, ($event: Event)=>{
-      console.log("Move")
-          })
+    // this.instance.bind(jsplumb.EVENT_DRAG_MOVE, ($event: Event)=>{
+    //   console.log("Move")
+    // })
+
+    this.instance.bind(jsplumb.EVENT_DRAG_MOVE, (drag: jsplumb.DragMovePayload) =>{
+      let top:number = drag.originalPosition.y
+      let left:number = drag.originalPosition.x
+      console.log(top, left)
+      if(!this.draggable) {
+        let mouseX:number = drag.e instanceof MouseEvent? drag.e.clientX : 0
+        let mouseY:number = drag.e instanceof MouseEvent? drag.e.clientY : 0
+
+        if(drag.el instanceof Element) {
+          const groupId = this.instance.getId(drag.el.parentElement)
+          if(groupId.toString() != 'jsplumb-1-1') {
+            const element: Element | null = this.instance.getManagedElement(groupId)
+            console.log(element)
+            const groupidtop = Number(getComputedStyle(element!).top.replace(/([a-z])/g, ''));
+            const groupidleft = Number(getComputedStyle(element!).left.replace(/([a-z])/g, ''));
+            mouseX= mouseX - groupidleft
+            mouseY= mouseY - groupidtop
+          }
+        }
+
+          // if(
+          //   mouseX-left< Number(getComputedStyle(drag.el!).minWidth.replace(/([a-z])/g, '')) ||
+          //   mouseX-left> Number(getComputedStyle(drag.el!).maxWidth.replace(/([a-z])/g, '')) ||
+          //   mouseY-top< Number(getComputedStyle(drag.el!).minHeight.replace(/([a-z])/g, '')) ||
+          //   mouseY-top< Number(getComputedStyle(drag.el!).maxHeight.replace(/([a-z])/g, ''))) {
+          //   return
+          // }
+
+          drag.el.setAttribute('style',
+          `width: ${mouseX-left+10}px; height: ${mouseY-top+10}px;left: ${left}px; top: ${top}px`
+          )
 
 
+
+      }
+
+    })
 
     this.instance.bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
       const source = this.instance.getManagedElement(params.sourceId)
