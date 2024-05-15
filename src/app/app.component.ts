@@ -54,9 +54,8 @@ export class AppComponent implements AfterViewInit{
       const groupId = this.instance.getId(this.activeResizeElement?.parentElement)
       if(groupId.toString() != 'jsplumb-1-1') {
         const element: Element | null = this.instance.getManagedElement(groupId)
-        console.log(element)
-        const groupidtop = Number(getComputedStyle(element!).top.replace(/([a-z])/g, ''));
-        const groupidleft = Number(getComputedStyle(element!).left.replace(/([a-z])/g, ''));
+        const groupidtop = element ? Number(getComputedStyle(element).top.replace(/([a-z])/g, '')): 0;
+        const groupidleft = element ? Number(getComputedStyle(element).left.replace(/([a-z])/g, '')): 0;
         this.mouseX= this.mouseX - groupidleft
         this.mouseY= this.mouseY - groupidtop
       }
@@ -216,6 +215,7 @@ export class AppComponent implements AfterViewInit{
       this.instance.connect({
         source,
         target,
+        connector: 'Bezier',
         anchor: 'Continuous',
         overlays: [
           {
@@ -232,16 +232,6 @@ export class AppComponent implements AfterViewInit{
         ]
       })
 
-    })
-
-    this.instance.connections.forEach(e=>{
-      e.addOverlay({
-        type: "Label",
-        options: {
-          location:0.5,
-          label: "HELLO"
-        }
-      })
     })
 
 

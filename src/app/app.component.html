@@ -2,7 +2,7 @@
   <button class=" bg-blue-400 absolute bottom-0" (click)="createNode()">Criar node</button>
   <div #main class="w-full h-full" id="main" >
     <div class="min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute node p-2 overflow-hidden" style="top: 10px; left: 20px;">
-      <div class=" bg-teal-700 w-4 h-4 rounded absolute bottom-0 right-0"
+      <div class=" bg-teal-700 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize"
       (mousedown)="resizeMouseDown($event)"
       (window:mouseup)="resizeMouseUp($event)"></div>
       <div class=" bg-slate-900 w-5 h-5 rounded linkAction"></div>
@@ -11,7 +11,7 @@
     </div>
     <div class="min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute node p-2 overflow-hidden"
     style="top: 500px; left: 200px;">
-      <div class=" bg-teal-700 w-4 h-4 absolute bottom-0 right-0"
+      <div class=" bg-teal-700 w-4 h-4 absolute bottom-0 right-0 cursor-nw-resize"
         (mousedown)="resizeMouseDown($event)"
         (window:mouseup)="resizeMouseUp($event)"
         ></div>
@@ -24,14 +24,14 @@
 
     <div class="min-w-48 max-w-60 min-h-40 max-h-44  border-2 border-black absolute node p-2 overflow-hidden"
     style="top: 100px; left: 500px;">
-      <div class=" bg-teal-700 w-4 h-4 rounded  absolute bottom-0 right-0"
+      <div class=" bg-teal-700 w-4 h-4 rounded  absolute bottom-0 right-0 cursor-nw-resize"
       (mousedown)="resizeMouseDown($event)"
       (window:mouseup)="resizeMouseUp($event)"></div>
       <div class="min-w-48 max-w-60 min-h-20 max-h-44  border-2 border-black absolute node left-2 p-2 overflow-hidden">
         <div class=" bg-slate-900 w-5 h-5 rounded linkAction"></div>
         <p class="font-bold text-xs">little title</p>
         <p class="text-xs">Lorem ipsum dolor sit amet.</p>
-        <div class=" bg-teal-700 w-4 h-4 rounded  absolute bottom-0 right-0"
+        <div class=" bg-teal-700 w-4 h-4 rounded  absolute bottom-0 right-0 cursor-nw-resize"
         (mousedown)="resizeMouseDown($event)"
         (window:mouseup)="resizeMouseUp($event)"></div>
       </div>
