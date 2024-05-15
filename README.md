@@ -3,7 +3,7 @@
 <div align="center">
 
 
-[![Angular Badge](https://img.shields.io/badge/built%20with-angular-red.svg)](https://angular.io) [![License Badge](https://img.shields.io/badge/license-GPL-green)](https://www.gnu.org/licenses/)
+[![Angular Badge](https://img.shields.io/badge/built%20with-angular-red.svg)](https://angular.io) [![License Badge](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/license/mit)
 [![Contributions Welcome Badge](https://img.shields.io/badge/contributions_welcome-blue)](#contributing)
 
 </div>
