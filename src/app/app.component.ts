@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import * as jsplumb from '@jsplumb/browser-ui';
 import interact from 'interactjs'
@@ -16,11 +16,19 @@ import $ from 'jquery'
 export class AppComponent implements AfterViewInit{
 
   @ViewChild('main', {static: true}) container!: ElementRef<HTMLElement>;
+  mouseX: number = 0;
+  mouseY: number = 0;
+  @HostListener('window:mousemove',['$event'])
+    onMouseMove(event: MouseEvent) {
+      this.resizeElement(event)
+    }
+
+
   instance!: jsplumb.JsPlumbInstance;
   allNodes: any[]=[];
   zoom: number= 1;
   draggable: boolean = true;
-
+    activeResizeElement: HTMLElement | undefined;
 
   constructor(private renderer: Renderer2) {}
 
@@ -31,13 +39,37 @@ export class AppComponent implements AfterViewInit{
   }
 
   resizeMouseDown($event: MouseEvent) {
-    this.draggable = false;
-
-
+    this.draggable = false
   }
 
   resizeMouseUp($event: MouseEvent) {
-    this.draggable = true;
+    this.draggable = true
+  }
+
+  resizeElement(event: MouseEvent) {
+    this.mouseX = event.clientX
+    this.mouseY = event.clientY
+
+    if(!this.draggable) {
+      const groupId = this.instance.getId(this.activeResizeElement?.parentElement)
+      if(groupId.toString() != 'jsplumb-1-1') {
+        const element: Element | null = this.instance.getManagedElement(groupId)
+        console.log(element)
+        const groupidtop = Number(getComputedStyle(element!).top.replace(/([a-z])/g, ''));
+        const groupidleft = Number(getComputedStyle(element!).left.replace(/([a-z])/g, ''));
+        this.mouseX= this.mouseX - groupidleft
+        this.mouseY= this.mouseY - groupidtop
+      }
+
+      if(this.activeResizeElement?.style) {
+        let position = {
+          top: Number(this.activeResizeElement.style.top.replace(/([a-z])/g, '')),
+          left: Number(this.activeResizeElement.style.left.replace(/([a-z])/g, ''))
+        }
+        this.activeResizeElement.style.width= `${this.mouseX - position.left + 10}px`
+        this.activeResizeElement.style.height= `${this.mouseY - position.top + 10}px`
+      }
+    }
   }
 
   createNode() {
@@ -53,6 +85,7 @@ export class AppComponent implements AfterViewInit{
 
     this.container.nativeElement.appendChild(div)
     this.instance.manage(div)
+
   }
 
 
@@ -60,7 +93,11 @@ export class AppComponent implements AfterViewInit{
   ngAfterViewInit(): void {
     this.instance = jsplumb.newInstance({
       container: this.container.nativeElement,
+      elementsDraggable: true,
+
     });
+
+
     const nodes = this.instance.getSelector(".node")
     this.instance.manageAll(nodes);
 
@@ -85,42 +122,91 @@ export class AppComponent implements AfterViewInit{
     //   console.log("Move")
     // })
 
+
+
     this.instance.bind(jsplumb.EVENT_DRAG_MOVE, (drag: jsplumb.DragMovePayload) =>{
-      let top:number = drag.originalPosition.y
-      let left:number = drag.originalPosition.x
-      console.log(top, left)
+      // let top:number = drag.originalPosition.y
+      // let left:number = drag.originalPosition.x
+      // console.log(top, left)
+      // if(!this.draggable) {
+      //   let mouseX:number = drag.e instanceof MouseEvent? drag.e.clientX : 0
+      //   let mouseY:number = drag.e instanceof MouseEvent? drag.e.clientY : 0
+
+      //   if(drag.el instanceof Element) {
+      //     const groupId = this.instance.getId(drag.el.parentElement)
+      //     if(groupId.toString() != 'jsplumb-1-1') {
+      //       const element: Element | null = this.instance.getManagedElement(groupId)
+      //       console.log(element)
+      //       const groupidtop = Number(getComputedStyle(element!).top.replace(/([a-z])/g, ''));
+      //       const groupidleft = Number(getComputedStyle(element!).left.replace(/([a-z])/g, ''));
+      //       mouseX= mouseX - groupidleft
+      //       mouseY= mouseY - groupidtop
+      //     }
+      //   }
+      //   let width: number = mouseX-left+10
+      //   let height: number = mouseY-top+10
+      //   // if(
+      //   //   mouseX-left< Number(getComputedStyle(drag.el!).minWidth.replace(/([a-z])/g, '')) ||
+      //   //   mouseX-left> Number(getComputedStyle(drag.el!).maxWidth.replace(/([a-z])/g, '')) ||
+      //   //   mouseY-top< Number(getComputedStyle(drag.el!).minHeight.replace(/([a-z])/g, '')) ||
+      //   //   mouseY-top< Number(getComputedStyle(drag.el!).maxHeight.replace(/([a-z])/g, ''))) {
+      //   //   return
+      //   // }
+      //   drag.el.setAttribute('style',
+      //   `width: ${width}px; height: ${height}px;left: ${left}px; top: ${top}px`
+      //   )
+      // }
+    })
+
+    this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
       if(!this.draggable) {
-        let mouseX:number = drag.e instanceof MouseEvent? drag.e.clientX : 0
-        let mouseY:number = drag.e instanceof MouseEvent? drag.e.clientY : 0
-
-        if(drag.el instanceof Element) {
-          const groupId = this.instance.getId(drag.el.parentElement)
-          if(groupId.toString() != 'jsplumb-1-1') {
-            const element: Element | null = this.instance.getManagedElement(groupId)
-            console.log(element)
-            const groupidtop = Number(getComputedStyle(element!).top.replace(/([a-z])/g, ''));
-            const groupidleft = Number(getComputedStyle(element!).left.replace(/([a-z])/g, ''));
-            mouseX= mouseX - groupidleft
-            mouseY= mouseY - groupidtop
-          }
+        const def:jsplumb.BrowserJsPlumbDefaults = this.instance.defaults
+        def.elementsDraggable = false
+        this.instance.importDefaults(def)
+        if(element.parentElement) {
+          this.activeResizeElement = element.parentElement
         }
-
-          // if(
-          //   mouseX-left< Number(getComputedStyle(drag.el!).minWidth.replace(/([a-z])/g, '')) ||
-          //   mouseX-left> Number(getComputedStyle(drag.el!).maxWidth.replace(/([a-z])/g, '')) ||
-          //   mouseY-top< Number(getComputedStyle(drag.el!).minHeight.replace(/([a-z])/g, '')) ||
-          //   mouseY-top< Number(getComputedStyle(drag.el!).maxHeight.replace(/([a-z])/g, ''))) {
-          //   return
-          // }
-
-          drag.el.setAttribute('style',
-          `width: ${mouseX-left+10}px; height: ${mouseY-top+10}px;left: ${left}px; top: ${top}px`
-          )
-
-
-
       }
+    })
 
+    this.instance.bind(jsplumb.EVENT_DRAG_STOP, (drag: jsplumb.DragMovePayload) =>{
+
+
+
+
+
+      // let top:number = drag.originalPosition.y
+      // let left:number = drag.originalPosition.x
+
+      // console.log(top, left)
+      // if(!this.draggable) {
+      //   let mouseX:number = drag.e instanceof MouseEvent? drag.e.clientX : 0
+      //   let mouseY:number = drag.e instanceof MouseEvent? drag.e.clientY : 0
+
+      //   if(drag.el instanceof Element) {
+      //     const groupId = this.instance.getId(drag.el.parentElement)
+      //     if(groupId.toString() != 'jsplumb-1-1') {
+      //       const element: Element | null = this.instance.getManagedElement(groupId)
+      //       console.log(element)
+      //       const groupidtop = Number(getComputedStyle(element!).top.replace(/([a-z])/g, ''));
+      //       const groupidleft = Number(getComputedStyle(element!).left.replace(/([a-z])/g, ''));
+      //       mouseX= mouseX - groupidleft
+      //       mouseY= mouseY - groupidtop
+      //     }
+      //   }
+      //   let width: number = mouseX-left+10
+      //   let height: number = mouseY-top+10
+      //   // if(
+      //   //   mouseX-left< Number(getComputedStyle(drag.el!).minWidth.replace(/([a-z])/g, '')) ||
+      //   //   mouseX-left> Number(getComputedStyle(drag.el!).maxWidth.replace(/([a-z])/g, '')) ||
+      //   //   mouseY-top< Number(getComputedStyle(drag.el!).minHeight.replace(/([a-z])/g, '')) ||
+      //   //   mouseY-top< Number(getComputedStyle(drag.el!).maxHeight.replace(/([a-z])/g, ''))) {
+      //   //   return
+      //   // }
+      //   drag.el.setAttribute('style',
+      //   `width: ${width}px; height: ${height}px;left: ${left}px; top: ${top}px`
+      //   )
+      // }
     })
 
     this.instance.bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
