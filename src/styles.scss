@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nodeContainer {
+  @apply min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute p-2 overflow-hidden;
+
+  &:hover {
+    @apply shadow;
+  }
+
+  &:active {
+    @apply shadow-xl;
+  }
+
+  .title {
+    @apply font-bold;
+  }
+
+  .desc {
+    @apply text-sm;
+  }
+}
+
+.resizeButton {
+  @apply  bg-teal-700 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize;
+}
+
+.linkActionButton {
+  @layer linkAction;
+  @apply bg-slate-900 w-5 h-5 rounded;
+}
