@@ -45,8 +45,8 @@ export class NodeService {
         top: Number(this.board.activeResizeElement.style.top.replace(/([a-z])/g, '')),
         left: Number(this.board.activeResizeElement.style.left.replace(/([a-z])/g, ''))
       }
-      this.board.activeResizeElement.style.width= `${mouseX - position.left + 10}px`
-      this.board.activeResizeElement.style.height= `${mouseY - position.top + 10}px`
+      this.board.activeResizeElement.style.width= `${(mouseX - position.left + 10)-this.board.translation.x}px`
+      this.board.activeResizeElement.style.height= `${(mouseY - position.top + 10)-this.board.translation.y}px`
     }
 
   }
@@ -56,14 +56,14 @@ export class NodeService {
     let div = document.createElement('div');
     let title = document.createElement('p');
       title.innerHTML = 'Title';
-      title.className = 'title';
+      title.className = 'title nodeElement';
     let desc = document.createElement('p');
       desc.innerHTML = 'Desc';
-      desc.className = 'desc';
+      desc.className = 'desc nodeElement';
     let resizeButton = document.createElement('div');
-      resizeButton.className = 'resizeButton'
+      resizeButton.className = 'resizeButton nodeElement'
     let linkActionButton = document.createElement('div');
-      linkActionButton.className = 'linkActionButton linkAction'
+      linkActionButton.className = 'linkActionButton linkAction nodeElement'
     div.className = 'nodeContainer node';
     div.appendChild(resizeButton);
     div.appendChild(linkActionButton);
@@ -81,8 +81,8 @@ export class NodeService {
       div.style.borderColor = '#ed897e'
     }
     div.style.position = 'absolute'
-    div.style.top = `${y}px`;
-    div.style.left = `${x}px`;
+    div.style.top = `${y-this.board.translation.y}px`;
+    div.style.left = `${x-this.board.translation.x}px`;
 
     for (const element of [this.nodes]) {
       this.board.getInstance().addSourceSelector('.linkAction',{

@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Host, HostListener, OnInit, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import * as jsplumb from '@jsplumb/browser-ui';
-import interact from 'interactjs'
-import $, { event } from 'jquery'
 import { NodeService } from '../services/node.service';
 import { MouseDirective } from '../directives/mouse.directive';
 import { BoardService } from '../services/board.service';
+import Panzoom from '@panzoom/panzoom';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +23,7 @@ export class AppComponent implements AfterViewInit{
 
   @ViewChild('main', {static: true}) container!: ElementRef<HTMLElement>;
   @ViewChild('toolbox', {static: true}) toolbox!: ElementRef<HTMLElement>;
+  @ViewChild('board', {static: true}) boardContainer!: ElementRef<HTMLElement>;
   nodes: NodeService = inject(NodeService);
   mouseX: number = 0;
   mouseY: number = 0;
@@ -36,8 +36,6 @@ export class AppComponent implements AfterViewInit{
 
   @HostListener('window:mousemove',['$event'])
     onMouseMove(event: MouseEvent) {
-      console.log('Mouse moving: '+ this.nodes.draggable)
-
       if(!this.draggable) {
         console.log('resize element')
         this.nodes.resizeElement(event)
@@ -55,7 +53,6 @@ export class AppComponent implements AfterViewInit{
     onMouseUp(event: DragEvent) {
       this.draggable = true;
     }
-
   // @HostListener('window:mousemove',['$event'])
   //   onMouseMove(event: MouseEvent) {
   //     console.log('Mouse moving')
@@ -86,6 +83,12 @@ export class AppComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
+    this.board.panzoom = Panzoom(this.container.nativeElement, {
+      canvas: true,
+      cursor: '',
+    })
+    this.board.translation = this.board.panzoom.getPan()
+
     this.draggable = this.nodes.draggable
     const dragDrop = ($event: DragEvent) => { //? The drop event needs to be in 'AfterViewInit' because it access the node service, which is initialized only in this function (AfterViewInit)
       if($event.dataTransfer?.dropEffect) {
@@ -94,11 +97,49 @@ export class AppComponent implements AfterViewInit{
           const div = this.nodes.createNode($event.x, $event.y, $event.dataTransfer.getData('text'))
           this.container.nativeElement.appendChild(div)
           this.board.getInstance().manage(div)
+          enablePanzoom()
+        }
+      }
+    }
+    const disablePanzoom = () => {
+      this.board.panzoom.destroy()
+    }
+
+    const pointerUp = (event: Event) => {
+      enablePanzoom()
+      this.board.translation = this.board.panzoom.getPan()
+      console.log(this.board.translation)
+    }
+
+    const enablePanzoom = () => {
+      this.board.panzoom.bind()
+    }
+
+    const onMouseMove = (event: MouseEvent) => {
+       console.log(this.draggable)
+      // if(!this.draggable) {
+      //   console.log('resize element')
+      //   this.nodes.resizeElement(event)
+      // }
+    }
+
+    const pointerDown = (event: Event) => {
+      if(event.target instanceof Element) {
+        const targetClass = event.target.className
+        if(targetClass.includes('nodeContainer') || targetClass.includes('nodeElement')) {
+          disablePanzoom()
         }
       }
     }
 
-    this.container.nativeElement.addEventListener('dragover',this.dragOverBoard,false)
+
+    document.addEventListener('pointerup', pointerUp)
+    this.toolbox.nativeElement.addEventListener('pointerdown',disablePanzoom)
+    this.boardContainer.nativeElement.addEventListener('pointerdown', pointerDown)
+    this.boardContainer.nativeElement.addEventListener('mousemove', onMouseMove)
+    this.boardContainer.nativeElement.addEventListener('dragover',this.dragOverBoard,false);
+    this.boardContainer.nativeElement.addEventListener('drop',dragDrop,false);
+
 
     const jsInstance = jsplumb.newInstance({
       container: this.container.nativeElement,
@@ -113,7 +154,6 @@ export class AppComponent implements AfterViewInit{
     const nodes = this.nodes.getNodes();
     this.board.getInstance().manageAll(nodes);
 
-    this.container.nativeElement.addEventListener('drop',dragDrop,false)
 
     for (const element of [nodes]) {
       this.board.getInstance().addSourceSelector('.linkAction',{
@@ -141,7 +181,6 @@ export class AppComponent implements AfterViewInit{
     this.board.getInstance().bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
       const source = this.board.getInstance().getManagedElement(params.sourceId)
       const target = this.board.getInstance().getManagedElement(params.targetId)
-      console.log(params)
       this.board.getInstance().connect({
         source,
         target,
