@@ -36,6 +36,8 @@ export class AppComponent implements AfterViewInit{
 
   @HostListener('window:mousemove',['$event'])
     onMouseMove(event: MouseEvent) {
+      this.mouseX = event.clientX
+      this.mouseY = event.clientY
       if(!this.draggable) {
         console.log('resize element')
         this.nodes.resizeElement(event)
@@ -52,6 +54,10 @@ export class AppComponent implements AfterViewInit{
   @HostListener('window:mouseup',['$event'])
     onMouseUp(event: DragEvent) {
       this.draggable = true;
+    }
+  @HostListener('window:mousewheel',['$event'])
+    onScrollMouse(event: WheelEvent) {
+
     }
   // @HostListener('window:mousemove',['$event'])
   //   onMouseMove(event: MouseEvent) {
@@ -132,11 +138,22 @@ export class AppComponent implements AfterViewInit{
       }
     }
 
+    const zoom = (event: WheelEvent) => {
+      if(!event.shiftKey) return
+
+      this.board.panzoom.zoomWithWheel(event)
+      const scale = this.board.panzoom.getScale()
+      this.board.zoomScale = scale
+      this.board.getInstance().setZoom(scale)
+      this.board.translation = this.board.panzoom.getPan()
+    }
+
 
     document.addEventListener('pointerup', pointerUp)
     this.toolbox.nativeElement.addEventListener('pointerdown',disablePanzoom)
     this.boardContainer.nativeElement.addEventListener('pointerdown', pointerDown)
     this.boardContainer.nativeElement.addEventListener('mousemove', onMouseMove)
+    this.boardContainer.nativeElement.addEventListener('wheel', zoom)
     this.boardContainer.nativeElement.addEventListener('dragover',this.dragOverBoard,false);
     this.boardContainer.nativeElement.addEventListener('drop',dragDrop,false);
 
