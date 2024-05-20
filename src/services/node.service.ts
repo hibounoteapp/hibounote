@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { BoardService } from './board.service';
+import { transition } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -45,8 +46,10 @@ export class NodeService {
         top: Number(this.board.activeResizeElement.style.top.replace(/([a-z])/g, '')),
         left: Number(this.board.activeResizeElement.style.left.replace(/([a-z])/g, ''))
       }
-      this.board.activeResizeElement.style.width= `${(mouseX - position.left + 10)-this.board.translation.x}px`
-      this.board.activeResizeElement.style.height= `${(mouseY - position.top + 10)-this.board.translation.y}px`
+      console.log('WIDTH:',((mouseX/this.board.zoomScale) - position.left + 10)-this.board.translation.x)
+      console.log('HEIGHT:',((mouseY/this.board.zoomScale) - position.top + 10)-this.board.translation.y)
+      this.board.activeResizeElement.style.width= `${((mouseX/this.board.zoomScale) - position.left + 10)-this.board.translation.x}px`
+      this.board.activeResizeElement.style.height= `${((mouseY/this.board.zoomScale) - position.top + 10)-this.board.translation.y}px`
     }
 
   }
@@ -81,8 +84,19 @@ export class NodeService {
       div.style.borderColor = '#ed897e'
     }
     div.style.position = 'absolute'
-    div.style.top = `${y-this.board.translation.y}px`;
-    div.style.left = `${x-this.board.translation.x}px`;
+    console.log("   SCALE: ", this.board.zoomScale)
+    console.log("   TOP_____")
+    console.log("     y:",y)
+    console.log("     y_Translation:",this.board.translation.y)
+    console.log("     finalPosition:",y-this.board.translation.y)
+    console.log("     count:",this.board.translation.y*this.board.zoomScale)
+    console.log("   LEFT_____")
+    console.log("     x:",x)
+    console.log("     x_Translation:",this.board.translation.x)
+    console.log("     finalPosition:",x-this.board.translation.x)
+    div.style.top = `${(y/this.board.zoomScale)-this.board.translation.y}px`;
+
+    div.style.left = `${(x/this.board.zoomScale)-this.board.translation.x}px`;
 
     for (const element of [this.nodes]) {
       this.board.getInstance().addSourceSelector('.linkAction',{

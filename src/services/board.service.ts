@@ -13,6 +13,7 @@ export class BoardService {
     x: number,
     y: number
   }
+  zoomScale: number = 1
 
   getInstance(): jsplumb.JsPlumbInstance {
     return this.instance
