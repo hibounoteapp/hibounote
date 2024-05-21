@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .nodeContainer {
-  @apply min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute p-2 overflow-hidden;
+  @apply min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute p-2 ;
 
   &:hover {
     @apply shadow;
@@ -13,13 +14,22 @@
     @apply shadow-xl;
   }
 
-  .title {
-    @apply font-bold;
+  .desc {
+    @apply text-base w-full overflow-hidden resize-none max-h-full bg-transparent outline-none;
   }
 
-  .desc {
-    @apply text-sm;
+  .activeTextarea{
+    @apply border-b border-black;
   }
+
+}
+
+.activeNode {
+  @apply border-4;
+}
+
+.dragDiv {
+  @apply w-full h-full absolute bg-orange-300 top-0 left-0 opacity-30;
 }
 
 .resizeButton {
@@ -28,5 +38,26 @@
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-slate-900 w-5 h-5 rounded;
+  @apply bg-slate-900 w-3 h-3 -m-5 rounded absolute transition-all;
+
+  &:hover {
+    @apply w-5 h-5 transition-all;
+  }
+}
+
+
+.grab {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  .thumbnails-list{
+      cursor: pointer;
+  }
+}
+
+.grab:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
 }

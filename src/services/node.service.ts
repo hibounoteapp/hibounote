@@ -46,8 +46,6 @@ export class NodeService {
         top: Number(this.board.activeResizeElement.style.top.replace(/([a-z])/g, '')),
         left: Number(this.board.activeResizeElement.style.left.replace(/([a-z])/g, ''))
       }
-      console.log('WIDTH:',((mouseX/this.board.zoomScale) - position.left + 10)-this.board.translation.x)
-      console.log('HEIGHT:',((mouseY/this.board.zoomScale) - position.top + 10)-this.board.translation.y)
       this.board.activeResizeElement.style.width= `${((mouseX/this.board.zoomScale) - position.left + 10)-this.board.translation.x}px`
       this.board.activeResizeElement.style.height= `${((mouseY/this.board.zoomScale) - position.top + 10)-this.board.translation.y}px`
     }
@@ -57,43 +55,37 @@ export class NodeService {
   createNode(x: number, y: number, type: string): HTMLElement {
     console.log('create')
     let div = document.createElement('div');
-    let title = document.createElement('p');
-      title.innerHTML = 'Title';
-      title.className = 'title nodeElement';
-    let desc = document.createElement('p');
+    let dragDiv = document.createElement('div'); //? Div created to still drag the note when holding in text area
+      dragDiv.className = 'dragDiv nodeElement'
+    let desc = document.createElement('textarea');
+      desc.addEventListener('keydown',this.autosize)
+      desc.style.cssText = 'min-height:30px; height: 30px;';
       desc.innerHTML = 'Desc';
       desc.className = 'desc nodeElement';
+      desc.setAttribute('readonly','')
+      desc.setAttribute('disabled','true')
     let resizeButton = document.createElement('div');
       resizeButton.className = 'resizeButton nodeElement'
     let linkActionButton = document.createElement('div');
       linkActionButton.className = 'linkActionButton linkAction nodeElement'
     div.className = 'nodeContainer node';
+
+    div.appendChild(dragDiv);
     div.appendChild(resizeButton);
     div.appendChild(linkActionButton);
-    div.appendChild(title);
     div.appendChild(desc);
     if(type == 'note') {
-      div.style.borderColor = '#baf593'
+      div.style.borderColor = '#035503'
     }
 
     if(type == 'to-do') {
-      div.style.borderColor = '#7eeddb'
+      div.style.borderColor = '#030355'
     }
 
     if(type == 'title') {
-      div.style.borderColor = '#ed897e'
+      div.style.borderColor = '#550303'
     }
     div.style.position = 'absolute'
-    console.log("   SCALE: ", this.board.zoomScale)
-    console.log("   TOP_____")
-    console.log("     y:",y)
-    console.log("     y_Translation:",this.board.translation.y)
-    console.log("     finalPosition:",y-this.board.translation.y)
-    console.log("     count:",this.board.translation.y*this.board.zoomScale)
-    console.log("   LEFT_____")
-    console.log("     x:",x)
-    console.log("     x_Translation:",this.board.translation.x)
-    console.log("     finalPosition:",x-this.board.translation.x)
     div.style.top = `${(y/this.board.zoomScale)-this.board.translation.y}px`;
 
     div.style.left = `${(x/this.board.zoomScale)-this.board.translation.x}px`;
@@ -110,9 +102,18 @@ export class NodeService {
     }
 
     return div
-    // this.container.nativeElement.appendChild(div)
-    // this.instance.manage(div)
+  }
 
+  autosize(event: Event){
+    if(event.target instanceof HTMLTextAreaElement){
+      let el = event.target;
+      setTimeout(function(){
+        el.style.cssText = 'min-height:30px; height: 30px;';
+        // for box-sizing other than "content-box" use:
+        // el.style.cssText = '-moz-box-sizing:content-box';
+        el.style.cssText = 'height:' + (el.scrollHeight) + 'px';
+      },0);
+    }
   }
 
   constructor() { }

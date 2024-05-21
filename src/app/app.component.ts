@@ -33,6 +33,7 @@ export class AppComponent implements AfterViewInit{
     activeResizeElement: HTMLElement | undefined;
   droppable: boolean = false;
   draggable: boolean = true;
+  activeNode: Element | undefined;
 
   @HostListener('window:mousemove',['$event'])
     onMouseMove(event: MouseEvent) {
@@ -57,8 +58,8 @@ export class AppComponent implements AfterViewInit{
     }
   @HostListener('window:mousewheel',['$event'])
     onScrollMouse(event: WheelEvent) {
-
     }
+
   // @HostListener('window:mousemove',['$event'])
   //   onMouseMove(event: MouseEvent) {
   //     console.log('Mouse moving')
@@ -88,6 +89,50 @@ export class AppComponent implements AfterViewInit{
     }
   }
 
+  zoomClick(event: Event, type: 'in' | 'out') {
+    if(type === 'in') this.board.panzoom.zoomIn()
+    if(type === 'out') this.board.panzoom.zoomOut()
+    const scale = this.board.panzoom.getScale()
+    this.board.zoomScale = scale
+    this.board.getInstance().setZoom(scale)
+    this.board.translation = this.board.panzoom.getPan()
+  }
+
+  toggleActiveNote() {
+    if(this.activeNode) {
+      let element: Element = this.activeNode;
+      if(this.activeNode.className.includes('nodeContainer')) {
+        element = this.activeNode
+      }
+      if(this.activeNode.className.includes('nodeElement')) {
+        if(this.activeNode.parentElement) element = this.activeNode.parentElement
+      }
+
+        element.className = element.className.replace(' activeNode','');
+        let descDiv = element.querySelector('.desc')
+        if(descDiv) descDiv.className = descDiv.className.replace(' activeTextarea','')
+        descDiv?.setAttribute('readonly', '')
+        descDiv?.setAttribute('disabled', 'true')
+        let dragDiv = element.querySelector('.dragDiv')
+        if(dragDiv) dragDiv.className = dragDiv.className.replace(' hidden','')
+        this.activeNode = undefined;
+
+    }
+  }
+
+  resetPan(event: Event) {
+    this.board.panzoom.pan(0,0,{
+      animate: true,
+    })
+    this.board.panzoom.zoom(1,{
+      animate: true
+    })
+    const scale = this.board.panzoom.getScale()
+    this.board.zoomScale = scale
+    this.board.getInstance().setZoom(scale)
+    this.board.translation = this.board.panzoom.getPan()
+  }
+
   ngAfterViewInit(): void {
     this.board.panzoom = Panzoom(this.container.nativeElement, {
       canvas: true,
@@ -112,6 +157,7 @@ export class AppComponent implements AfterViewInit{
     }
 
     const pointerUp = (event: Event) => {
+
       enablePanzoom()
       this.board.translation = this.board.panzoom.getPan()
       console.log(this.board.translation)
@@ -119,6 +165,9 @@ export class AppComponent implements AfterViewInit{
 
     const enablePanzoom = () => {
       this.board.panzoom.bind()
+      this.board.panzoom.setOptions({
+        cursor: ''
+      })
     }
 
     const onMouseMove = (event: MouseEvent) => {
@@ -129,12 +178,39 @@ export class AppComponent implements AfterViewInit{
       // }
     }
 
-    const pointerDown = (event: Event) => {
+    const pointerDown = (event: PointerEvent) => {
+      if(document.activeElement && document.activeElement instanceof HTMLElement) document.activeElement.blur()
+
       if(event.target instanceof Element) {
         const targetClass = event.target.className
-        if(targetClass.includes('nodeContainer') || targetClass.includes('nodeElement')) {
+
+        if(targetClass.includes('nodeContainer') || targetClass.includes('nodeElement') || targetClass.includes('connection')) {
+
           disablePanzoom()
+          this.board.panzoom.setOptions({
+            cursor:'',
+          })
+
+          let element: Element | undefined;
+          if(event.target.parentElement?.className.includes('nodeContainer')) {
+            element = event.target.parentElement;
+          }
+          if(targetClass.includes('nodeContainer')) {
+            element = event.target;
+          }
+
+          if(element) {
+            if(element != this.activeNode) this.toggleActiveNote()
+            element.className += element.className.includes('activeNode') ? '':' activeNode'
+            this.activeNode = element;
+          }
+
+
+        } else {
+          this.toggleActiveNote()
         }
+
+
       }
     }
 
@@ -148,7 +224,6 @@ export class AppComponent implements AfterViewInit{
       this.board.translation = this.board.panzoom.getPan()
     }
 
-
     document.addEventListener('pointerup', pointerUp)
     this.toolbox.nativeElement.addEventListener('pointerdown',disablePanzoom)
     this.boardContainer.nativeElement.addEventListener('pointerdown', pointerDown)
@@ -156,7 +231,6 @@ export class AppComponent implements AfterViewInit{
     this.boardContainer.nativeElement.addEventListener('wheel', zoom)
     this.boardContainer.nativeElement.addEventListener('dragover',this.dragOverBoard,false);
     this.boardContainer.nativeElement.addEventListener('drop',dragDrop,false);
-
 
     const jsInstance = jsplumb.newInstance({
       container: this.container.nativeElement,
@@ -195,6 +269,24 @@ export class AppComponent implements AfterViewInit{
       }
     })
 
+    this.board.getInstance().bind(jsplumb.EVENT_ELEMENT_DBL_CLICK, (element:Element) =>{
+        if(this.activeNode != element) {
+          this.toggleActiveNote()
+        }
+        let dragDiv = element.querySelector('.dragDiv')
+        if(dragDiv) {
+          dragDiv.className += dragDiv.className.includes('hidden') ? '' : ' hidden'
+        }
+        let desc:HTMLElement | null = element.querySelector('.desc')
+        desc?.removeAttribute('readonly')
+        desc?.removeAttribute('disabled')
+
+        if(desc && desc instanceof HTMLElement) {
+          desc.focus()
+          desc.className += ' activeTextarea'
+        }
+    })
+
     this.board.getInstance().bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
       const source = this.board.getInstance().getManagedElement(params.sourceId)
       const target = this.board.getInstance().getManagedElement(params.targetId)
@@ -210,7 +302,7 @@ export class AppComponent implements AfterViewInit{
               location: 0.5,
               create: (comp: Component) => {
                 const d = document.createElement("div")
-                d.innerHTML= '<input text class="min-w-20 border-black border-2 text-center bg-gray-200"/>'
+                d.innerHTML= '<input type="text" class="connection min-w-20 border-black border-2 text-center bg-gray-200"/>'
                 return d
               }
             }
@@ -224,3 +316,4 @@ export class AppComponent implements AfterViewInit{
   }
 
 }
+
