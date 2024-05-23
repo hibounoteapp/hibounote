@@ -30,7 +30,7 @@ export class AppComponent implements AfterViewInit{
   @HostListener('window:mousemove',['$event'])
     onMouseMove(event: MouseEvent) {
       if(event.button != 0) return
-      if(!this.boardService.draggable) this.nodeService.resizeElement(event)
+      if(!this.boardService.draggable) this.nodeService.resizeElement(event, this.renderer)
     }
 
   @HostListener('dragstart',['$event'])
@@ -46,32 +46,33 @@ export class AppComponent implements AfterViewInit{
     }
 
   initEvents() {
-    document.addEventListener('pointerup', this.boardService.pointerUp)
-    this.boardContainer.nativeElement.addEventListener(
+    this.renderer.listen(document, 'pointerup',this.boardService.pointerUp)
+
+    this.renderer.listen(this.boardContainer.nativeElement,
       'pointerdown',
       (event: PointerEvent)=>{
-        this.boardService.pointerDown(event,this.nodeService)
-    });
+        this.boardService.pointerDown(event,this.nodeService,this.renderer)
+    })
 
-    this.toolbox.nativeElement.addEventListener(
+    this.renderer.listen(this.toolbox.nativeElement,
       'pointerdown',
       ()=>{
       this.boardService.disablePanzoom()
     });
 
-    this.boardContainer.nativeElement.addEventListener('wheel', this.boardService.zoom)
+    this.renderer.listen(this.boardContainer.nativeElement,'wheel', this.boardService.zoom);
 
-    this.boardContainer.nativeElement.addEventListener(
+    this.renderer.listen(this.boardContainer.nativeElement,
       'dragover',
       (event: DragEvent)=>{
       this.boardService.droppable = true;
       this.boardService.dragOverBoard(event)
     });
 
-    this.boardContainer.nativeElement.addEventListener(
+    this.renderer.listen(this.boardContainer.nativeElement,
       'drop',
       (event: DragEvent)=>{
-        this.boardService.dropNode(event,this.nodeService,this.container)
+        this.boardService.dropNode(event,this.nodeService,this.container, this.renderer)
     });
   }
 
@@ -83,11 +84,10 @@ export class AppComponent implements AfterViewInit{
     public boardService: BoardService,
     private iconService: IconService) {
       iconService.registerIcons(iconRegistry,domSanitizer)
-
     }
 
   ngAfterViewInit(): void {
-    this.boardService.init(this.container, this.nodeService)
+    this.boardService.init(this.container, this.nodeService, this.renderer)
     this.initEvents()
   }
 

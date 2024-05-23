@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, Renderer2, inject } from '@angular/core';
+import { ElementRef, Injectable, Renderer2, ViewChildren, inject } from '@angular/core';
 import * as jsplumb from '@jsplumb/browser-ui'
 import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 import { NodeService } from './node.service';
@@ -28,10 +28,10 @@ export class BoardService {
     this.instance = instance;
   }
 
-  dragOverBoard($event: DragEvent) {
-    $event.preventDefault();
-    if($event.dataTransfer?.dropEffect) {
-      $event.dataTransfer.dropEffect = 'move';
+  dragOverBoard(event: DragEvent) {
+    event.preventDefault();
+    if(event.dataTransfer?.dropEffect) {
+      event.dataTransfer.dropEffect = 'move';
     }
   }
 
@@ -52,9 +52,6 @@ export class BoardService {
     this.zoomScale = scale
     this.getInstance().setZoom(scale)
     this.translation = this.panzoom.getPan()
-
-    this.getInstance().repaintEverything()
-    console.log(scale)
   }
 
   resetPan() {
@@ -82,107 +79,114 @@ export class BoardService {
     this.panzoom.destroy()
   }
 
-  dropNode(event: DragEvent, nodeService: NodeService, container: ElementRef) {
-    console.log('drop node')
+  dropNode(event: DragEvent, nodeService: NodeService, container: ElementRef, renderer: Renderer2) {
     if(event.dataTransfer?.dropEffect) {
       event.dataTransfer.dropEffect = 'move';
       if(event.target instanceof Element) {
-        const div = nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'))
-        container.nativeElement.appendChild(div)
-        this.getInstance().manage(div)
+        const node = nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), renderer)
+        const abstractElement = renderer.selectRootElement(container)
+        renderer.appendChild(abstractElement.nativeElement, node)
+
+        this.getInstance().manage(node)
         this.enablePanzoom()
       }
     }
   }
 
-  pointerDownNode = (event: PointerEvent, nodeService: NodeService) => { //? Handling click event in node
+  pointerDownNode = (event: PointerEvent, nodeService: NodeService,renderer: Renderer2) => { //? Handling click event in node
     if(!(event.target instanceof Element)) return
-    console.log('found node');
-    const targetClass = event.target.className
+    const abstractElement = renderer.selectRootElement(event.target,true)
+    const targetClass = abstractElement.className
     this.disablePanzoom()
     this.panzoom.setOptions({
       cursor:'',
     })
 
     let element: Element | undefined;
-    if(event.target.parentElement?.className.includes('nodeContainer')) {
-      element = event.target.parentElement;
+    if(abstractElement.parentElement?.className.includes('nodeContainer')) {
+      element = abstractElement.parentElement;
     }
     if(targetClass.includes('nodeContainer')) {
-      element = event.target;
+      console.log('Node Container ')
+      element = abstractElement;
     }
 
     if(element) {
-      if(element != nodeService.activeNode) nodeService.clearActiveNote()
-      element.className += element.className.includes('activeNode') ? '':' activeNode'
+      if(element != nodeService.activeNode) nodeService.clearActiveNote(renderer)
+      if(!element.className.includes('activeNode')) renderer.addClass(element, 'activeNode')
       nodeService.activeNode = element;
     }
   }
 
   pointerDownConnection = (event: PointerEvent) => { //? Handling click event in connection
     if(!(event.target instanceof Element)) return
-
     this.disablePanzoom()
   }
 
-  pointerDown(event: PointerEvent, nodeService: NodeService) {
+  pointerDown(event: PointerEvent, nodeService: NodeService, renderer:Renderer2) {
     console.log(event.target)
-      if(document.activeElement && document.activeElement instanceof HTMLElement) document.activeElement.blur()
+    const abstractDocument:Document = renderer.selectRootElement(document)
+    if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()
 
-      if(!(event.target instanceof Element)) return
+    if(!(event.target instanceof Element)) return
+    const abstractElement = renderer.selectRootElement(event.target,true)
 
-      if(event.target.tagName=='circle'){
-        this.pointerDownConnection(event)
-        return
-      }
+    if(abstractElement.tagName=='circle'){
+      this.pointerDownConnection(event)
+      return
+    }
 
 
-      if(event.target.className.includes('nodeContainer') || event.target.className.includes('nodeElement') || event.target.className.includes('connection')) {
-        console.log('Node')
-        this.pointerDownNode(event,nodeService);
-        return
-      }
+    if(abstractElement.className.includes('nodeContainer') || abstractElement.className.includes('nodeElement') || abstractElement.className.includes('connection')) {
+      this.pointerDownNode(event,nodeService,renderer);
+      return
+    }
 
-      console.log('board')
-      nodeService.clearActiveNote();
+    nodeService.clearActiveNote(renderer);
   }
 
   pointerUp = (event: Event) => {
-    console.log('pointer up')
     this.enablePanzoom()
     this.translation = this.panzoom.getPan()
-    console.log(this.translation)
   }
 
-  bindJsPlumbEvents(nodeService: NodeService) {
+  bindJsPlumbEvents(nodeService: NodeService, renderer:Renderer2) {
 
     this.getInstance().bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
-      if(element.className.includes('resizeButton')) {
+      console.log(element)
+      const abstractElement = renderer.selectRootElement(element)
+      if(abstractElement.className.includes('resizeButton')) {
         this.draggable = false;
         const def:jsplumb.BrowserJsPlumbDefaults = this.getInstance().defaults
         def.elementsDraggable = false
         this.getInstance().importDefaults(def)
-        if(element.parentElement) {
-          this.activeResizeElement = element.parentElement
+        if(abstractElement.parentElement) {
+          this.activeResizeElement = abstractElement.parentElement
         }
       }
     })
 
     this.getInstance().bind(jsplumb.EVENT_ELEMENT_DBL_CLICK, (element:Element) =>{
-        if(nodeService.activeNode != element) {
-          nodeService.clearActiveNote();
-        }
-        let dragDiv = element.querySelector('.dragDiv');
-        if(dragDiv) {
-          dragDiv.className += dragDiv.className.includes('hidden') ? '' : ' hidden'
-        }
-        let desc:HTMLElement | null = element.querySelector('.desc')
-        desc?.removeAttribute('readonly')
-        desc?.removeAttribute('disabled')
+      console.log('Target Element: ',element)
+      if(nodeService.activeNode != element) nodeService.clearActiveNote(renderer);
 
-        if(desc && desc instanceof HTMLElement) {
-          desc.focus()
-        }
+      const abstractElement:Element = renderer.selectRootElement(element, true)
+
+      let dragDiv:Element | null = abstractElement.querySelector('.dragDiv')
+      console.log('DRAG DIV: ',dragDiv)
+      if(dragDiv && !dragDiv.className.includes('hidden')) {
+        renderer.addClass(dragDiv,'hidden')
+      }
+
+      let desc:Element | null = abstractElement.querySelector('.desc')
+      if(desc?.getAttribute('readonly') != '', desc?.getAttribute('disabled') != ''){
+        renderer.removeAttribute(desc, 'readonly')
+        renderer.removeAttribute(desc, 'disabled')
+      }
+
+      if(desc && desc instanceof HTMLElement) {
+        desc.focus()
+      }
     })
 
     this.getInstance().bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
@@ -235,8 +239,9 @@ export class BoardService {
     })
   }
 
-  init(container: ElementRef, nodeService: NodeService) {
-    this.panzoom = Panzoom(container.nativeElement, {
+  init(container: ElementRef, nodeService: NodeService, renderer: Renderer2) {
+    const abstractElement = renderer.selectRootElement(container)
+    this.panzoom = Panzoom(abstractElement.nativeElement, {
       canvas: true,
       cursor: '',
       minScale: 0.4,
@@ -245,12 +250,12 @@ export class BoardService {
     this.translation = this.panzoom.getPan()
 
     const jsInstance = jsplumb.newInstance({
-      container: container.nativeElement,
+      container: abstractElement.nativeElement,
       elementsDraggable: true,
     });
     this.setInstance(jsInstance);
 
     this.connectorsConfiguration()
-    this.bindJsPlumbEvents(nodeService)
+    this.bindJsPlumbEvents(nodeService, renderer)
   }
 }
