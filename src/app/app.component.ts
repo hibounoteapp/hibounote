@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Host, HostListener, OnInit, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, ApplicationConfig, Component, ElementRef, Host, HostListener, NgModule, OnInit, Renderer2, ViewChild, ViewChildren, importProvidersFrom, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import * as jsplumb from '@jsplumb/browser-ui';
 import { NodeService } from '../services/node.service';
-import { MouseDirective } from '../directives/mouse.directive';
 import { BoardService } from '../services/board.service';
 import Panzoom from '@panzoom/panzoom';
+import { MatIconModule } from '@angular/material/icon'
+import { MatIconRegistry } from '@angular/material/icon';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, MouseDirective],
-  providers: [
-    NodeService,
-    BoardService,
-  ],
+  imports: [RouterOutlet, CommonModule, MatIconModule, HttpClientModule],
+  providers: [HttpClient],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -24,11 +24,12 @@ export class AppComponent implements AfterViewInit{
   @ViewChild('main', {static: true}) container!: ElementRef<HTMLElement>;
   @ViewChild('toolbox', {static: true}) toolbox!: ElementRef<HTMLElement>;
   @ViewChild('board', {static: true}) boardContainer!: ElementRef<HTMLElement>;
+
+  iconRegistry: MatIconRegistry = inject(MatIconRegistry);
   nodes: NodeService = inject(NodeService);
   mouseX: number = 0;
   mouseY: number = 0;
   board: BoardService = inject(BoardService);
-  allNodes: any[]=[];
   zoom: number= 1;
     activeResizeElement: HTMLElement | undefined;
   droppable: boolean = false;
@@ -78,7 +79,21 @@ export class AppComponent implements AfterViewInit{
   //     console.log(event)
   //   }
 
-  constructor(private renderer: Renderer2) {
+  constructor(
+    private renderer: Renderer2,
+    private domSanitizer: DomSanitizer) {
+      //! Refactor
+        this.iconRegistry.addSvgIcon('resize',this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/resize-outline.svg'))
+
+        this.iconRegistry.addSvgIcon('pin',this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/pin-outline.svg'))
+
+        this.iconRegistry.addSvgIcon('reader',this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/reader-outline.svg'))
+
+        this.iconRegistry.addSvgIcon('zoom-in',this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/zoom-in.svg'))
+
+        this.iconRegistry.addSvgIcon('zoom-out',this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/zoom-out.svg'))
+
+        this.iconRegistry.addSvgIcon('maximize',this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/maximize.svg'))
   }
 
   dragOverBoard($event: DragEvent) {
@@ -110,7 +125,6 @@ export class AppComponent implements AfterViewInit{
 
         element.className = element.className.replace(' activeNode','');
         let descDiv = element.querySelector('.desc')
-        if(descDiv) descDiv.className = descDiv.className.replace(' activeTextarea','')
         descDiv?.setAttribute('readonly', '')
         descDiv?.setAttribute('disabled', 'true')
         let dragDiv = element.querySelector('.dragDiv')
@@ -137,8 +151,12 @@ export class AppComponent implements AfterViewInit{
     this.board.panzoom = Panzoom(this.container.nativeElement, {
       canvas: true,
       cursor: '',
+      minScale: 0.4,
+      maxScale: 1.5
+
     })
     this.board.translation = this.board.panzoom.getPan()
+
 
     this.draggable = this.nodes.draggable
     const dragDrop = ($event: DragEvent) => { //? The drop event needs to be in 'AfterViewInit' because it access the node service, which is initialized only in this function (AfterViewInit)
@@ -157,7 +175,6 @@ export class AppComponent implements AfterViewInit{
     }
 
     const pointerUp = (event: Event) => {
-
       enablePanzoom()
       this.board.translation = this.board.panzoom.getPan()
       console.log(this.board.translation)
@@ -166,52 +183,61 @@ export class AppComponent implements AfterViewInit{
     const enablePanzoom = () => {
       this.board.panzoom.bind()
       this.board.panzoom.setOptions({
-        cursor: ''
+        cursor: '',
+
       })
     }
 
-    const onMouseMove = (event: MouseEvent) => {
-       console.log(this.draggable)
-      // if(!this.draggable) {
-      //   console.log('resize element')
-      //   this.nodes.resizeElement(event)
-      // }
+    const pointerDownNode = (event: PointerEvent) => { //? Handling click event in node
+      if(!(event.target instanceof Element)) return
+
+      const targetClass = event.target.className
+      disablePanzoom()
+      this.board.panzoom.setOptions({
+        cursor:'',
+      })
+
+      let element: Element | undefined;
+      if(event.target.parentElement?.className.includes('nodeContainer')) {
+        element = event.target.parentElement;
+      }
+      if(targetClass.includes('nodeContainer')) {
+        element = event.target;
+      }
+
+      if(element) {
+        if(element != this.activeNode) this.toggleActiveNote()
+        element.className += element.className.includes('activeNode') ? '':' activeNode'
+        this.activeNode = element;
+      }
+    }
+
+    const pointerDownConnection = (event: PointerEvent) => { //? Handling click event in connection
+      if(!(event.target instanceof Element)) return
+
+      console.log("Achou")
+      disablePanzoom()
     }
 
     const pointerDown = (event: PointerEvent) => {
+      console.log(event.target)
       if(document.activeElement && document.activeElement instanceof HTMLElement) document.activeElement.blur()
 
-      if(event.target instanceof Element) {
-        const targetClass = event.target.className
+      if(!(event.target instanceof Element)) return
 
-        if(targetClass.includes('nodeContainer') || targetClass.includes('nodeElement') || targetClass.includes('connection')) {
-
-          disablePanzoom()
-          this.board.panzoom.setOptions({
-            cursor:'',
-          })
-
-          let element: Element | undefined;
-          if(event.target.parentElement?.className.includes('nodeContainer')) {
-            element = event.target.parentElement;
-          }
-          if(targetClass.includes('nodeContainer')) {
-            element = event.target;
-          }
-
-          if(element) {
-            if(element != this.activeNode) this.toggleActiveNote()
-            element.className += element.className.includes('activeNode') ? '':' activeNode'
-            this.activeNode = element;
-          }
-
-
-        } else {
-          this.toggleActiveNote()
-        }
-
-
+      if(event.target.tagName=='circle'){
+        pointerDownConnection(event)
+        return
       }
+
+
+      if(event.target.className.includes('nodeContainer') || event.target.className.includes('nodeElement') || event.target.className.includes('connection')) {
+        console.log('Node')
+        pointerDownNode(event);
+        return
+      }
+
+      this.toggleActiveNote();
     }
 
     const zoom = (event: WheelEvent) => {
@@ -222,12 +248,15 @@ export class AppComponent implements AfterViewInit{
       this.board.zoomScale = scale
       this.board.getInstance().setZoom(scale)
       this.board.translation = this.board.panzoom.getPan()
+
+      this.board.getInstance().repaintEverything()
+      console.log(scale)
     }
 
+    //! Refactor
     document.addEventListener('pointerup', pointerUp)
     this.toolbox.nativeElement.addEventListener('pointerdown',disablePanzoom)
     this.boardContainer.nativeElement.addEventListener('pointerdown', pointerDown)
-    this.boardContainer.nativeElement.addEventListener('mousemove', onMouseMove)
     this.boardContainer.nativeElement.addEventListener('wheel', zoom)
     this.boardContainer.nativeElement.addEventListener('dragover',this.dragOverBoard,false);
     this.boardContainer.nativeElement.addEventListener('drop',dragDrop,false);
@@ -246,17 +275,38 @@ export class AppComponent implements AfterViewInit{
     this.board.getInstance().manageAll(nodes);
 
 
+    //! Refactor
     for (const element of [nodes]) {
       this.board.getInstance().addSourceSelector('.linkAction',{
         anchor: 'Continuous',
         endpoint: "Dot",
+        paintStyle:{
+          stroke:'#030303',
+          fill: '#030303',
+          strokeWidth: 1,
+        },
+        connectorStyle: {
+          stroke: "#030303",
+          strokeWidth: 2
+        }
       })
       this.board.getInstance().addTargetSelector('.node',{
         anchor: 'Continuous',
         endpoint: "Dot",
+        paintStyle:{
+          stroke:'#030303',
+          fill: '#030303',
+          strokeWidth: 1,
+        },
+        connectorStyle: {
+          stroke: "#030303",
+          strokeWidth: 2
+        }
       })
     }
+    //!
 
+    //! Refactor
     this.board.getInstance().bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
       if(element.className.includes('resizeButton')) {
         this.draggable = false;
@@ -283,7 +333,6 @@ export class AppComponent implements AfterViewInit{
 
         if(desc && desc instanceof HTMLElement) {
           desc.focus()
-          desc.className += ' activeTextarea'
         }
     })
 
@@ -294,24 +343,18 @@ export class AppComponent implements AfterViewInit{
         source,
         target,
         connector: 'Bezier',
+        color: '#000000',
         anchor: 'Continuous',
-        overlays: [
-          {
-            type: "Custom",
-            options: {
-              location: 0.5,
-              create: (comp: Component) => {
-                const d = document.createElement("div")
-                d.innerHTML= '<input type="text" class="connection min-w-20 border-black border-2 text-center bg-gray-200"/>'
-                return d
-              }
-            }
-          }
-        ]
+        endpointStyle: {
+          fill: '#030303',
+          stroke:  '#030303',
+          strokeWidth: 1,
+        }
+
       })
 
     })
-
+    //!
 
   }
 

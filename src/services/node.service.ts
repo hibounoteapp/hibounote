@@ -58,9 +58,6 @@ export class NodeService {
     let dragDiv = document.createElement('div'); //? Div created to still drag the note when holding in text area
       dragDiv.className = 'dragDiv nodeElement'
     let desc = document.createElement('textarea');
-      desc.addEventListener('keydown',this.autosize)
-      desc.style.cssText = 'min-height:30px; height: 30px;';
-      desc.innerHTML = 'Desc';
       desc.className = 'desc nodeElement';
       desc.setAttribute('readonly','')
       desc.setAttribute('disabled','true')
@@ -68,23 +65,17 @@ export class NodeService {
       resizeButton.className = 'resizeButton nodeElement'
     let linkActionButton = document.createElement('div');
       linkActionButton.className = 'linkActionButton linkAction nodeElement'
+    let fadeDiv = document.createElement('div');
+      fadeDiv.className = 'fadeDiv nodeElement';
+
     div.className = 'nodeContainer node';
 
     div.appendChild(dragDiv);
+    div.appendChild(fadeDiv)
     div.appendChild(resizeButton);
     div.appendChild(linkActionButton);
     div.appendChild(desc);
-    if(type == 'note') {
-      div.style.borderColor = '#035503'
-    }
 
-    if(type == 'to-do') {
-      div.style.borderColor = '#030355'
-    }
-
-    if(type == 'title') {
-      div.style.borderColor = '#550303'
-    }
     div.style.position = 'absolute'
     div.style.top = `${(y/this.board.zoomScale)-this.board.translation.y}px`;
 
@@ -102,18 +93,6 @@ export class NodeService {
     }
 
     return div
-  }
-
-  autosize(event: Event){
-    if(event.target instanceof HTMLTextAreaElement){
-      let el = event.target;
-      setTimeout(function(){
-        el.style.cssText = 'min-height:30px; height: 30px;';
-        // for box-sizing other than "content-box" use:
-        // el.style.cssText = '-moz-box-sizing:content-box';
-        el.style.cssText = 'height:' + (el.scrollHeight) + 'px';
-      },0);
-    }
   }
 
   constructor() { }
