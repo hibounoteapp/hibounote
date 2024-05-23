@@ -1,14 +1,18 @@
-import { Injectable, inject } from '@angular/core';
+import { ElementRef, Injectable, inject } from '@angular/core';
 import { BoardService } from './board.service';
 import { transition } from '@angular/animations';
-
 @Injectable({
   providedIn: 'root'
 })
 export class NodeService {
   nodes!: ArrayLike<any>
-  draggable: boolean = true;
-  board: BoardService = inject(BoardService);
+  activeResizeElement: HTMLElement | undefined;
+  activeNode: Element | undefined;
+
+
+  constructor(
+    private boardService: BoardService,
+  ) {}
 
   setNodes(newNodes: ArrayLike<any>) {
     this.nodes = newNodes;
@@ -19,35 +23,33 @@ export class NodeService {
   }
 
   resizeMouseDown($event: MouseEvent) {
-    this.draggable = false;
-    console.log(this.draggable)
+    this.boardService.draggable = false;
   }
 
   resizeMouseUp($event: MouseEvent) {
-    this.draggable = true;
-    console.log(this.draggable)
+    this.boardService.draggable = true;
   }
 
   resizeElement($event: MouseEvent) {
     let mouseX = $event.clientX
     let mouseY = $event.clientY
-    const groupId = this.board.instance.getId(this.board.activeResizeElement?.parentElement)
+    const groupId = this.boardService.instance.getId(this.boardService.activeResizeElement?.parentElement)
     if(groupId.toString() != 'jsplumb-1-1') {
-      const element: Element | null = this.board.instance.getManagedElement(groupId)
+      const element: Element | null = this.boardService.instance.getManagedElement(groupId)
       const groupidtop = element ? Number(getComputedStyle(element).top.replace(/([a-z])/g, '')): 0;
       const groupidleft = element ? Number(getComputedStyle(element).left.replace(/([a-z])/g, '')): 0;
       mouseX= mouseX - groupidleft
       mouseY= mouseY - groupidtop
     }
 
-    if(this.board.activeResizeElement?.style) {
+    if(this.boardService.activeResizeElement?.style) {
 
       let position = {
-        top: Number(this.board.activeResizeElement.style.top.replace(/([a-z])/g, '')),
-        left: Number(this.board.activeResizeElement.style.left.replace(/([a-z])/g, ''))
+        top: Number(this.boardService.activeResizeElement.style.top.replace(/([a-z])/g, '')),
+        left: Number(this.boardService.activeResizeElement.style.left.replace(/([a-z])/g, ''))
       }
-      this.board.activeResizeElement.style.width= `${((mouseX/this.board.zoomScale) - position.left + 10)-this.board.translation.x}px`
-      this.board.activeResizeElement.style.height= `${((mouseY/this.board.zoomScale) - position.top + 10)-this.board.translation.y}px`
+      this.boardService.activeResizeElement.style.width= `${((mouseX/this.boardService.zoomScale) - position.left + 10)-this.boardService.translation.x}px`
+      this.boardService.activeResizeElement.style.height= `${((mouseY/this.boardService.zoomScale) - position.top + 10)-this.boardService.translation.y}px`
     }
 
   }
@@ -77,16 +79,16 @@ export class NodeService {
     div.appendChild(desc);
 
     div.style.position = 'absolute'
-    div.style.top = `${(y/this.board.zoomScale)-this.board.translation.y}px`;
+    div.style.top = `${(y/this.boardService.zoomScale)-this.boardService.translation.y}px`;
 
-    div.style.left = `${(x/this.board.zoomScale)-this.board.translation.x}px`;
+    div.style.left = `${(x/this.boardService.zoomScale)-this.boardService.translation.x}px`;
 
     for (const element of [this.nodes]) {
-      this.board.getInstance().addSourceSelector('.linkAction',{
+      this.boardService.getInstance().addSourceSelector('.linkAction',{
         anchor: 'Continuous',
         endpoint: "Dot",
       })
-      this.board.getInstance().addTargetSelector('.node',{
+      this.boardService.getInstance().addTargetSelector('.node',{
         anchor: 'Continuous',
         endpoint: "Dot",
       })
@@ -95,5 +97,25 @@ export class NodeService {
     return div
   }
 
-  constructor() { }
+  clearActiveNote() {
+    if(this.activeNode) {
+      let element: Element = this.activeNode;
+      if(this.activeNode.className.includes('nodeContainer')) {
+        element = this.activeNode
+      }
+      if(this.activeNode.className.includes('nodeElement')) {
+        if(this.activeNode.parentElement) element = this.activeNode.parentElement
+      }
+
+        element.className = element.className.replace(' activeNode','');
+        let descDiv = element.querySelector('.desc')
+        descDiv?.setAttribute('readonly', '')
+        descDiv?.setAttribute('disabled', 'true')
+        let dragDiv = element.querySelector('.dragDiv')
+        if(dragDiv) dragDiv.className = dragDiv.className.replace(' hidden','')
+        this.activeNode = undefined;
+
+    }
+  }
+
 }
