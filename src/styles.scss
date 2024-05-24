@@ -65,7 +65,11 @@ $mnos-theme: mat.define-light-theme((
 }
 
 .resizeButton {
-  @apply  bg-black w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize;
+  @apply  bg-slate-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all;
+
+  &:hover {
+    @apply bg-slate-400 transition-all;
+  }
 }
 
 .linkActionButton {

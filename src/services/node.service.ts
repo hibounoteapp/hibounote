@@ -1,6 +1,7 @@
 import { ElementRef, Injectable, Renderer2, inject } from '@angular/core';
 import { BoardService } from './board.service';
 import { transition } from '@angular/animations';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -69,6 +70,9 @@ export class NodeService {
       renderer.setAttribute(desc,'readonly','')
       renderer.setAttribute(desc,'disabled','true')
     let resizeButton = renderer.createElement('div');
+      let iconResizeButton = renderer.createElement('mat-icon');
+        renderer.setAttribute(iconResizeButton,'svgIcon','resize');
+      renderer.appendChild(resizeButton,iconResizeButton);
       renderer.addClass(resizeButton,'resizeButton')
       renderer.addClass(resizeButton,'nodeElement')
     let linkActionButton = renderer.createElement('div');
