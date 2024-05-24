@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MouseService } from './mouse.service';
+import { IconService } from './icon.service';
 
-describe('MouseService', () => {
-  let service: MouseService;
+describe('IconService', () => {
+  let service: IconService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MouseService);
+    service = TestBed.inject(IconService);
   });
 
   it('should be created', () => {

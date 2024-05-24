@@ -1,12 +1,24 @@
-<div class="select-none absolute w-full h-full bg-gray-200">
-  <div #toolbox id="toolbox" class="w-20 h-full bg-gray-400 absolute flex flex-col justify-center items-center z-10">
+<div class="select-none absolute w-full h-full bg-slate-200">
+  <div #pantools class="bg-slate-100 w-20 m-2 p-2 absolute bottom-5 right-5 rounded flex flex-col z-20">
+    <button class="controlTools" (click)="boardService.resetPan()">
+      <mat-icon svgIcon="maximize"></mat-icon>
+    </button>
+    <button class="controlTools" (click)="boardService.zoomClick('in')">
+      <mat-icon svgIcon="zoom-in"></mat-icon>
+    </button>
+    <button class="controlTools" (click)="boardService.zoomClick('out')">
+      <mat-icon svgIcon="zoom-out"></mat-icon>
+    </button>
+  </div>
+  <div #toolbox id="toolbox" class="w-20 h-full bg-slate-100 shadow-xl absolute flex flex-col justify-center items-center z-10">
    <p>{{mouseX}}, {{mouseY}}</p>
-    <div class=" bg-green-400 w-10 h-10 grab m-2" draggable="true" id="note"></div>
-    <div class=" bg-cyan-400 w-10 h-10 grab m-2" draggable="true" id="to-do"></div>
-    <div class=" bg-red-400 w-10 h-10 grab m-2" draggable="true" id="title"></div>
+    <div class="grab" draggable="true" id="note">
+      <mat-icon svgIcon="reader"></mat-icon>
+    </div>
   </div>
   <div #board class="w-full h-full absolute">
-    <div #main class="w-2 h-2 bg-black absolute"id="main">
+    <div #main class=" bg-black absolute"id="main">
+
       <!-- <div class="min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute node p-2 overflow-hidden" style="top: 10px; left: 20px;">
         <div class=" bg-teal-700 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize"
         (mousedown)="resizeMouseDown($event)"

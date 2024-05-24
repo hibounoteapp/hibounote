@@ -1,9 +1,47 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$mnos-primary: mat.define-palette(mat.$indigo-palette);
+$mnos-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$mnos-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$mnos-theme: mat.define-light-theme((
+  color: (
+    primary: $mnos-primary,
+    accent: $mnos-accent,
+    warn: $mnos-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($mnos-theme);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 .nodeContainer {
-  @apply min-w-48 max-w-56 min-h-20 max-h-44 border-2 border-black absolute p-2 overflow-hidden;
+  @apply min-w-48 max-w-56 min-h-20 max-h-44 bg-slate-100 absolute p-2 box-border rounded shadow;
 
   &:hover {
     @apply shadow;
@@ -13,20 +51,72 @@
     @apply shadow-xl;
   }
 
-  .title {
-    @apply font-bold;
+  .desc {
+    @apply text-base w-full overflow-hidden resize-none h-full bg-transparent outline-none;
   }
 
-  .desc {
-    @apply text-sm;
+  .fadeDiv {
+    @apply w-full h-4 absolute bottom-0 left-0;
+    background: linear-gradient(0deg, rgba(241,245,249,1) 0%, rgba(255,255,255,0) 100%);
   }
+
+.dragDiv {
+  @apply w-full h-full absolute top-0 left-0 opacity-30;
 }
 
 .resizeButton {
-  @apply  bg-teal-700 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize;
+  @apply  bg-slate-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all;
+
+  &:hover {
+    @apply bg-slate-400 transition-all;
+  }
 }
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-slate-900 w-5 h-5 rounded;
+  @apply bg-slate-300 w-3 h-3 -m-5 rounded absolute transition-all;
+
+  &:hover {
+    @apply w-5 h-5 transition-all bg-slate-400;
+  }
 }
+
+}
+
+.activeNode {
+  @apply border-2 border-black;
+}
+
+
+.grab {
+  @apply shadow transition-all w-10 h-10 m-2 flex justify-center items-center;
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  .thumbnails-list{
+      cursor: pointer;
+  }
+
+  &:hover {
+    @apply shadow-lg transition-all;
+  }
+
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+}
+
+.controlTools {
+  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
+
+  &:hover {
+    @apply shadow-lg transition-all;
+  }
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
