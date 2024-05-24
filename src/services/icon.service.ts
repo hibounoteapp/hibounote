@@ -39,6 +39,7 @@ export class IconService {
       iconRegistry.addSvgIcon(
         icon.name,
         domSanitizer.bypassSecurityTrustResourceUrl(icon.url) //! Only local fetch 'calling this method with untrusted user data exposes your application to XSS security risks!'
+
       )
     })
   }

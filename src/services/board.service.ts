@@ -7,7 +7,7 @@ import { NodeService } from './node.service';
   providedIn: 'root'
 })
 export class BoardService {
-  instance!: jsplumb.JsPlumbInstance;
+  _instance!: jsplumb.JsPlumbInstance;
   activeResizeElement: HTMLElement | undefined;
   panzoom!: PanzoomObject;
   translation!: {
@@ -20,12 +20,12 @@ export class BoardService {
 
   constructor() { }
 
-  getInstance(): jsplumb.JsPlumbInstance {
-    return this.instance
+  public get instance() : jsplumb.JsPlumbInstance {
+    return this._instance;
   }
 
-  setInstance(instance: jsplumb.JsPlumbInstance) {
-    this.instance = instance;
+  public set instance(instance : jsplumb.JsPlumbInstance) {
+    this._instance = instance;
   }
 
   dragOverBoard(event: DragEvent) {
@@ -40,7 +40,7 @@ export class BoardService {
     if(type === 'out') this.panzoom.zoomOut()
     const scale = this.panzoom.getScale()
     this.zoomScale = scale
-    this.getInstance().setZoom(scale)
+    this.instance.setZoom(scale)
     this.translation = this.panzoom.getPan()
   }
 
@@ -50,11 +50,11 @@ export class BoardService {
     this.panzoom.zoomWithWheel(event)
     const scale = this.panzoom.getScale()
     this.zoomScale = scale
-    this.getInstance().setZoom(scale)
+    this.instance.setZoom(scale)
     this.translation = this.panzoom.getPan()
   }
 
-  resetPan() {
+  resetPan = () => {
     this.panzoom.pan(0,0,{
       animate: true,
     })
@@ -63,11 +63,11 @@ export class BoardService {
     })
     const scale = this.panzoom.getScale()
     this.zoomScale = scale
-    this.getInstance().setZoom(scale)
+    this.instance.setZoom(scale)
     this.translation = this.panzoom.getPan()
   }
 
-  enablePanzoom() {
+  enablePanzoom = () => {
     this.panzoom.bind()
     this.panzoom.setOptions({
       cursor: '',
@@ -75,14 +75,14 @@ export class BoardService {
     })
   }
 
-  disablePanzoom() {
+  disablePanzoom = () => {
     this.panzoom.destroy()
     this.panzoom.setOptions({
       cursor:'',
     })
   }
 
-  dropNode(event: DragEvent, nodeService: NodeService, container: ElementRef, renderer: Renderer2) {
+  dropNode = (event: DragEvent, nodeService: NodeService, container: ElementRef, renderer: Renderer2) => {
     if(event.dataTransfer?.dropEffect) {
       event.dataTransfer.dropEffect = 'move';
       if(event.target instanceof Element) {
@@ -90,7 +90,7 @@ export class BoardService {
         const abstractElement = renderer.selectRootElement(container,true)
         renderer.appendChild(abstractElement.nativeElement, node)
 
-        this.getInstance().manage(node)
+        this.instance.manage(node)
         this.enablePanzoom()
       }
     }
@@ -124,7 +124,7 @@ export class BoardService {
     this.disablePanzoom()
   }
 
-  pointerDown(event: PointerEvent, nodeService: NodeService, renderer:Renderer2) {
+  pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2) => {
     console.log("Pointer: DOWN: ", event.target)
     const abstractDocument:Document = renderer.selectRootElement(document, true)
     if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()
@@ -151,22 +151,22 @@ export class BoardService {
     this.translation = this.panzoom.getPan()
   }
 
-  bindJsPlumbEvents(nodeService: NodeService, renderer:Renderer2) {
+  bindJsPlumbEvents = (nodeService: NodeService, renderer:Renderer2) => {
 
-    this.getInstance().bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
+    this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
       const abstractElement = renderer.selectRootElement(element,true)
       if(abstractElement.className.includes('resizeButton')) {
         this.draggable = false;
-        const def:jsplumb.BrowserJsPlumbDefaults = this.getInstance().defaults
+        const def:jsplumb.BrowserJsPlumbDefaults = this.instance.defaults
         def.elementsDraggable = false
-        this.getInstance().importDefaults(def)
+        this.instance.importDefaults(def)
         if(abstractElement.parentElement) {
           this.activeResizeElement = abstractElement.parentElement
         }
       }
     })
 
-    this.getInstance().bind(jsplumb.EVENT_ELEMENT_DBL_CLICK, (element:Element) =>{
+    this.instance.bind(jsplumb.EVENT_ELEMENT_DBL_CLICK, (element:Element) => {
       if(nodeService.activeNode != element) nodeService.clearActiveNote(renderer);
 
       const abstractElement:Element = renderer.selectRootElement(element, true)
@@ -187,11 +187,11 @@ export class BoardService {
       }
     })
 
-    this.getInstance().bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
-      const source = this.getInstance().getManagedElement(params.sourceId)
-      const target = this.getInstance().getManagedElement(params.targetId)
+    this.instance.bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
+      const source = this.instance.getManagedElement(params.sourceId)
+      const target = this.instance.getManagedElement(params.targetId)
       if(source === target) return
-      this.getInstance().connect({
+      this.instance.connect({
         source,
         target,
         connector: 'Bezier',
@@ -208,8 +208,8 @@ export class BoardService {
     })
   }
 
-  connectorsConfiguration() {
-    this.getInstance().addSourceSelector('.linkAction',{
+  connectorsConfiguration = () => {
+    this.instance.addSourceSelector('.linkAction',{
       anchor: 'Continuous',
       endpoint: "Dot",
       paintStyle:{
@@ -222,7 +222,7 @@ export class BoardService {
         strokeWidth: 2
       }
     })
-    this.getInstance().addTargetSelector('.node',{
+    this.instance.addTargetSelector('.node',{
       anchor: 'Continuous',
       endpoint: "Dot",
       paintStyle:{
@@ -237,7 +237,7 @@ export class BoardService {
     })
   }
 
-  init(container: ElementRef, nodeService: NodeService, renderer: Renderer2) {
+  init = (container: ElementRef, nodeService: NodeService, renderer: Renderer2) => {
     const abstractElement = renderer.selectRootElement(container)
     this.panzoom = Panzoom(abstractElement.nativeElement, {
       canvas: true,
@@ -251,7 +251,7 @@ export class BoardService {
       container: abstractElement.nativeElement,
       elementsDraggable: true,
     });
-    this.setInstance(jsInstance);
+    this.instance = jsInstance;
 
     this.connectorsConfiguration()
     this.bindJsPlumbEvents(nodeService, renderer)

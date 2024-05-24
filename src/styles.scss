@@ -74,10 +74,10 @@ $mnos-theme: mat.define-light-theme((
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-slate-900 w-3 h-3 -m-5 rounded absolute transition-all;
+  @apply bg-slate-300 w-3 h-3 -m-5 rounded absolute transition-all;
 
   &:hover {
-    @apply w-5 h-5 transition-all;
+    @apply w-5 h-5 transition-all bg-slate-400;
   }
 }
 

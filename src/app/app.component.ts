@@ -6,18 +6,17 @@ import { NodeService } from '../services/node.service';
 import { BoardService } from '../services/board.service';
 import Panzoom from '@panzoom/panzoom';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IconService } from '../services/icon.service';
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule, MatIconModule, HttpClientModule],
-  providers: [HttpClient],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
-})
+@Component({ selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    imports: [RouterOutlet, CommonModule, MatIconModule],
+    providers: [HttpClient]
+  })
 
 export class AppComponent implements AfterViewInit{
 
@@ -84,6 +83,7 @@ export class AppComponent implements AfterViewInit{
     public boardService: BoardService,
     private iconService: IconService) {
       iconService.registerIcons(iconRegistry,domSanitizer)
+      
     }
 
   ngAfterViewInit(): void {
