@@ -115,6 +115,14 @@ export class BoardService {
 
         this.instance.manage(node)
         this.enablePanzoom()
+
+        if(event.dataTransfer.getData('text') == 'group') {//? Check if node type is group node
+          this.instance.addGroup({
+            el: node,
+            droppable: true,
+            orphan: true,
+          })
+        }
       }
     }
   }
@@ -125,7 +133,7 @@ export class BoardService {
 
     if(element) {
       if(element != nodeService.activeNode) nodeService.clearActiveNote(renderer)
-      if(!element.classList.contains('activeNode')) element.className += ' activeNode'
+      if(!element.classList.contains('activeNode')) renderer.addClass(element,'activeNode')
       nodeService.activeNode = element;
     }
   }
@@ -136,6 +144,7 @@ export class BoardService {
   }
 
   pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2) => {
+    if(event.button == 1) return;
     const abstractDocument:Document = renderer.selectRootElement(document, true)
     if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()
 
@@ -186,15 +195,16 @@ export class BoardService {
 
       const abstractElement:Element = renderer.selectRootElement(element, true)
 
-      let dragDiv:Element | null = abstractElement.querySelector('.dragDiv')
-      if(dragDiv && !dragDiv.classList.contains('hidden')) {
-        renderer.addClass(dragDiv,'hidden')
-      }
-
       let desc:Element | null = abstractElement.querySelector('.desc')
-      if(desc?.getAttribute('readonly') != '' || desc?.getAttribute('disabled') != ''){
-        renderer.removeAttribute(desc, 'readonly')
-        renderer.removeAttribute(desc, 'disabled')
+      if(desc && (desc?.getAttribute('readonly') != '' || desc?.getAttribute('disabled') != '')){
+        try {
+          let dragDiv:Element | null = abstractElement.querySelector('.dragDiv')
+          if(dragDiv && !dragDiv.classList.contains('hidden')) {
+            renderer.addClass(dragDiv,'hidden')
+          }
+          renderer.removeAttribute(desc, 'readonly')
+          renderer.removeAttribute(desc, 'disabled')
+        } catch (error) {}
       }
 
       if(desc && desc instanceof HTMLElement) {

@@ -13,6 +13,10 @@ export class IconService {
       url: '../assets/resize-outline.svg'
     },
     {
+      name: 'folder',
+      url: '../assets/folder-outline.svg'
+    },
+    {
       name: 'pin',
       url: '../assets/pin-outline.svg'
     },

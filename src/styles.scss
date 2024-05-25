@@ -35,6 +35,9 @@ $mnos-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($mnos-theme);
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -55,7 +58,7 @@ $mnos-theme: mat.define-light-theme((
   }
 
   .desc {
-    @apply text-base w-full overflow-hidden resize-none h-full bg-transparent outline-none;
+    @apply text-base w-full overflow-hidden resize-none h-full bg-transparent outline-none text-justify;
   }
 
   .fadeDiv {
@@ -84,6 +87,10 @@ $mnos-theme: mat.define-light-theme((
   }
 }
 
+}
+
+.nodeGroup {
+  @apply max-h-[2000px] max-w-[2000px];
 }
 
 .activeNode {
@@ -121,8 +128,3 @@ $mnos-theme: mat.define-light-theme((
 }
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
