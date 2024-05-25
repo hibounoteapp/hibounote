@@ -23,6 +23,7 @@
     "@angular/router": "^18.0.0",
     "@jsplumb/browser-ui": "^6.2.10",
     "@panzoom/panzoom": "^4.5.1",
+    "custom-element-register": "^1.0.10",
     "interactjs": "^1.10.27",
     "jquery": "^3.7.1",
     "rxjs": "~7.8.0",
