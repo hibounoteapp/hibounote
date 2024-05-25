@@ -1,20 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, Renderer2, ViewChild, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import * as jsplumb from '@jsplumb/browser-ui';
 import { NodeService } from '../services/node.service';
 import { BoardService } from '../services/board.service';
-import Panzoom from '@panzoom/panzoom';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IconService } from '../services/icon.service';
+import { NodeComponent } from '../components/node/node.component';
 
 @Component({ selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [RouterOutlet, CommonModule, MatIconModule],
+    imports: [RouterOutlet, CommonModule, MatIconModule, NodeComponent],
     providers: [HttpClient]
   })
 
@@ -73,6 +72,10 @@ export class AppComponent implements AfterViewInit{
       (event: DragEvent)=>{
         this.boardService.dropNode(event,this.nodeService,this.container, this.renderer)
     });
+
+    this.renderer.listen(this.boardContainer.nativeElement,'contextmenu',(event: Event)=>{
+      event.preventDefault()
+    })
   }
 
   constructor(
@@ -83,7 +86,7 @@ export class AppComponent implements AfterViewInit{
     public boardService: BoardService,
     private iconService: IconService) {
       iconService.registerIcons(iconRegistry,domSanitizer)
-      
+
     }
 
   ngAfterViewInit(): void {

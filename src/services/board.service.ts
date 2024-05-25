@@ -2,6 +2,8 @@ import { ElementRef, Injectable, Renderer2, ViewChildren, inject } from '@angula
 import * as jsplumb from '@jsplumb/browser-ui'
 import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 import { NodeService } from './node.service';
+import { createCustomElement } from '@angular/elements';
+import { NodeComponent } from '../components/node/node.component';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,15 @@ export class BoardService {
 
   public set instance(instance : jsplumb.JsPlumbInstance) {
     this._instance = instance;
+  }
+
+  findParentByClass(element: Element, className: string): Element | null {
+    if (element.parentElement === null) return null;
+    if (element.parentElement.id === 'main') return null;
+
+    if (element.parentElement.classList.contains(className)) return element.parentElement;
+
+    return this.findParentByClass(element.parentElement, className);
   }
 
   dragOverBoard(event: DragEvent) {
@@ -88,6 +99,7 @@ export class BoardService {
       if(event.target instanceof Element) {
         const node = nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), renderer)
         const abstractElement = renderer.selectRootElement(container,true)
+
         renderer.appendChild(abstractElement.nativeElement, node)
 
         this.instance.manage(node)
@@ -96,25 +108,13 @@ export class BoardService {
     }
   }
 
-  pointerDownNode = (event: PointerEvent, nodeService: NodeService,renderer: Renderer2) => { //? Handling click event in node
+  pointerDownNode = (event: PointerEvent, element: Element, nodeService: NodeService,renderer: Renderer2) => { //? Handling click event in node
     if(!(event.target instanceof Element)) return
-    const abstractElement = renderer.selectRootElement(event.target,true)
-    const targetClass = abstractElement.className
     this.disablePanzoom()
-
-    console.log("Node: DOWN: ", event.target)
-    let element: Element | undefined;
-
-    if(abstractElement.parentElement?.className.includes('nodeContainer')) {
-      element = abstractElement.parentElement;
-    }
-    if(targetClass.includes('nodeContainer')) {
-      element = abstractElement;
-    }
 
     if(element) {
       if(element != nodeService.activeNode) nodeService.clearActiveNote(renderer)
-      if(!element.className.includes('activeNode')) element.className += ' activeNode'
+      if(!element.classList.contains('activeNode')) element.className += ' activeNode'
       nodeService.activeNode = element;
     }
   }
@@ -125,21 +125,25 @@ export class BoardService {
   }
 
   pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2) => {
-    console.log("Pointer: DOWN: ", event.target)
+
     const abstractDocument:Document = renderer.selectRootElement(document, true)
     if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()
 
-    if(!(event.target instanceof Element)) return
-    const abstractElement = renderer.selectRootElement(event.target,true)
 
-    if(abstractElement.tagName=='circle'){
+
+    if(!(event.target instanceof Element)) return
+
+    const abstractElement: Element = renderer.selectRootElement(event.target,true)
+    const nodeContainer: Element | null = this.findParentByClass(abstractElement,'nodeContainer');
+    const linkActionContainer: Element | null = this.findParentByClass(abstractElement,'linkAction');
+
+    if(abstractElement.tagName=='circle' || linkActionContainer){
       this.pointerDownConnection(event)
       return
     }
 
-
-    if(abstractElement.className.includes('nodeContainer') || abstractElement.className.includes('nodeElement') || abstractElement.className.includes('connection')) {
-      this.pointerDownNode(event,nodeService,renderer);
+    if(nodeContainer) {
+      this.pointerDownNode(event,nodeContainer,nodeService,renderer);
       return
     }
 
@@ -152,16 +156,17 @@ export class BoardService {
   }
 
   bindJsPlumbEvents = (nodeService: NodeService, renderer:Renderer2) => {
-
     this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
       const abstractElement = renderer.selectRootElement(element,true)
-      if(abstractElement.className.includes('resizeButton')) {
+      let targetElement = this.findParentByClass(abstractElement,'resizeButton');
+
+      if(targetElement) {
         this.draggable = false;
         const def:jsplumb.BrowserJsPlumbDefaults = this.instance.defaults
         def.elementsDraggable = false
         this.instance.importDefaults(def)
-        if(abstractElement.parentElement) {
-          this.activeResizeElement = abstractElement.parentElement
+        if(targetElement.parentElement) {
+          this.activeResizeElement = targetElement.parentElement
         }
       }
     })
@@ -172,7 +177,7 @@ export class BoardService {
       const abstractElement:Element = renderer.selectRootElement(element, true)
 
       let dragDiv:Element | null = abstractElement.querySelector('.dragDiv')
-      if(dragDiv && !dragDiv.className.includes('hidden')) {
+      if(dragDiv && !dragDiv.classList.contains('hidden')) {
         renderer.addClass(dragDiv,'hidden')
       }
 

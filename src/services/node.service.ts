@@ -1,7 +1,8 @@
-import { ElementRef, Injectable, Renderer2, inject } from '@angular/core';
+import { ApplicationRef, ElementRef, EnvironmentInjector, Injectable, Renderer2, createComponent, inject } from '@angular/core';
 import { BoardService } from './board.service';
-import { transition } from '@angular/animations';
-import { NgElement, WithProperties } from '@angular/elements';
+import { NgElement, WithProperties, createCustomElement } from '@angular/elements';
+import { NodeComponent } from '../components/node/node.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class NodeService {
 
   constructor(
     private boardService: BoardService,
+    private injector: EnvironmentInjector,
+    private applicationRef: ApplicationRef
   ) {}
 
   setNodes(newNodes: ArrayLike<any>) {
@@ -59,51 +62,35 @@ export class NodeService {
     renderer.setStyle(abstractElement,'height',`${calcSize.height}px`)
   }
 
-  createNode(x: number, y: number, type: string, renderer: Renderer2): HTMLElement {
-    let node = renderer.createElement('div')
-    let dragDiv = renderer.createElement('div'); //? Div created to still drag the note when holding in text area
-      renderer.addClass(dragDiv,'dragDiv')
-      renderer.addClass(dragDiv,'nodeElement')
-    let desc = renderer.createElement('textarea');
-      desc.className = 'desc nodeElement';
-      renderer.addClass(desc,'desc')
-      renderer.addClass(desc,'nodeElement')
-      renderer.setAttribute(desc,'readonly','')
-      renderer.setAttribute(desc,'disabled','true')
-    let resizeButton = renderer.createElement('div');
-      renderer.addClass(resizeButton,'resizeButton')
-      renderer.addClass(resizeButton,'nodeElement')
-    let linkActionButton = renderer.createElement('div');
-      renderer.addClass(linkActionButton, 'linkActionButton')
-      renderer.addClass(linkActionButton, 'linkAction')
-      renderer.addClass(linkActionButton, 'nodeElement')
-    let fadeDiv = renderer.createElement('div');
-      renderer.addClass(fadeDiv, 'fadeDiv')
-      renderer.addClass(fadeDiv, 'nodeElement')
-
-    renderer.addClass(node, 'nodeContainer')
-    renderer.addClass(node, 'node')
-
-    renderer.appendChild(node,dragDiv);
-    renderer.appendChild(node,fadeDiv)
-    renderer.appendChild(node,resizeButton);
-    renderer.appendChild(node,linkActionButton);
-    renderer.appendChild(node,desc);
-
+  createNode(x: number, y: number, type: string, renderer: Renderer2) {
+    const node = renderer.createElement('node-component');
+    const nodeComponentRef = createComponent(NodeComponent, {
+      environmentInjector: this.injector,
+      hostElement: node
+    })
 
     let top = (y/this.boardService.zoomScale)-this.boardService.translation.y
     let left = (x/this.boardService.zoomScale)-this.boardService.translation.x
 
+    renderer.addClass(node,'nodeContainer')
+    renderer.addClass(node,'node')
     renderer.setStyle(node,'position','absolute')
     renderer.setStyle(node,'top',`${top}px`)
     renderer.setStyle(node,'left',`${left}px`)
 
+    this.applicationRef.attachView(nodeComponentRef.hostView)
+
     this.clearActiveNote(renderer)
+    this.setActiveNote(node, renderer)
     return node
   }
 
-  setActiveNote(element: Element) {
-    this.activeNode = element;
+  setActiveNote(element: Element, renderer: Renderer2) {
+    if(element) {
+      if(element != this.activeNode) this.clearActiveNote(renderer)
+      if(!element.classList.contains('activeNode')) element.className += ' activeNode'
+      this.activeNode = element;
+    }
   }
 
   clearActiveNote(renderer: Renderer2) {
