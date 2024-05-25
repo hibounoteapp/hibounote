@@ -19,8 +19,19 @@ export class BoardService {
   zoomScale: number = 1
   droppable: boolean = false;
   draggable: boolean = true;
+  contextMenu!: {
+    show: boolean;
+    x: number,
+    y: number
+  }
 
-  constructor() { }
+  constructor() {
+    this.contextMenu = {
+      show: false,
+      x: 0,
+      y: 0
+    }
+   }
 
   public get instance() : jsplumb.JsPlumbInstance {
     return this._instance;
@@ -125,7 +136,6 @@ export class BoardService {
   }
 
   pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2) => {
-
     const abstractDocument:Document = renderer.selectRootElement(document, true)
     if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()
 

@@ -1,4 +1,11 @@
 <div class="select-none absolute w-full h-full bg-slate-200">
+  <app-context-menu
+    #contextMenu
+    [style.position]="'absolute'"
+    [style.display]="boardService.contextMenu.show ? 'block' : 'none' "
+    [style.top]="boardService.contextMenu.y+'px'"
+    [style.left]="boardService.contextMenu.x+'px'"
+  ></app-context-menu>
   <div #pantools class="bg-slate-100 w-20 m-2 p-2 absolute bottom-5 right-5 rounded flex flex-col z-20">
     <button class="controlTools" (click)="boardService.resetPan()">
       <mat-icon svgIcon="maximize"></mat-icon>
