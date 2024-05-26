@@ -1,16 +1,20 @@
 div#contextMenuContainer {
-  @apply shadow-xl;
+  @apply shadow-xl border-slate-300 border-[1px] rounded;
 
 }
 
 ul {
-  @apply w-full flex flex-col ;
+  @apply w-full flex flex-col;
 
   li {
-    @apply p-1 w-full text-center bg-slate-100  transition-all;
+    @apply w-full text-center bg-slate-100  transition-all;
 
     &:hover {
       @apply bg-slate-200 transition-all;
+    }
+
+    button {
+      @apply text-start text-sm w-full h-full p-1;
     }
   }
 

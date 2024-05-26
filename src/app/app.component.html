@@ -1,6 +1,7 @@
 <div class="select-none absolute w-full h-full bg-slate-200">
   <app-context-menu
     #contextMenu
+    (renderer)="renderer"
     [style.position]="'absolute'"
     [style.display]="boardService.contextMenu.show ? 'block' : 'none' "
     [style.top]="boardService.contextMenu.y+'px'"
@@ -18,7 +19,6 @@
     </button>
   </div>
   <div #toolbox id="toolbox" class="w-20 h-full bg-slate-100 shadow-xl absolute flex flex-col justify-center items-center z-10">
-   <p>{{mouseX}}, {{mouseY}}</p>
     <div class="grab" draggable="true" id="note">
       <mat-icon svgIcon="reader"></mat-icon>
     </div>

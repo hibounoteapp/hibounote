@@ -96,6 +96,20 @@ export class NodeService {
 
     this.clearActiveNote(renderer)
     this.setActiveNote(node, renderer)
+
+    const container = renderer.selectRootElement('#main',true)
+    renderer.appendChild(container, node)
+    this.boardService.enablePanzoom()
+
+    if(type == 'group') {//? Check if node type is group node
+      this.boardService.instance.addGroup({
+        el: node,
+        droppable: true,
+        orphan: true,
+      })
+    }
+
+    this.boardService.instance.manage(node)
     return node
   }
 

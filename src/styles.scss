@@ -71,19 +71,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .resizeButton {
-  @apply  bg-slate-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
+  @apply  bg-zinc-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
 
   &:hover {
-    @apply bg-slate-400 transition-all;
+    @apply bg-zinc-400 transition-all;
   }
 }
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-slate-300 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
+  @apply bg-zinc-300 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
 
   &:hover {
-    @apply w-5 h-5 transition-all bg-slate-400;
+    @apply w-5 h-5 transition-all bg-zinc-400;
   }
 }
 
@@ -94,7 +94,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .activeNode {
-  @apply border-2 border-black;
+  @apply border-2 border-black z-20;
 }
 
 

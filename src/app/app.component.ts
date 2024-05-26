@@ -23,8 +23,6 @@ export class AppComponent implements AfterViewInit{
   @ViewChild('main', {static: true}) container!: ElementRef<HTMLElement>;
   @ViewChild('toolbox', {static: true}) toolbox!: ElementRef<HTMLElement>;
   @ViewChild('board', {static: true}) boardContainer!: ElementRef<HTMLElement>;
-  mouseX: number = 0;
-  mouseY: number = 0;
 
   @HostListener('window:mousemove',['$event'])
     onMouseMove(event: MouseEvent) {
@@ -66,6 +64,7 @@ export class AppComponent implements AfterViewInit{
       'pointerdown',
       ()=>{
       this.boardService.contextMenu.show = false;
+
       this.boardService.disablePanzoom()
     });
 
@@ -95,19 +94,21 @@ export class AppComponent implements AfterViewInit{
   }
 
   constructor(
-    private renderer: Renderer2,
+    public renderer: Renderer2,
     private domSanitizer: DomSanitizer,
     private iconRegistry: MatIconRegistry,
     public nodeService: NodeService,
     public boardService: BoardService,
     private iconService: IconService) {
       iconService.registerIcons(iconRegistry,domSanitizer)
-
+    boardService.appRenderer = renderer
     }
 
   ngAfterViewInit(): void {
     this.boardService.init(this.container, this.nodeService, this.renderer)
     this.initEvents()
+    this.boardService.disablePanzoom()
+    this.boardService.enablePanzoom()
   }
 
 }

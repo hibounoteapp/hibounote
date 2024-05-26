@@ -1,4 +1,4 @@
-import { Component, Input, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { NodeService } from '../../services/node.service';
 import { BoardService } from '../../services/board.service';
 
@@ -9,20 +9,9 @@ import { BoardService } from '../../services/board.service';
   templateUrl: './context-menu.component.html',
   styleUrl: './context-menu.component.scss'
 })
-export class ContextMenuComponent {
+export class ContextMenuComponent implements AfterViewInit{
   @Input() show: boolean = false;
-
-  newNode(type: string) {
-    const x = this.boardService.contextMenu.x
-    const y = this.boardService.contextMenu.y
-    const container = this.renderer.selectRootElement('#main',true)
-    const node = this.nodeService.createNode(x,y,'note', this.renderer)
-    this.renderer.appendChild(container, node)
-
-    this.boardService.instance.manage(node)
-    this.boardService.enablePanzoom()
-    this.boardService.contextMenu.show=false;
-  }
+  @ViewChildren('cmButtons') buttons!: QueryList<ElementRef>;
 
   constructor(
     private nodeService: NodeService,
@@ -30,5 +19,18 @@ export class ContextMenuComponent {
     private renderer: Renderer2
   ) {
 
+  }
+
+  ngAfterViewInit(): void {
+    this.buttons.forEach((e: ElementRef)=>{
+      const abstractElement = this.renderer.selectRootElement(e.nativeElement,true)
+      this.renderer.listen(abstractElement,'mouseup',()=>{
+        console.log('node')
+        const x = this.boardService.contextMenu.x
+        const y = this.boardService.contextMenu.y
+        this.nodeService.createNode(x,y,e.nativeElement.id, this.renderer)
+        this.boardService.contextMenu.show=false;
+      })
+    })
   }
 }

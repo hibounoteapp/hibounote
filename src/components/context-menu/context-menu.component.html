@@ -1,5 +1,10 @@
 <div id='contextMenuContainer' class=" absolute z-20 bg-slate-300 flex flex-col justify-center items-center w-40 rounded">
   <ul>
-    <li (click)="newNode('note')" class="contextMenu">New note</li>
+    <li>
+      <button #cmButtons class="contextMenu w-full h-full" id="node">New note</button>
+    </li>
+    <li>
+      <button #cmButtons class="contextMenu w-full h-full" id="group">New group</button>
+    </li>
   </ul>
 </div>

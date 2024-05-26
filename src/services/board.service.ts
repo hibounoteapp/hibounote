@@ -24,6 +24,7 @@ export class BoardService {
     x: number,
     y: number
   }
+  appRenderer!: Renderer2;
 
   constructor() {
     this.contextMenu = {
@@ -31,6 +32,7 @@ export class BoardService {
       x: 0,
       y: 0
     }
+
    }
 
   public get instance() : jsplumb.JsPlumbInstance {
@@ -90,6 +92,7 @@ export class BoardService {
   }
 
   enablePanzoom = () => {
+    console.log('enabling zoom')
     this.panzoom.bind()
     this.panzoom.setOptions({
       cursor: '',
@@ -98,6 +101,7 @@ export class BoardService {
   }
 
   disablePanzoom = () => {
+    console.log('disabling zoom')
     this.panzoom.destroy()
     this.panzoom.setOptions({
       cursor:'',
@@ -108,21 +112,7 @@ export class BoardService {
     if(event.dataTransfer?.dropEffect) {
       event.dataTransfer.dropEffect = 'move';
       if(event.target instanceof Element) {
-        const node = nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), renderer)
-        const abstractElement = renderer.selectRootElement(container,true)
-
-        renderer.appendChild(abstractElement.nativeElement, node)
-
-        this.instance.manage(node)
-        this.enablePanzoom()
-
-        if(event.dataTransfer.getData('text') == 'group') {//? Check if node type is group node
-          this.instance.addGroup({
-            el: node,
-            droppable: true,
-            orphan: true,
-          })
-        }
+        nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), this.appRenderer)
       }
     }
   }
@@ -145,12 +135,15 @@ export class BoardService {
 
   pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2) => {
     if(event.button == 1) return;
+
     const abstractDocument:Document = renderer.selectRootElement(document, true)
     if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()
 
 
 
-    if(!(event.target instanceof Element)) return
+    if(!(event.target instanceof Element)) return;
+
+    if(event.target.classList.contains('contextMenu')) return;
 
     const abstractElement: Element = renderer.selectRootElement(event.target,true)
     const nodeContainer: Element | null = this.findParentByClass(abstractElement,'nodeContainer');
@@ -176,6 +169,7 @@ export class BoardService {
 
   bindJsPlumbEvents = (nodeService: NodeService, renderer:Renderer2) => {
     this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
+      console.log('ELEMENT DOWN: ',element)
       const abstractElement = renderer.selectRootElement(element,true)
       let targetElement = this.findParentByClass(abstractElement,'resizeButton');
 
@@ -263,12 +257,13 @@ export class BoardService {
   }
 
   init = (container: ElementRef, nodeService: NodeService, renderer: Renderer2) => {
+
     const abstractElement = renderer.selectRootElement(container)
     this.panzoom = Panzoom(abstractElement.nativeElement, {
       canvas: true,
       cursor: '',
       minScale: 0.4,
-      maxScale: 1.5
+      maxScale: 1.5,
     })
     this.translation = this.panzoom.getPan()
 
