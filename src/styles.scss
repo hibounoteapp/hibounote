@@ -35,6 +35,9 @@ $mnos-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($mnos-theme);
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -55,7 +58,7 @@ $mnos-theme: mat.define-light-theme((
   }
 
   .desc {
-    @apply text-base w-full overflow-hidden resize-none h-full bg-transparent outline-none;
+    @apply text-base w-full overflow-hidden resize-none h-full bg-transparent outline-none text-justify;
   }
 
   .fadeDiv {
@@ -68,26 +71,30 @@ $mnos-theme: mat.define-light-theme((
 }
 
 .resizeButton {
-  @apply  bg-slate-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
+  @apply  bg-zinc-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
 
   &:hover {
-    @apply bg-slate-400 transition-all;
+    @apply bg-zinc-400 transition-all;
   }
 }
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-slate-300 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
+  @apply bg-zinc-300 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
 
   &:hover {
-    @apply w-5 h-5 transition-all bg-slate-400;
+    @apply w-5 h-5 transition-all bg-zinc-400;
   }
 }
 
 }
 
+.nodeGroup {
+  @apply max-h-[2000px] max-w-[2000px];
+}
+
 .activeNode {
-  @apply border-2 border-black;
+  @apply border-2 border-black z-20;
 }
 
 
@@ -121,8 +128,3 @@ $mnos-theme: mat.define-light-theme((
 }
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

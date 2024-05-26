@@ -19,8 +19,21 @@ export class BoardService {
   zoomScale: number = 1
   droppable: boolean = false;
   draggable: boolean = true;
+  contextMenu!: {
+    show: boolean;
+    x: number,
+    y: number
+  }
+  appRenderer!: Renderer2;
 
-  constructor() { }
+  constructor() {
+    this.contextMenu = {
+      show: false,
+      x: 0,
+      y: 0
+    }
+
+   }
 
   public get instance() : jsplumb.JsPlumbInstance {
     return this._instance;
@@ -79,6 +92,7 @@ export class BoardService {
   }
 
   enablePanzoom = () => {
+    console.log('enabling zoom')
     this.panzoom.bind()
     this.panzoom.setOptions({
       cursor: '',
@@ -87,6 +101,7 @@ export class BoardService {
   }
 
   disablePanzoom = () => {
+    console.log('disabling zoom')
     this.panzoom.destroy()
     this.panzoom.setOptions({
       cursor:'',
@@ -97,13 +112,7 @@ export class BoardService {
     if(event.dataTransfer?.dropEffect) {
       event.dataTransfer.dropEffect = 'move';
       if(event.target instanceof Element) {
-        const node = nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), renderer)
-        const abstractElement = renderer.selectRootElement(container,true)
-
-        renderer.appendChild(abstractElement.nativeElement, node)
-
-        this.instance.manage(node)
-        this.enablePanzoom()
+        nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), this.appRenderer)
       }
     }
   }
@@ -114,7 +123,7 @@ export class BoardService {
 
     if(element) {
       if(element != nodeService.activeNode) nodeService.clearActiveNote(renderer)
-      if(!element.classList.contains('activeNode')) element.className += ' activeNode'
+      if(!element.classList.contains('activeNode')) renderer.addClass(element,'activeNode')
       nodeService.activeNode = element;
     }
   }
@@ -125,13 +134,16 @@ export class BoardService {
   }
 
   pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2) => {
+    if(event.button == 1) return;
 
     const abstractDocument:Document = renderer.selectRootElement(document, true)
     if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()
 
 
 
-    if(!(event.target instanceof Element)) return
+    if(!(event.target instanceof Element)) return;
+
+    if(event.target.classList.contains('contextMenu')) return;
 
     const abstractElement: Element = renderer.selectRootElement(event.target,true)
     const nodeContainer: Element | null = this.findParentByClass(abstractElement,'nodeContainer');
@@ -157,6 +169,7 @@ export class BoardService {
 
   bindJsPlumbEvents = (nodeService: NodeService, renderer:Renderer2) => {
     this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
+      console.log('ELEMENT DOWN: ',element)
       const abstractElement = renderer.selectRootElement(element,true)
       let targetElement = this.findParentByClass(abstractElement,'resizeButton');
 
@@ -176,15 +189,16 @@ export class BoardService {
 
       const abstractElement:Element = renderer.selectRootElement(element, true)
 
-      let dragDiv:Element | null = abstractElement.querySelector('.dragDiv')
-      if(dragDiv && !dragDiv.classList.contains('hidden')) {
-        renderer.addClass(dragDiv,'hidden')
-      }
-
       let desc:Element | null = abstractElement.querySelector('.desc')
-      if(desc?.getAttribute('readonly') != '' || desc?.getAttribute('disabled') != ''){
-        renderer.removeAttribute(desc, 'readonly')
-        renderer.removeAttribute(desc, 'disabled')
+      if(desc && (desc?.getAttribute('readonly') != '' || desc?.getAttribute('disabled') != '')){
+        try {
+          let dragDiv:Element | null = abstractElement.querySelector('.dragDiv')
+          if(dragDiv && !dragDiv.classList.contains('hidden')) {
+            renderer.addClass(dragDiv,'hidden')
+          }
+          renderer.removeAttribute(desc, 'readonly')
+          renderer.removeAttribute(desc, 'disabled')
+        } catch (error) {}
       }
 
       if(desc && desc instanceof HTMLElement) {
@@ -243,12 +257,13 @@ export class BoardService {
   }
 
   init = (container: ElementRef, nodeService: NodeService, renderer: Renderer2) => {
+
     const abstractElement = renderer.selectRootElement(container)
     this.panzoom = Panzoom(abstractElement.nativeElement, {
       canvas: true,
       cursor: '',
       minScale: 0.4,
-      maxScale: 1.5
+      maxScale: 1.5,
     })
     this.translation = this.panzoom.getPan()
 

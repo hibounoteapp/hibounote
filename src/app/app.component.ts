@@ -8,12 +8,13 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IconService } from '../services/icon.service';
 import { NodeComponent } from '../components/node/node.component';
+import { ContextMenuComponent } from '../components/context-menu/context-menu.component';
 
 @Component({ selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [RouterOutlet, CommonModule, MatIconModule, NodeComponent],
+    imports: [RouterOutlet, CommonModule, MatIconModule, NodeComponent, ContextMenuComponent],
     providers: [HttpClient]
   })
 
@@ -22,8 +23,6 @@ export class AppComponent implements AfterViewInit{
   @ViewChild('main', {static: true}) container!: ElementRef<HTMLElement>;
   @ViewChild('toolbox', {static: true}) toolbox!: ElementRef<HTMLElement>;
   @ViewChild('board', {static: true}) boardContainer!: ElementRef<HTMLElement>;
-  mouseX: number = 0;
-  mouseY: number = 0;
 
   @HostListener('window:mousemove',['$event'])
     onMouseMove(event: MouseEvent) {
@@ -38,9 +37,17 @@ export class AppComponent implements AfterViewInit{
         event.dataTransfer.effectAllowed = 'move';
       }
     }
+
   @HostListener('window:mouseup',['$event'])
     onMouseUp(event: MouseEvent) {
       if(!this.boardService.draggable) this.boardService.draggable=true;
+    }
+
+  @HostListener('window:mousedown',['$event'])
+    onMouseDown(event: MouseEvent) {
+      if(!(event.target instanceof Element)) return
+      if(event.button != 2 && !event.target.classList.contains('contextMenu')) this.boardService.contextMenu.show = false;
+
     }
 
   initEvents() {
@@ -49,12 +56,15 @@ export class AppComponent implements AfterViewInit{
     this.renderer.listen(this.boardContainer.nativeElement,
       'pointerdown',
       (event: PointerEvent)=>{
+        if(event.button != 2) this.boardService.contextMenu.show = false;
         this.boardService.pointerDown(event,this.nodeService,this.renderer)
     })
 
     this.renderer.listen(this.toolbox.nativeElement,
       'pointerdown',
       ()=>{
+      this.boardService.contextMenu.show = false;
+
       this.boardService.disablePanzoom()
     });
 
@@ -73,25 +83,32 @@ export class AppComponent implements AfterViewInit{
         this.boardService.dropNode(event,this.nodeService,this.container, this.renderer)
     });
 
-    this.renderer.listen(this.boardContainer.nativeElement,'contextmenu',(event: Event)=>{
+    this.renderer.listen(this.boardContainer.nativeElement,'contextmenu',(event: MouseEvent)=>{
       event.preventDefault()
+      this.boardService.contextMenu.show = true;
+
+      this.boardService.contextMenu.x = event.clientX
+      this.boardService.contextMenu.y = event.clientY
+
     })
   }
 
   constructor(
-    private renderer: Renderer2,
+    public renderer: Renderer2,
     private domSanitizer: DomSanitizer,
     private iconRegistry: MatIconRegistry,
     public nodeService: NodeService,
     public boardService: BoardService,
     private iconService: IconService) {
       iconService.registerIcons(iconRegistry,domSanitizer)
-
+    boardService.appRenderer = renderer
     }
 
   ngAfterViewInit(): void {
     this.boardService.init(this.container, this.nodeService, this.renderer)
     this.initEvents()
+    this.boardService.disablePanzoom()
+    this.boardService.enablePanzoom()
   }
 
 }

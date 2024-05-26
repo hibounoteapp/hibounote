@@ -1,0 +1,25 @@
+div#contextMenuContainer {
+  @apply shadow-xl border-slate-300 border-[1px] rounded;
+
+}
+
+ul {
+  @apply w-full flex flex-col;
+
+  li {
+    @apply w-full text-center bg-slate-100  transition-all;
+
+    &:hover {
+      @apply bg-slate-200 transition-all;
+    }
+
+    button {
+      @apply text-start text-sm w-full h-full p-1;
+    }
+  }
+
+  li:not(:last-child) {
+    @apply border-b border-white;
+  }
+
+}

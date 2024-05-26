@@ -2,6 +2,7 @@ import { ApplicationRef, ElementRef, EnvironmentInjector, Injectable, Renderer2,
 import { BoardService } from './board.service';
 import { NgElement, WithProperties, createCustomElement } from '@angular/elements';
 import { NodeComponent } from '../components/node/node.component';
+import { NodeGroupComponent } from '../components/node-group/node-group.component';
 
 
 @Injectable({
@@ -63,8 +64,20 @@ export class NodeService {
   }
 
   createNode(x: number, y: number, type: string, renderer: Renderer2) {
-    const node = renderer.createElement('node-component');
-    const nodeComponentRef = createComponent(NodeComponent, {
+    let node;
+    let nodeComponent;
+    switch (type) {
+      case 'group':
+        node = renderer.createElement('node-group-component');
+        nodeComponent = NodeGroupComponent
+        break;
+
+      default:
+        node = renderer.createElement('node-component');
+        nodeComponent = NodeComponent
+        break;
+    }
+    const nodeComponentRef = createComponent(nodeComponent, {
       environmentInjector: this.injector,
       hostElement: node
     })
@@ -74,6 +87,7 @@ export class NodeService {
 
     renderer.addClass(node,'nodeContainer')
     renderer.addClass(node,'node')
+    if(type == 'group') renderer.addClass(node,'nodeGroup')
     renderer.setStyle(node,'position','absolute')
     renderer.setStyle(node,'top',`${top}px`)
     renderer.setStyle(node,'left',`${left}px`)
@@ -82,6 +96,20 @@ export class NodeService {
 
     this.clearActiveNote(renderer)
     this.setActiveNote(node, renderer)
+
+    const container = renderer.selectRootElement('#main',true)
+    renderer.appendChild(container, node)
+    this.boardService.enablePanzoom()
+
+    if(type == 'group') {//? Check if node type is group node
+      this.boardService.instance.addGroup({
+        el: node,
+        droppable: true,
+        orphan: true,
+      })
+    }
+
+    this.boardService.instance.manage(node)
     return node
   }
 
@@ -105,10 +133,13 @@ export class NodeService {
 
         element.className = element.className.replace(' activeNode','');
         let descDiv = element.querySelector('.desc')
-        renderer.setAttribute(descDiv,'readonly','')
-        renderer.setAttribute(descDiv,'disabled','true')
         let dragDiv = element.querySelector('.dragDiv')
         if(dragDiv) dragDiv.className = dragDiv.className.replace(' hidden','')
+        try {
+          renderer.setAttribute(descDiv,'readonly','')
+          renderer.setAttribute(descDiv,'disabled','true')
+        } catch (error) {}
+
         this.activeNode = undefined;
     }
   }
