@@ -24,7 +24,7 @@ export class ToolboxComponent implements AfterViewInit {
   }
 
   deactivateNode() {
-
+    this.nodeService.clearActiveNote(this.renderer)
   }
 
   editNode(attribute: string, value: string) {
