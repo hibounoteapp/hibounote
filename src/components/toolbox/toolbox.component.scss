@@ -2,6 +2,14 @@ div#toolbox {
   @apply w-20 h-full bg-slate-100 shadow-xl absolute flex flex-col justify-center items-center z-10;
 }
 
+.controlTools {
+  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
+
+  &:hover {
+    @apply shadow-lg transition-all;
+  }
+}
+
 #editNode {
   @apply flex flex-col;
 

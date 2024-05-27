@@ -10,7 +10,6 @@ import { IconService } from '../services/icon.service';
 import { NodeComponent } from '../components/node/node.component';
 import { ContextMenuComponent } from '../components/context-menu/context-menu.component';
 import { ToolboxComponent } from '../components/toolbox/toolbox.component';
-import { ControlpanComponent } from '../components/controlpan/controlpan.component';
 
 @Component({ selector: 'app-root',
     standalone: true,
@@ -22,8 +21,7 @@ import { ControlpanComponent } from '../components/controlpan/controlpan.compone
       MatIconModule,
       NodeComponent,
       ContextMenuComponent,
-      ToolboxComponent,
-      ControlpanComponent
+      ToolboxComponent
     ],
     providers: [HttpClient]
   })
@@ -116,11 +114,11 @@ export class AppComponent implements AfterViewInit{
   }
 
   constructor(
-    protected renderer: Renderer2,
+    public renderer: Renderer2,
     private domSanitizer: DomSanitizer,
     private iconRegistry: MatIconRegistry,
-    protected nodeService: NodeService,
-    protected boardService: BoardService,
+    public nodeService: NodeService,
+    public boardService: BoardService,
     private iconService: IconService) {
       iconService.registerIcons(iconRegistry,domSanitizer)
     boardService.appRenderer = renderer

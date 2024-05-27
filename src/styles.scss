@@ -102,14 +102,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   @apply max-h-[2000px] max-w-[2000px];
 }
 
-.controlTools {
-  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
-
-  &:hover {
-    @apply shadow-lg transition-all;
-  }
-}
-
 .activeNode {
   @apply border-2 border-black;
   z-index: 8;
@@ -140,5 +132,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     cursor: -webkit-grabbing;
   }
 }
+
 
 
