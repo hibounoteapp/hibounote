@@ -111,6 +111,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
+.controlTools {
+  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
+
+  &:hover {
+    @apply shadow-lg transition-all;
+  }
+}
 
 .grab {
   @apply shadow transition-all w-10 h-10 m-2 flex justify-center items-center;

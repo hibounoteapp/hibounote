@@ -10,6 +10,7 @@ import { IconService } from '../services/icon.service';
 import { NodeComponent } from '../components/node/node.component';
 import { ContextMenuComponent } from '../components/context-menu/context-menu.component';
 import { ToolboxComponent } from '../components/toolbox/toolbox.component';
+import { ControlpanComponent } from '../components/controlpan/controlpan.component';
 
 @Component({ selector: 'app-root',
     standalone: true,
@@ -21,7 +22,8 @@ import { ToolboxComponent } from '../components/toolbox/toolbox.component';
       MatIconModule,
       NodeComponent,
       ContextMenuComponent,
-      ToolboxComponent
+      ToolboxComponent,
+      ControlpanComponent
     ],
     providers: [HttpClient]
   })
