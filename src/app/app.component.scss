@@ -1,1 +1,10 @@
+main {
+  @apply select-none absolute w-full h-full bg-slate-200;
+
+  div#pantools {
+    @apply bg-slate-100 w-20 m-2 p-2 absolute bottom-5 right-5 rounded flex flex-col z-20;
+  }
+
+}
+
 

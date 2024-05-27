@@ -73,7 +73,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   .fadeDiv {
     @apply w-full h-4 absolute bottom-0 left-0;
-    background: linear-gradient(0deg, rgba(241,245,249,1) 0%, rgba(255,255,255,0) 100%);
   }
 
 .dragDiv {
@@ -81,19 +80,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .resizeButton {
-  @apply  bg-zinc-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
+  @apply  bg-zinc-300 bg-opacity-50 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
 
   &:hover {
-    @apply bg-zinc-400 transition-all;
+    @apply bg-zinc-400 bg-opacity-50 transition-all;
   }
 }
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-zinc-300 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
+  @apply bg-zinc-400 bg-opacity-50 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
 
   &:hover {
-    @apply w-5 h-5 transition-all bg-zinc-400;
+    @apply w-5 h-5 transition-all bg-zinc-500 bg-opacity-50;
   }
 }
 
@@ -134,12 +133,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-.controlTools {
-  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
-
-  &:hover {
-    @apply shadow-lg transition-all;
-  }
-}
 
 

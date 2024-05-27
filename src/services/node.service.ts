@@ -119,6 +119,11 @@ export class NodeService {
     return node
   }
 
+  editNode(attribute: string, node: Element, renderer: Renderer2, value: string) {
+    console.log('editing node')
+    renderer.setStyle(node,attribute,value)
+  }
+
   deleteNode(node: Element, renderer: Renderer2) {
     const container = renderer.selectRootElement('#main',true)
     this.boardService.instance.deleteConnectionsForElement(node)

@@ -1,0 +1,20 @@
+<div #toolbox id="toolbox">
+  <div #editingNode id="editNode" *ngIf="nodeService.activeNode; else addingNode">
+      <button class="return controlTools" (click)="deactivateNode()">
+        <mat-icon svgIcon="return"></mat-icon>
+      </button>
+      <button class="w-10 h-10 bg-green-300 rounded" (click)="editNode('backgroundColor','rgb(134,239,172)')"></button>
+      <button class="w-10 h-10 bg-red-300 rounded" (click)="editNode('backgroundColor','rgb(252,165,165)')"></button>
+      <button class="w-10 h-10 bg-blue-300 rounded" (click)="editNode('backgroundColor','rgb(147,197,253)')"></button>
+      <button class="w-10 h-10 bg-pink-300 rounded" (click)="editNode('backgroundColor','rgb(249,168,212)')"></button>
+  </div>
+
+  <ng-template #addingNode id="addNode">
+    <div class="grab" draggable="true" id="note">
+      <mat-icon svgIcon="reader"></mat-icon>
+    </div>
+    <div class="grab" draggable="true" id="group">
+      <mat-icon svgIcon="folder"></mat-icon>
+    </div>
+  </ng-template>
+</div>

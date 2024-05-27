@@ -9,12 +9,20 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IconService } from '../services/icon.service';
 import { NodeComponent } from '../components/node/node.component';
 import { ContextMenuComponent } from '../components/context-menu/context-menu.component';
+import { ToolboxComponent } from '../components/toolbox/toolbox.component';
 
 @Component({ selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [RouterOutlet, CommonModule, MatIconModule, NodeComponent, ContextMenuComponent],
+    imports: [
+      RouterOutlet,
+      CommonModule,
+      MatIconModule,
+      NodeComponent,
+      ContextMenuComponent,
+      ToolboxComponent
+    ],
     providers: [HttpClient]
   })
 
@@ -58,6 +66,17 @@ export class AppComponent implements AfterViewInit{
       }
     }
 
+
+  editNode(attribute: string, value: string) {
+    console.log(attribute,value)
+    if(!this.nodeService.activeNode) return;
+    this.nodeService.editNode(attribute,this.nodeService.activeNode,this.renderer,value);
+  }
+
+  disactivateNode() {
+    this.nodeService.clearActiveNote(this.renderer)
+  }
+
   initEvents() {
     this.renderer.listen(document, 'pointerup',this.boardService.pointerUp)
 
@@ -68,14 +87,6 @@ export class AppComponent implements AfterViewInit{
         this.boardService.contextMenu.show = false
         this.boardService.pointerDown(event,this.nodeService,this.renderer)
     })
-
-    this.renderer.listen(this.toolbox.nativeElement,
-      'pointerdown',
-      ()=>{
-      this.boardService.contextMenu.show = false;
-
-      this.boardService.disablePanzoom()
-    });
 
     this.renderer.listen(this.boardContainer.nativeElement,'wheel', this.boardService.zoom);
 
