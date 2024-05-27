@@ -46,6 +46,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   @apply flex justify-center items-center;
 }
 
+.jtk-connector {
+  z-index:4;
+}
+.jtk-endpoint {
+  z-index:5;
+}
+.jtk-overlay {
+  z-index:6;
+}
+
 .nodeContainer {
   @apply min-w-48 max-w-56 min-h-20 max-h-44 bg-slate-100 absolute p-2 box-border rounded shadow;
 
@@ -95,6 +105,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .activeNode {
   @apply border-2 border-black;
+  z-index: 8;
+
+  &:has(.nodeContainer) {
+    z-index: 3;
+  }
 }
 
 

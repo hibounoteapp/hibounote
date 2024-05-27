@@ -3,6 +3,7 @@ import { BoardService } from './board.service';
 import { NgElement, WithProperties, createCustomElement } from '@angular/elements';
 import { NodeComponent } from '../components/node/node.component';
 import { NodeGroupComponent } from '../components/node-group/node-group.component';
+import { uuid } from '@jsplumb/browser-ui';
 
 
 @Injectable({
@@ -40,11 +41,15 @@ export class NodeService {
     let mouseX = event.clientX
     let mouseY = event.clientY
     const abstractElement: HTMLElement = renderer.selectRootElement(this.boardService.activeResizeElement, true)
+
+    mouseX = mouseX/this.boardService.zoomScale
+    mouseY = mouseY/this.boardService.zoomScale
+
     const groupId = this.boardService.instance.getId(abstractElement.parentElement)
-    if(groupId.toString() != 'jsplumb-1-1') {
-      const element: Element | null = this.boardService.instance.getManagedElement(groupId)
-      const groupidtop = element ? Number(getComputedStyle(element).top.replace(/([a-z])/g, '')): 0;
-      const groupidleft = element ? Number(getComputedStyle(element).left.replace(/([a-z])/g, '')): 0;
+    const group = this.boardService.instance.getManagedElement(groupId)
+    if(group) {
+      const groupidtop = group ? Number(getComputedStyle(group).top.replace(/([a-z])/g, '')): 0;
+      const groupidleft = group ? Number(getComputedStyle(group).left.replace(/([a-z])/g, '')): 0;
       mouseX= mouseX - groupidleft
       mouseY= mouseY - groupidtop
     }
@@ -55,8 +60,8 @@ export class NodeService {
     }
 
     let calcSize = {
-      width:((mouseX/this.boardService.zoomScale) - position.left + 10)-this.boardService.translation.x,
-      height:((mouseY/this.boardService.zoomScale) - position.top + 10)-this.boardService.translation.y
+      width:((mouseX) - position.left + 10)-this.boardService.translation.x,
+      height:((mouseY) - position.top + 10)-this.boardService.translation.y
     }
 
     renderer.setStyle(abstractElement,'width',`${calcSize.width}px`)
@@ -103,6 +108,7 @@ export class NodeService {
 
     if(type == 'group') {//? Check if node type is group node
       this.boardService.instance.addGroup({
+        id: uuid(),
         el: node,
         droppable: true,
         orphan: true,

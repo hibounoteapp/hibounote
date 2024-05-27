@@ -147,6 +147,8 @@ export class BoardService {
     const nodeContainer: Element | null = this.findParentByClass(abstractElement,'nodeContainer');
     const linkActionContainer: Element | null = this.findParentByClass(abstractElement,'linkAction');
 
+    
+
     if(abstractElement.tagName=='circle' || linkActionContainer){
       this.pointerDownConnection(event)
       return
@@ -169,7 +171,6 @@ export class BoardService {
     this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
       const abstractElement = renderer.selectRootElement(element,true)
       let targetElement = this.findParentByClass(abstractElement,'resizeButton');
-
       if(targetElement) {
         this.draggable = false;
         const def:jsplumb.BrowserJsPlumbDefaults = this.instance.defaults
