@@ -17,7 +17,7 @@ export class NodeService {
   constructor(
     private boardService: BoardService,
     private injector: EnvironmentInjector,
-    private applicationRef: ApplicationRef
+    private applicationRef: ApplicationRef,
   ) {}
 
   setNodes(newNodes: ArrayLike<any>) {
@@ -111,6 +111,12 @@ export class NodeService {
 
     this.boardService.instance.manage(node)
     return node
+  }
+
+  deleteNode(node: Element, renderer: Renderer2) {
+    const container = renderer.selectRootElement('#main',true)
+    this.boardService.instance.deleteConnectionsForElement(node)
+    renderer.removeChild(node.parentElement,node);
   }
 
   setActiveNote(element: Element, renderer: Renderer2) {

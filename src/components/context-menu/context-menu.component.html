@@ -1,10 +1,14 @@
 <div id='contextMenuContainer' class=" absolute z-20 bg-slate-300 flex flex-col justify-center items-center w-40 rounded">
   <ul>
     <li>
-      <button #cmButtons class="contextMenu w-full h-full" id="node">New note</button>
+      <button (click)="newNode('node')" class="contextMenu w-full h-full" id="node">New note</button>
     </li>
     <li>
-      <button #cmButtons class="contextMenu w-full h-full" id="group">New group</button>
+      <button (click)="newNode('group')" class="contextMenu w-full h-full" id="group">New group</button>
+    </li>
+    <li
+      [style.display]="nodeService.activeNode ? 'block' : 'none'">
+      <button (click)="deleteNode()" class="contextMenu w-full h-full text-red-500" id="delete">Delete node</button>
     </li>
   </ul>
 </div>

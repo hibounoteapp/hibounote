@@ -50,6 +50,14 @@ export class AppComponent implements AfterViewInit{
 
     }
 
+  @HostListener('window:keydown',['$event'])
+    onKeyDown(event: KeyboardEvent) {
+      if(event.key === 'Delete' && this.nodeService.activeNode) {
+        const activeNode = this.nodeService.activeNode
+        this.nodeService.deleteNode(activeNode,this.renderer)
+      }
+    }
+
   initEvents() {
     this.renderer.listen(document, 'pointerup',this.boardService.pointerUp)
 
@@ -57,6 +65,7 @@ export class AppComponent implements AfterViewInit{
       'pointerdown',
       (event: PointerEvent)=>{
         if(event.button != 2) this.boardService.contextMenu.show = false;
+        this.boardService.contextMenu.show = false
         this.boardService.pointerDown(event,this.nodeService,this.renderer)
     })
 

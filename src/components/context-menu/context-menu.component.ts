@@ -9,28 +9,30 @@ import { BoardService } from '../../services/board.service';
   templateUrl: './context-menu.component.html',
   styleUrl: './context-menu.component.scss'
 })
-export class ContextMenuComponent implements AfterViewInit{
+export class ContextMenuComponent{
   @Input() show: boolean = false;
   @ViewChildren('cmButtons') buttons!: QueryList<ElementRef>;
 
+
   constructor(
-    private nodeService: NodeService,
+    public nodeService: NodeService,
     private boardService: BoardService,
     private renderer: Renderer2
   ) {
 
   }
 
-  ngAfterViewInit(): void {
-    this.buttons.forEach((e: ElementRef)=>{
-      const abstractElement = this.renderer.selectRootElement(e.nativeElement,true)
-      this.renderer.listen(abstractElement,'mouseup',()=>{
-        console.log('node')
-        const x = this.boardService.contextMenu.x
-        const y = this.boardService.contextMenu.y
-        this.nodeService.createNode(x,y,e.nativeElement.id, this.renderer)
-        this.boardService.contextMenu.show=false;
-      })
-    })
+  newNode(type: string) {
+    const x = this.boardService.contextMenu.x
+    const y = this.boardService.contextMenu.y
+    this.nodeService.createNode(x,y,type, this.renderer)
+    this.boardService.contextMenu.show=false;
+  }
+
+  deleteNode() {
+    if(!this.nodeService.activeNode)return
+
+    this.nodeService.deleteNode(this.nodeService.activeNode,this.renderer);
+    this.boardService.contextMenu.show=false;
   }
 }

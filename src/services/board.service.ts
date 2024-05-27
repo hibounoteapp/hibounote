@@ -92,7 +92,6 @@ export class BoardService {
   }
 
   enablePanzoom = () => {
-    console.log('enabling zoom')
     this.panzoom.bind()
     this.panzoom.setOptions({
       cursor: '',
@@ -101,7 +100,6 @@ export class BoardService {
   }
 
   disablePanzoom = () => {
-    console.log('disabling zoom')
     this.panzoom.destroy()
     this.panzoom.setOptions({
       cursor:'',
@@ -169,7 +167,6 @@ export class BoardService {
 
   bindJsPlumbEvents = (nodeService: NodeService, renderer:Renderer2) => {
     this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
-      console.log('ELEMENT DOWN: ',element)
       const abstractElement = renderer.selectRootElement(element,true)
       let targetElement = this.findParentByClass(abstractElement,'resizeButton');
 
