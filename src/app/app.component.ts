@@ -90,6 +90,12 @@ export class AppComponent implements AfterViewInit{
         this.boardService.pointerDown(event,this.nodeService,this.renderer)
     })
 
+    this.renderer.listen(this.boardContainer.nativeElement,
+      'pointerup',
+      (event: PointerEvent)=>{
+        this.boardService.pointerUpBoard(event,this.nodeService, this.renderer);
+    })
+
     this.renderer.listen(this.boardContainer.nativeElement,'wheel', this.boardService.zoom);
 
     this.renderer.listen(this.boardContainer.nativeElement,

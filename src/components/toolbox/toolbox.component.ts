@@ -27,9 +27,17 @@ export class ToolboxComponent implements AfterViewInit {
     this.nodeService.clearActiveNote(this.renderer)
   }
 
+  deactivateConnection() {
+    this.nodeService.clearActiveConnection();
+  }
+
   editNode(attribute: string, value: string) {
     if(!this.nodeService.activeNode) return
     this.nodeService.editNode(attribute,this.nodeService.activeNode,this.renderer,value)
+  }
+
+  editConnection(value: string) {
+    this.nodeService.editConnection(value)
   }
 
   ngAfterViewInit(): void {

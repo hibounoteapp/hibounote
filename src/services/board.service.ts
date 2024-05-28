@@ -119,14 +119,10 @@ export class BoardService {
     if(!(event.target instanceof Element)) return
     this.disablePanzoom()
 
-    if(element) {
-      if(element != nodeService.activeNode) nodeService.clearActiveNote(renderer)
-      if(!element.classList.contains('activeNode')) renderer.addClass(element,'activeNode')
-      nodeService.activeNode = element;
-    }
+
   }
 
-  pointerDownConnection = (event: PointerEvent) => { //? Handling click event in connection
+  pointerDownConnection = (event: PointerEvent, nodeService: NodeService, renderer: Renderer2) => { //? Handling click event in connection
     if(!(event.target instanceof Element)) return
     this.disablePanzoom()
   }
@@ -147,10 +143,8 @@ export class BoardService {
     const nodeContainer: Element | null = this.findParentByClass(abstractElement,'nodeContainer');
     const linkActionContainer: Element | null = this.findParentByClass(abstractElement,'linkAction');
 
-    
-
-    if(abstractElement.tagName=='circle' || linkActionContainer){
-      this.pointerDownConnection(event)
+    if(abstractElement.tagName=='circle' || linkActionContainer || abstractElement.classList.contains('jtk-connector')){
+      this.pointerDownConnection(event, nodeService, renderer)
       return
     }
 
@@ -160,6 +154,7 @@ export class BoardService {
     }
 
     nodeService.clearActiveNote(renderer);
+    nodeService.clearActiveConnection();
   }
 
   pointerUp = (event: Event) => {
@@ -167,8 +162,41 @@ export class BoardService {
     this.translation = this.panzoom.getPan()
   }
 
+  pointerUpBoard = (event: PointerEvent, nodeService: NodeService, renderer: Renderer2) => {
+    const abstractElement: Element = renderer.selectRootElement(event.target,true)
+    const nodeContainer: Element | null = this.findParentByClass(abstractElement,'nodeContainer');
+    const linkActionContainer: Element | null = this.findParentByClass(abstractElement,'linkAction');
+
+    if(abstractElement.tagName=='circle' || linkActionContainer || abstractElement.classList.contains('jtk-connector')){
+      this.pointerDownConnection(event, nodeService, renderer)
+      nodeService.clearActiveNote(renderer);
+      return
+    }
+
+    if(nodeContainer) {
+      nodeService.setActiveNote(nodeContainer, renderer);
+      nodeService.clearActiveConnection();
+      return
+    }
+
+    nodeService.clearActiveNote(renderer);
+    nodeService.clearActiveConnection();
+  }
+
   bindJsPlumbEvents = (nodeService: NodeService, renderer:Renderer2) => {
+
+    this.instance.bind(jsplumb.EVENT_ENDPOINT_CLICK, (endpoint: jsplumb.Endpoint) => {
+      const connection = endpoint.connections[0]
+      nodeService.activeConnection = connection;
+    })
+
+    this.instance.bind(jsplumb.EVENT_DRAG_START, (drag: jsplumb.DragMovePayload) => {
+      nodeService.setActiveNote(drag.el,renderer)
+      nodeService.clearActiveConnection()
+    })
+
     this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
+      console.log(element)
       const abstractElement = renderer.selectRootElement(element,true)
       let targetElement = this.findParentByClass(abstractElement,'resizeButton');
       if(targetElement) {
@@ -226,6 +254,20 @@ export class BoardService {
   }
 
   connectorsConfiguration = () => {
+
+    this.instance.registerConnectionType('active',{
+      paintStyle: {
+        stroke: '#f0f0fe'
+      },
+      endpoint: {
+        type: 'Rectangle',
+        options: {
+          cssClass: 'activeConnection',
+        }
+      }
+
+    })
+
     this.instance.addSourceSelector('.linkAction',{
       anchor: 'Continuous',
       endpoint: "Dot",
