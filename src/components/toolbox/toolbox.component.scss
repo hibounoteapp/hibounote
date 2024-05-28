@@ -2,7 +2,7 @@ div#toolbox {
   @apply w-20 h-full bg-slate-100 shadow-xl absolute flex flex-col justify-center items-center z-10;
 }
 
-#editNode {
+.edit {
   @apply flex flex-col;
 
   button:not(:last-child) {

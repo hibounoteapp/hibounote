@@ -3,7 +3,7 @@ import { BoardService } from './board.service';
 import { NgElement, WithProperties, createCustomElement } from '@angular/elements';
 import { NodeComponent } from '../components/node/node.component';
 import { NodeGroupComponent } from '../components/node-group/node-group.component';
-import { uuid } from '@jsplumb/browser-ui';
+import { Connection, uuid } from '@jsplumb/browser-ui';
 
 
 @Injectable({
@@ -13,7 +13,33 @@ export class NodeService {
   nodes!: ArrayLike<any>
   activeResizeElement: HTMLElement | undefined;
   activeNode: Element | undefined;
+  _activeConnection: Connection | undefined;
 
+  public get activeConnection() : Connection | undefined {
+    return this._activeConnection
+  }
+
+  public set activeConnection(connection: Connection | undefined) {
+    if(!connection) {
+      this._activeConnection = undefined;
+      return
+    }
+
+    if(this._activeConnection) this.clearActiveConnection();
+    connection.endpointStyle.stroke = '#dd0000';
+    connection.endpointStyle.strokeWidth = 2;
+    this.boardService.instance.repaintEverything();
+    this._activeConnection = connection;
+  }
+
+  clearActiveConnection() {
+    if(this.activeConnection) {
+      this.activeConnection.endpointStyle.strokeWidth = 0;
+      this.activeConnection.endpointStyle.stroke = this.activeConnection.endpointStyle.fill;
+      this.activeConnection = undefined
+      this.boardService.instance.repaintEverything();
+    }
+  }
 
   constructor(
     private boardService: BoardService,
@@ -38,9 +64,12 @@ export class NodeService {
   }
 
   resizeElement(event: MouseEvent, renderer: Renderer2) {
+
     let mouseX = event.clientX
     let mouseY = event.clientY
     const abstractElement: HTMLElement = renderer.selectRootElement(this.boardService.activeResizeElement, true)
+
+    this.setActiveNote(abstractElement, renderer);
 
     mouseX = mouseX/this.boardService.zoomScale
     mouseY = mouseY/this.boardService.zoomScale
@@ -100,6 +129,7 @@ export class NodeService {
     this.applicationRef.attachView(nodeComponentRef.hostView)
 
     this.clearActiveNote(renderer)
+    this.clearActiveConnection();
     this.setActiveNote(node, renderer)
 
     const container = renderer.selectRootElement('#main',true)
@@ -122,6 +152,23 @@ export class NodeService {
   editNode(attribute: string, node: Element, renderer: Renderer2, value: string) {
     console.log('editing node')
     renderer.setStyle(node,attribute,value)
+  }
+
+  editConnection(value: string) {
+    if(!this.activeConnection) return;
+    this.activeConnection.setPaintStyle({
+      stroke: value,
+      strokeWidth: 3
+    })
+
+    this.activeConnection.setHoverPaintStyle({
+      stroke: value,
+      strokeWidth: 3
+    })
+
+    this.activeConnection.endpointStyle.fill = value;
+
+    this.boardService.instance.repaintEverything()
   }
 
   deleteNode(node: Element, renderer: Renderer2) {
@@ -160,5 +207,7 @@ export class NodeService {
         this.activeNode = undefined;
     }
   }
+
+
 
 }
