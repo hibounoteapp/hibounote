@@ -66,6 +66,8 @@ export class NavbarComponent {
           })
         }
       }
+
+      board.zoomScale = this.boardService.panzoom.getScale();
     }
 
 

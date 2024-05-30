@@ -87,13 +87,14 @@ export class BoardComponent implements AfterViewInit, OnInit{
     const activeBoard = boardData.getData(id)
 
     if(activeBoard) {
+
       if(activeBoard.elements) {
         activeBoard.elements.forEach((e: {
           element: HTMLElement,
           id: string | null
         }) => {
-          const x = Number(e.element.style.left.replace(/[a-z]/g,''));
-          const y = Number(e.element.style.top.replace(/[a-z]/g,''));
+          const x = Number(e.element.style.left.replace(/[a-z]/g,'')) * activeBoard.zoomScale;
+          const y = Number(e.element.style.top.replace(/[a-z]/g,'')) * activeBoard.zoomScale;
           const width = Number(e.element.style.width.replace(/[a-z]/g,''));
           const height = Number(e.element.style.height.replace(/[a-z]/g,''));
           const color = e.element.style.backgroundColor;
@@ -149,8 +150,6 @@ export class BoardComponent implements AfterViewInit, OnInit{
             return this.boardService.instance.getManagedElement(child.id??'')
           })
 
-
-
           children.forEach((c:HTMLElement)=>{
             if(group.el instanceof HTMLElement) {
               const top = Number(c.style.top.replace(/[a-z]/g,'')) + Number(group.el.style.top.replace(/[a-z]/g,''));
@@ -165,70 +164,13 @@ export class BoardComponent implements AfterViewInit, OnInit{
         })
 
       }
-      //   if(activeBoard.elements) {
-      //     activeBoard.elements.forEach((element: HTMLElement)=>{;
-      //       console.log(activeBoard.elements.length)
-      //       const x = Number(element.style.left.replace(/[a-z]/g,''));
-      //       const y = Number(element.style.top.replace(/[a-z]/g,''));
-      //       const width = Number(element.style.width.replace(/[a-z]/g,''));
-      //       const height = Number(element.style.height.replace(/[a-z]/g,''));
-      //       const color = element.style.backgroundColor;
-      //       const innerText = element.querySelector('textarea')?.value ?? null;
-      //       const type = element.classList.contains('nodeGroup') ? 'group' : 'node'
-      //       const nodeId = element.getAttribute('data-jtk-managed');
 
-      //       nodeService.loadNode(x,y,width,height,color,innerText,type,renderer,nodeId)
-      //     })
-      //     resolve('ok')
-      //   }
-      // }).then(()=>{
-      //   if(activeBoard.connetions) {
+      const scale = activeBoard.zoomScale;
+      this.boardService.zoomScale = scale
+      this.boardService.panzoom.zoom(scale);
+      this.boardService.instance.setZoom(scale);
+      this.boardService.translation = this.boardService.panzoom.getPan()
 
-      //     activeBoard.elements.forEach((e)=>{
-      //       console.log(e.getAttribute('data-jtk-managed'))
-      //       if(e.classList.contains('nodeGroup')) console.log('GROUP:',e.getAttribute('data-jtk-managed'));
-      //     })
-
-      //     console.log(this.boardService.instance.getManagedElements())
-
-      //     if(activeBoard.connetions instanceof Array) {
-      //       activeBoard.connetions.forEach((e: Connection)=>{
-
-      //         let source;
-      //         try { //? Check if source element is a group, since the group Id and Element Id are different
-      //           source = this.boardService.instance.getGroup(e.sourceId).el;
-      //         } catch (error) {
-      //           source = this.boardService.instance.getManagedElement(e.sourceId);
-      //         }
-
-      //         let target
-      //         try {//?
-      //           target = this.boardService.instance.getGroup(e.targetId).el;
-      //         } catch (error) {
-      //           target = this.boardService.instance.getManagedElement(e.targetId);
-      //         }
-
-      //         const paintStyle = e.paintStyle;
-      //         const hoverPaintStyle = e.hoverPaintStyle
-      //         const endpointStyle = e.endpointStyle
-
-      //         this.boardService.instance.connect({
-      //           anchor: 'Continuous',
-      //           connector: 'Bezier',
-      //           source,
-      //           target,
-      //           paintStyle,
-      //           hoverPaintStyle,
-      //           endpointStyle,
-      //         })
-      //       })
-      //     }
-
-      //   }
-
-      // })
-
-      // checkElements;
     }
   }
 

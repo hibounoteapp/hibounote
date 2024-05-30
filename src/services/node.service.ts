@@ -3,7 +3,7 @@ import { BoardService } from './board.service';
 import { NgElement, WithProperties, createCustomElement } from '@angular/elements';
 import { NodeComponent } from '../components/node/node.component';
 import { NodeGroupComponent } from '../components/node-group/node-group.component';
-import { Connection, uuid } from '@jsplumb/browser-ui';
+import { Connection, UIGroup, uuid } from '@jsplumb/browser-ui';
 
 
 @Injectable({
@@ -233,27 +233,22 @@ export class NodeService {
   deleteNode(node: Element, renderer: Renderer2) {
     const container = renderer.selectRootElement('#main',true)
 
-    // const group = (element: Element | null)=>{
-    //   try {
-    //     const id = this.boardService.instance.getId(element);
-    //     console.log(this.boardService.instance.getManagedElement(id));
-    //     return null
-    //   } catch (error) {
-    //     return ''
-    //   }
-    // }
-    // console.log(group(node))
+    const checkGroup = (element: Element | null): UIGroup | undefined=>{
+      const id = this.boardService.instance.getId(element)
+      const group = this.boardService.instance.groupManager.getGroups().find(g => g.elId === id);
+      return group
+    }
 
-    // if(group(node) != '') { //? If it is a group
-    //   this.boardService.instance.removeGroup(group(node));
-    // }
+    if(checkGroup(node)) { //? If it is a group
+      this.boardService.instance.removeGroup(checkGroup(node) ?? '');
+    }
 
-    // if(group(node.parentElement) != '') { //? If inside a group
-    //   this.boardService.instance.removeFromGroup(group(node.parentElement),node);
-    // }
+    if(checkGroup(node.parentElement)) { //? If inside a group
+      this.boardService.instance.removeFromGroup(checkGroup(node.parentElement) ?? '',node);
+    }
 
-    this.boardService.instance.deleteConnectionsForElement(node)
     this.boardService.instance.unmanage(node);
+    this.boardService.instance.deleteConnectionsForElement(node)
     renderer.removeChild(node.parentElement,node);
   }
 

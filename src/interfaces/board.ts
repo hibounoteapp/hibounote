@@ -10,5 +10,6 @@ export interface Board {
   groups: {
     groupId: string | null,
     children: {id: string | null}[]
-  }[]
+  }[],
+  zoomScale: number,
 }

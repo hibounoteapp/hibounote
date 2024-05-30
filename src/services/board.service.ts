@@ -18,7 +18,7 @@ export class BoardService {
     x: number,
     y: number
   }
-  zoomScale: number = 1
+  zoomScale: number = 1;
   droppable: boolean = false;
   draggable: boolean = true;
   contextMenu!: {
@@ -76,10 +76,13 @@ export class BoardService {
     if(!event.shiftKey) return
 
     this.panzoom.zoomWithWheel(event)
+
+    //* Make a function in this section since it's also used to set initial config
     const scale = this.panzoom.getScale()
     this.zoomScale = scale
     this.instance.setZoom(scale)
     this.translation = this.panzoom.getPan()
+    //*
   }
 
   resetPan = () => {
@@ -314,6 +317,7 @@ export class BoardService {
     const jsInstance = jsplumb.newInstance({
       container: abstractElement.nativeElement,
       elementsDraggable: true,
+      allowNestedGroups: false,
     });
     this.instance = jsInstance;
 

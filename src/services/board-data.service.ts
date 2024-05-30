@@ -30,7 +30,8 @@ export class BoardDataService implements OnInit{
       id: uuid(),
       connetions: [],
       elements: [],
-      groups: []
+      groups: [],
+      zoomScale: 1,
     })
 
   }
