@@ -1,13 +1,10 @@
-<nav class="absolute w-full bg-slate-100 p-1 flex flex-row justify-end z-10 shadow">
-  <a class="bg-blue-300 px-2 py-1 rounded" [routerLink]="['/account']">
-    Account
+<nav class="absolute w-full bg-slate-100 p-2 flex flex-row justify-end z-10 shadow">
+  <a class="shadow me-4 px-2 py-1 rounded flex items-center justify-center" [routerLink]="['/account']">
+    <mat-icon svgIcon="person"></mat-icon>
   </a>
 
-  <button (click)="saveData()" class="bg-teal-300 rounded">
-    Save info
+  <button (click)="saveData()" class="shadow px-2 py-1 rounded flex justify-center items-center">
+    <mat-icon svgIcon="save"></mat-icon>
   </button>
 
-  <button (click)="getData()" class="bg-violet-300 rounded">
-    Retrieve info
-  </button>
 </nav>

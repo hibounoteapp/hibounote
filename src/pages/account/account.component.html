@@ -1,10 +1,15 @@
-<h1>Your boards</h1>
-<button class=" bg-blue-300 rounded p-2" (click)="createBoard()">
- Create Board
-</button>
-<div *ngFor="let item of boardData.boards">
-  <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="bg-red-300 rounded w-24">
-    {{item.id}}
-  </a>
+<div class="p-2 m-auto flex justify-center items-center">
+  <div class="shadow p-2 flex items-center flex-col">
+    <h1 class="text-xl font-bold">Your boards</h1>
+    <button class=" bg-stone-100 shadow rounded p-2 flex flex-row items-center justify-between" (click)="createBoard()">
+      <mat-icon svgIcon="addCircle"></mat-icon>
+      <p class="ms-2">Create Board</p>
+    </button>
+    <div *ngFor="let item of boardData.boards" class="my-2">
+      <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="bg-red-100 p-2  rounded w-24">
+        {{item.id}}
+      </a>
+    </div>
+  </div>
 </div>
 

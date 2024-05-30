@@ -1,5 +1,7 @@
 div#toolbox {
-  @apply w-20 h-full bg-slate-100 shadow-xl absolute flex flex-col justify-center items-center z-10;
+  @apply w-20 h-[500px] rounded-r bg-slate-100 shadow-xl absolute flex flex-col justify-center items-center z-10;
+  top: 50%;
+  transform: translate(0,-50%)
 }
 
 .edit {

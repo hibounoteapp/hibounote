@@ -3,11 +3,14 @@ import { BoardService } from '../../services/board.service';
 import { ManagedElement, UINode } from '@jsplumb/browser-ui';
 import { BoardDataService } from '../../services/board-data.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { IconService } from '../../services/icon.service';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'navbar-component',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, MatIconModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -17,9 +20,12 @@ export class NavbarComponent {
     public boardService: BoardService,
     public boardData: BoardDataService,
     public activeRoute: ActivatedRoute,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private iconService: IconService,
+    private iconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
   ) {
-
+    iconService.registerIcons(iconRegistry, domSanitizer);
   }
 
   saveData() {

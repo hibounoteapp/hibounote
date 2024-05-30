@@ -9,6 +9,18 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class IconService {
   source: Icon[] = [
     {
+      name: 'save',
+      url: '../assets/save-outline.svg'
+    },
+    {
+      name: 'person',
+      url: '../assets/person-outline.svg'
+    },
+    {
+      name: 'addCircle',
+      url: '../assets/add-circle-outline.svg'
+    },
+    {
       name: 'resize',
       url: '../assets/resize-outline.svg'
     },
