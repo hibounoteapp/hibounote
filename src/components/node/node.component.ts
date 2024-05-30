@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -8,6 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './node.component.html',
   styleUrl: './node.component.scss'
 })
-export class NodeComponent{
+export class NodeComponent implements AfterViewInit{
+  @Input() innerTextarea: string| null = null;
 
+  ngAfterViewInit(): void {
+  }
 }

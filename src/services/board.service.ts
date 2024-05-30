@@ -4,6 +4,8 @@ import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 import { NodeService } from './node.service';
 import { createCustomElement } from '@angular/elements';
 import { NodeComponent } from '../components/node/node.component';
+import { ActivatedRoute } from '@angular/router';
+import { BoardDataService } from './board-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,9 @@ export class BoardService {
   }
   appRenderer!: Renderer2;
 
-  constructor() {
+  constructor(
+    protected activeRoute: ActivatedRoute
+  ) {
     this.contextMenu = {
       show: false,
       x: 0,
@@ -110,7 +114,7 @@ export class BoardService {
     if(event.dataTransfer?.dropEffect) {
       event.dataTransfer.dropEffect = 'move';
       if(event.target instanceof Element) {
-        nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), this.appRenderer)
+        nodeService.createNode(event.x, event.y,null,null,null,null, event.dataTransfer.getData('text'), this.appRenderer)
       }
     }
   }
@@ -196,7 +200,7 @@ export class BoardService {
     })
 
     this.instance.bind(jsplumb.EVENT_ELEMENT_MOUSE_DOWN, (element:Element) =>{
-      console.log(element)
+
       const abstractElement = renderer.selectRootElement(element,true)
       let targetElement = this.findParentByClass(abstractElement,'resizeButton');
       if(targetElement) {
@@ -296,7 +300,7 @@ export class BoardService {
     })
   }
 
-  init = (container: ElementRef, nodeService: NodeService, renderer: Renderer2) => {
+  init = (container: ElementRef, nodeService: NodeService, boardData: BoardDataService, renderer: Renderer2) => {
 
     const abstractElement = renderer.selectRootElement(container)
     this.panzoom = Panzoom(abstractElement.nativeElement, {

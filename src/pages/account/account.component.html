@@ -1,0 +1,10 @@
+<h1>Your boards</h1>
+<button class=" bg-blue-300 rounded p-2" (click)="createBoard()">
+ Create Board
+</button>
+<div *ngFor="let item of boardData.boards">
+  <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="bg-red-300 rounded w-24">
+    {{item.id}}
+  </a>
+</div>
+

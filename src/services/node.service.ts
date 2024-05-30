@@ -97,17 +97,21 @@ export class NodeService {
     renderer.setStyle(abstractElement,'height',`${calcSize.height}px`)
   }
 
-  createNode(x: number, y: number, type: string, renderer: Renderer2) {
+  createNode(x: number, y: number, width: number | null, height: number | null, color: string | null, innerText: string | null, type: string, renderer: Renderer2) {
     let node;
     let nodeComponent;
     switch (type) {
       case 'group':
-        node = renderer.createElement('node-group-component');
+        node = renderer.createElement('node-group-component') as NgElement & WithProperties<{
+          innerTextarea: string | null
+        }>;
         nodeComponent = NodeGroupComponent
         break;
 
       default:
-        node = renderer.createElement('node-component');
+        node = renderer.createElement('node-component')  as NgElement & WithProperties<{
+          innerTextarea: string | null
+        }>;;
         nodeComponent = NodeComponent
         break;
     }
@@ -125,6 +129,10 @@ export class NodeService {
     renderer.setStyle(node,'position','absolute')
     renderer.setStyle(node,'top',`${top}px`)
     renderer.setStyle(node,'left',`${left}px`)
+    if(width) renderer.setStyle(node,'width',`${width}px`);
+    if(height) renderer.setStyle(node,'height',`${height}px`);
+    if(color) renderer.setStyle(node,'backgroundColor',`${color}`);
+    if(innerText) node.innerTextarea = innerText;
 
     this.applicationRef.attachView(nodeComponentRef.hostView)
 
@@ -138,7 +146,6 @@ export class NodeService {
 
     if(type == 'group') {//? Check if node type is group node
       this.boardService.instance.addGroup({
-        id: uuid(),
         el: node,
         droppable: true,
         orphan: true,
@@ -149,8 +156,60 @@ export class NodeService {
     return node
   }
 
+  loadNode(x: number, y: number, width: number | null, height: number | null, color: string | null, innerText: string | null, type: string, renderer: Renderer2, nodeId: string | null) {
+    let node;
+    let nodeComponent;
+    switch (type) {
+      case 'group':
+        node = renderer.createElement('node-group-component') as NgElement & WithProperties<NodeGroupComponent>;
+        nodeComponent = NodeGroupComponent
+        break;
+
+      default:
+        node = renderer.createElement('node-component')  as NgElement & WithProperties<NodeComponent>;;
+        nodeComponent = NodeComponent
+        break;
+    }
+    const nodeComponentRef = createComponent(nodeComponent, {
+      environmentInjector: this.injector,
+      hostElement: node
+    })
+
+    let top = (y/this.boardService.zoomScale)-this.boardService.translation.y
+    let left = (x/this.boardService.zoomScale)-this.boardService.translation.x
+
+    renderer.addClass(node,'nodeContainer')
+    renderer.addClass(node,'node')
+    if(type == 'group') renderer.addClass(node,'nodeGroup')
+    renderer.setStyle(node,'position','absolute')
+    renderer.setStyle(node,'top',`${top}px`)
+    renderer.setStyle(node,'left',`${left}px`)
+    if(width) renderer.setStyle(node,'width',`${width}px`);
+    if(height) renderer.setStyle(node,'height',`${height}px`);
+    if(color) renderer.setStyle(node,'backgroundColor',`${color}`);
+    if(innerText) nodeComponentRef.instance.innerTextarea = innerText
+
+    this.applicationRef.attachView(nodeComponentRef.hostView)
+
+    const container = renderer.selectRootElement('#main',true)
+    renderer.appendChild(container, node)
+    this.boardService.enablePanzoom()
+
+    const id = nodeId ?? undefined
+    if(type == 'group') {//? Check if node type is group node
+      this.boardService.instance.addGroup({
+        id,
+        el: node,
+        droppable: true,
+        orphan: true,
+      })
+    }
+
+    this.boardService.instance.manage(node,id)
+    return node
+  }
+
   editNode(attribute: string, node: Element, renderer: Renderer2, value: string) {
-    console.log('editing node')
     renderer.setStyle(node,attribute,value)
   }
 
@@ -173,7 +232,28 @@ export class NodeService {
 
   deleteNode(node: Element, renderer: Renderer2) {
     const container = renderer.selectRootElement('#main',true)
+
+    // const group = (element: Element | null)=>{
+    //   try {
+    //     const id = this.boardService.instance.getId(element);
+    //     console.log(this.boardService.instance.getManagedElement(id));
+    //     return null
+    //   } catch (error) {
+    //     return ''
+    //   }
+    // }
+    // console.log(group(node))
+
+    // if(group(node) != '') { //? If it is a group
+    //   this.boardService.instance.removeGroup(group(node));
+    // }
+
+    // if(group(node.parentElement) != '') { //? If inside a group
+    //   this.boardService.instance.removeFromGroup(group(node.parentElement),node);
+    // }
+
     this.boardService.instance.deleteConnectionsForElement(node)
+    this.boardService.instance.unmanage(node);
     renderer.removeChild(node.parentElement,node);
   }
 

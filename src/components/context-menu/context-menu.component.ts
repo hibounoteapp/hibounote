@@ -3,7 +3,7 @@ import { NodeService } from '../../services/node.service';
 import { BoardService } from '../../services/board.service';
 
 @Component({
-  selector: 'app-context-menu',
+  selector: 'context-menu-component',
   standalone: true,
   imports: [],
   templateUrl: './context-menu.component.html',
@@ -25,7 +25,7 @@ export class ContextMenuComponent{
   newNode(type: string) {
     const x = this.boardService.contextMenu.x
     const y = this.boardService.contextMenu.y
-    this.nodeService.createNode(x,y,type, this.renderer)
+    this.nodeService.createNode(x,y,null,null,null,null,type, this.renderer)
     this.boardService.contextMenu.show=false;
   }
 
