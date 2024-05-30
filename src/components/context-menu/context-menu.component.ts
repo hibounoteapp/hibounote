@@ -11,7 +11,7 @@ import { BoardService } from '../../services/board.service';
 })
 export class ContextMenuComponent{
   @Input() show: boolean = false;
-  @ViewChildren('cmButtons') buttons!: QueryList<ElementRef>;
+  @Input() target!: Element;
 
 
   constructor(
@@ -25,14 +25,14 @@ export class ContextMenuComponent{
   newNode(type: string) {
     const x = this.boardService.contextMenu.x
     const y = this.boardService.contextMenu.y
-    this.nodeService.createNode(x,y,null,null,null,null,type, this.renderer)
+    this.nodeService.createNode(x,y,type, this.renderer,false)
     this.boardService.contextMenu.show=false;
   }
 
   deleteNode() {
     if(!this.nodeService.activeNode)return
 
-    this.nodeService.deleteNode(this.nodeService.activeNode,this.renderer);
+    this.nodeService.deleteNode(this.nodeService.activeNode,this.renderer,this.nodeService);
     this.boardService.contextMenu.show=false;
   }
 }

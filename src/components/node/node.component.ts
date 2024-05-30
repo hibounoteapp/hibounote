@@ -8,9 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './node.component.html',
   styleUrl: './node.component.scss'
 })
-export class NodeComponent implements AfterViewInit{
+export class NodeComponent{
   @Input() innerTextarea: string| null = null;
 
-  ngAfterViewInit(): void {
+  log(msg: string) {
+    console.log(msg)
   }
 }

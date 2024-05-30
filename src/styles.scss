@@ -98,6 +98,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 }
 
+.labelConnection {
+  @apply bg-slate-100 rounded shadow py-2 px-1 outline-none text-center min-w-20 max-w-60;
+}
+
 .nodeGroup {
   @apply max-h-[2000px] max-w-[2000px];
 }

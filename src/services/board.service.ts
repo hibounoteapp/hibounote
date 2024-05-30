@@ -24,7 +24,7 @@ export class BoardService {
   contextMenu!: {
     show: boolean;
     x: number,
-    y: number
+    y: number,
   }
   appRenderer!: Renderer2;
 
@@ -34,7 +34,7 @@ export class BoardService {
     this.contextMenu = {
       show: false,
       x: 0,
-      y: 0
+      y: 0,
     }
 
    }
@@ -117,7 +117,8 @@ export class BoardService {
     if(event.dataTransfer?.dropEffect) {
       event.dataTransfer.dropEffect = 'move';
       if(event.target instanceof Element) {
-        nodeService.createNode(event.x, event.y,null,null,null,null, event.dataTransfer.getData('text'), this.appRenderer)
+        console.log(event.target)
+        nodeService.createNode(event.x, event.y, event.dataTransfer.getData('text'), this.appRenderer,false)
       }
     }
   }
@@ -150,7 +151,14 @@ export class BoardService {
     const nodeContainer: Element | null = this.findParentByClass(abstractElement,'nodeContainer');
     const linkActionContainer: Element | null = this.findParentByClass(abstractElement,'linkAction');
 
-    if(abstractElement.tagName=='circle' || linkActionContainer || abstractElement.classList.contains('jtk-connector')){
+    console.log(abstractElement.tagName)
+
+    if(abstractElement.tagName === 'INPUT') {
+      this.disablePanzoom()
+      return
+    }
+
+    if(abstractElement.tagName==='circle' || linkActionContainer || abstractElement.classList.contains('jtk-connector')){
       this.pointerDownConnection(event, nodeService, renderer)
       return
     }
@@ -159,6 +167,8 @@ export class BoardService {
       this.pointerDownNode(event,nodeContainer,nodeService,renderer);
       return
     }
+
+
 
     nodeService.clearActiveNote(renderer);
     nodeService.clearActiveConnection();

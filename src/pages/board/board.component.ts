@@ -13,7 +13,7 @@ import { BoardService } from '../../services/board.service';
 import { IconService } from '../../services/icon.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BoardDataService } from '../../services/board-data.service';
-import { Connection, StraightConnector } from '@jsplumb/browser-ui';
+import { Connection, CustomOverlay, Overlay, OverlaySpec, StraightConnector } from '@jsplumb/browser-ui';
 
 @Component({ selector: 'board',
     standalone: true,
@@ -68,7 +68,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
     onKeyDown(event: KeyboardEvent) {
       if(event.key === 'Delete' && this.nodeService.activeNode) {
         const activeNode = this.nodeService.activeNode
-        this.nodeService.deleteNode(activeNode,this.renderer)
+        this.nodeService.deleteNode(activeNode,this.renderer,this.nodeService)
       }
     }
 
@@ -129,6 +129,33 @@ export class BoardComponent implements AfterViewInit, OnInit{
             const hoverPaintStyle = e.hoverPaintStyle
             const endpointStyle = e.endpointStyle
 
+            type CustomOverlay2 <T> = Partial<T> & {
+              canvas?: HTMLInputElement
+            };//? For some reason, JsPlumb 'CustomOverlay' base type don't have the reference for 'canvas', which is necessary to get internal information about the overlay
+            let overlays = e.overlays;
+            let overlaysToAdd:OverlaySpec[]=[];
+            for (const key in overlays) {
+              const element: CustomOverlay2<Overlay> = overlays[key];
+              const inputValue = element.canvas?.value;
+              let overlayConfig: OverlaySpec;
+              if(inputValue) {
+                overlayConfig = {
+                  type: 'Custom',
+                  options: {
+                    create: ()=>{
+                      const label: HTMLInputElement = renderer.createElement('input');
+                      label.value = inputValue;
+                      renderer.setAttribute(label, 'class', 'labelConnection');
+                      renderer.setAttribute(label,'type','text');
+                      return label;
+                    },
+                    location: 0.5,
+                  }
+                }
+                overlaysToAdd.push(overlayConfig);
+              }
+            }
+
             this.boardService.instance.connect({
               anchor: 'Continuous',
               connector: 'Bezier',
@@ -137,6 +164,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
               paintStyle,
               hoverPaintStyle,
               endpointStyle,
+              overlays: overlaysToAdd,
             })
           })
         }
@@ -212,6 +240,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
 
       this.boardService.contextMenu.x = event.clientX
       this.boardService.contextMenu.y = event.clientY
+      if(!(event.target instanceof Element)) return;
 
     })
   }

@@ -30,6 +30,7 @@ export class NavbarComponent {
 
   saveData() {
     const elements = this.boardService.instance.getManagedElements()
+    
 
     const connections = this.boardService.instance.getConnections({
       scope: '*',

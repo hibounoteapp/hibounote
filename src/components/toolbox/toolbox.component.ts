@@ -40,6 +40,10 @@ export class ToolboxComponent implements AfterViewInit {
     this.nodeService.editConnection(value)
   }
 
+  toggleLabelConnection() {
+    this.nodeService.toggleLabelConnection(this.renderer);
+  }
+
   ngAfterViewInit(): void {
 
     this.renderer.listen(this.toolboxContainer.nativeElement,

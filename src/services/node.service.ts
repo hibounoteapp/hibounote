@@ -97,7 +97,7 @@ export class NodeService {
     renderer.setStyle(abstractElement,'height',`${calcSize.height}px`)
   }
 
-  createNode(x: number, y: number, width: number | null, height: number | null, color: string | null, innerText: string | null, type: string, renderer: Renderer2) {
+  createNode(x: number, y: number, type: string, renderer: Renderer2, insideGroup: boolean) {
     let node;
     let nodeComponent;
     switch (type) {
@@ -129,10 +129,6 @@ export class NodeService {
     renderer.setStyle(node,'position','absolute')
     renderer.setStyle(node,'top',`${top}px`)
     renderer.setStyle(node,'left',`${left}px`)
-    if(width) renderer.setStyle(node,'width',`${width}px`);
-    if(height) renderer.setStyle(node,'height',`${height}px`);
-    if(color) renderer.setStyle(node,'backgroundColor',`${color}`);
-    if(innerText) node.innerTextarea = innerText;
 
     this.applicationRef.attachView(nodeComponentRef.hostView)
 
@@ -230,7 +226,30 @@ export class NodeService {
     this.boardService.instance.repaintEverything()
   }
 
-  deleteNode(node: Element, renderer: Renderer2) {
+  toggleLabelConnection(renderer: Renderer2) {
+    if(!this.activeConnection) return;
+    console.log(this.activeConnection.getOverlays());
+    if(Object.keys(this.activeConnection.getOverlays()).length !== 0 ){ //? Check if there are some overlay in the connection
+      this.activeConnection.removeAllOverlays();
+
+      return;
+    }
+    this.activeConnection.addOverlay({
+      type:'Custom',
+      options: {
+        create: ()=>{
+          const label: HTMLInputElement = renderer.createElement('input');
+          renderer.setAttribute(label, 'class', 'labelConnection');
+          renderer.setAttribute(label,'type','text');
+          return label;
+        },
+        location: 0.5,
+      }
+    })
+    this.boardService.instance.repaintEverything();
+  }
+
+  deleteNode(node: Element, renderer: Renderer2, nodeService: NodeService) {
     const container = renderer.selectRootElement('#main',true)
 
     const checkGroup = (element: Element | null): UIGroup | undefined=>{
@@ -249,6 +268,8 @@ export class NodeService {
 
     this.boardService.instance.unmanage(node);
     this.boardService.instance.deleteConnectionsForElement(node)
+    nodeService.clearActiveConnection();
+    nodeService.clearActiveNote(renderer);
     renderer.removeChild(node.parentElement,node);
   }
 
