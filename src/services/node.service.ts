@@ -303,7 +303,4 @@ export class NodeService {
         this.activeNode = undefined;
     }
   }
-
-
-
 }

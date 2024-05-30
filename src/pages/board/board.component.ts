@@ -87,6 +87,11 @@ export class BoardComponent implements AfterViewInit, OnInit{
     const activeBoard = boardData.getData(id)
 
     if(activeBoard) {
+      const scale = activeBoard.zoomScale;
+      this.boardService.zoomScale = scale
+      this.boardService.panzoom.zoom(scale);
+      this.boardService.instance.setZoom(scale);
+      this.boardService.translation = this.boardService.panzoom.getPan()
 
       if(activeBoard.elements) {
         activeBoard.elements.forEach((e: {
@@ -192,13 +197,6 @@ export class BoardComponent implements AfterViewInit, OnInit{
         })
 
       }
-
-      const scale = activeBoard.zoomScale;
-      this.boardService.zoomScale = scale
-      this.boardService.panzoom.zoom(scale);
-      this.boardService.instance.setZoom(scale);
-      this.boardService.translation = this.boardService.panzoom.getPan()
-
     }
   }
 
@@ -259,9 +257,9 @@ export class BoardComponent implements AfterViewInit, OnInit{
     }
 
   ngOnInit(): void {
-    this.nodeService.clearActiveConnection()
-    this.nodeService.clearActiveNote(this.renderer)
-
+    this.nodeService.clearActiveConnection();
+    this.nodeService.clearActiveNote(this.renderer);
+    this.boardService.resetZoom();
   }
 
   ngAfterViewInit(): void {

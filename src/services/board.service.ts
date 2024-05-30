@@ -85,6 +85,13 @@ export class BoardService {
     //*
   }
 
+  resetZoom = () => {
+    this.zoomScale = 1
+    this.panzoom.zoom(1)
+    this.instance.setZoom(1)
+    this.translation = this.panzoom.getPan()
+  }
+
   resetPan = () => {
     this.panzoom.pan(0,0,{
       animate: true,
