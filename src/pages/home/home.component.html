@@ -1,6 +1,108 @@
-<div class="p-2">
-  <h1 class="text-7xl font-bold">Welcome to MNOS! (Beta)</h1>
-  <!-- <a [routerLink]="['/board']" [queryParams]="{id: '12'}" routerLinkActive="active">Go to Board</a> <br> -->
-  <a [routerLink]="['/account']" routerLinkActive="active" class="bg-red-400 rounded p-1 shadow">Go to Account</a>
+<div class="bg-[#fcfcfc]">
+  <nav class="bg-[#fcfcfc] w-full shadow flex flex-row items-center justify-between px-10 py-4 fixed">
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/']">
+        <img src="../../assets/logoplaceholder.png" alt="icon" class="h-10">
+      </a>
+      <a [routerLink]="['/about']" class="ms-10">
+        About
+      </a>
+    </div>
+    <div>
+      <a [routerLink]="['/login']" class="border-[1px] border-[#3d3d3d] rounded px-8 py-3 me-3">Login</a>
+      <a [routerLink]="['/signup']" class="bg-[#3d3dd3] !text-white px-8 py-3 rounded">Sign up</a>
+    </div>
+  </nav>
+
+  <main>
+  <div class="flex flex-row justify-between items-center h-screen">
+    <div class="ms-16">
+      <h2 class="text-6xl mb-2">The extension for <br> your brain.</h2>
+      <h1 class="text-6xl mb-10">Mindlab.</h1>
+      <a [routerLink]="['/signup']" class="bg-[#3d3dd3] !text-white px-8 py-4 rounded">Sign up for free</a>
+    </div>
+    <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+  </div>
+
+  <div class="bg-[#f3f3f3] flex items-center flex-col py-20">
+    <div class="flex flex-row justify-between items-center text-center pb-20 px-32">
+      <div class="w-1/6">
+        <h3 class="font-bold mb-2 text-lg">Limitless Organization</h3>
+        <p>Create as many boards as you want.</p>
+      </div>
+
+      <div class="w-1/6 ">
+        <h3 class="font-bold mb-2 text-lg">Endless Space for infinite Ideas</h3>
+        <p>Never run out of room for your notes and ideas again.</p>
+      </div>
+
+      <div class="w-1/6">
+        <h3 class="font-bold mb-2 text-lg">Creative Freedom at no Cost</h3>
+        <p>Turn your ideas into reality with limitless space at no cost.</p>
+      </div>
+    </div>
+
+    <img src="https://placehold.co/1366x768?text=Board-iframe" class="w-10/12 self-center shadow rounded">
+  </div>
+
+  <div id="bgBlob">
+    <div class="pt-48 flex flex-row justify-between items-center">
+      <div class="flex flex-row justify-between items-center px-20">
+        <div class="flex flex-col w-1/4">
+          <h3 class="font-bold mb-5 text-2xl ">Organize, Create, Innovate</h3>
+          <p class="text-justify">Completely free and without any limitations, Mindlab is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands.</p>
+        </div>
+
+        <div class="flex flex-col">
+          <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+          <a [routerLink]="['/signup']" class="bg-[#3d3dd3] !text-white px-4 py-2 rounded self-end mt-4">Test</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-48 pb-24 flex flex-col justify-center items-center">
+      <h3 class="text-center font-bold text-3xl mb-10">Creative freedom. No cost</h3>
+
+      <img src="https://placehold.co/1366x768?text=Board-iframe" class="w-10/12 self-center shadow rounded">
+    </div>
+  </div>
+
+  <div class="py-24 bg-[#f3f3f3] flex flex-row justify-between items-center shadow-md">
+      <div class="flex flex-row justify-between items-center px-20">
+        <div class="flex flex-col w-1/4">
+          <h3 class="font-bold mb-5 text-2xl ">Ideas Without Limits</h3>
+          <p class="text-justify">Whether you're brainstorming, planning projects, or jotting down notes, Mindlab provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.</p>
+        </div>
+
+        <div class="flex flex-col">
+          <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+          <a [routerLink]="['/signup']" class="bg-[#3d3dd3] !text-white px-4 py-2 rounded self-end mt-4">Test</a>
+        </div>
+      </div>
+  </div>
+
+  <div class="flex flex-col justify-start pt-36 items-center h-screen" id="layeredWaves">
+    <h3 class="text-center font-bold text-3xl mb-5">Start thinking unlimited</h3>
+    <p class="text-center text-2xl mb-10">Create your account and start to explore</p>
+    <a [routerLink]="['/signup']" class="bg-[#3d3dd3] !text-white px-10 py-2 rounded">Sign up for free</a>
+
+  </div>
+
+  </main>
+
+  <footer class="bg-[#f3f3f3] flex flex-row items-center justify-between py-12 px-12 shadow">
+    <div class="flex flex-row items-center justify-center">
+      <img src="../../assets/logoplaceholder.png" alt="icon" class="h-10">
+      <p class="ms-5">Mindlab</p>
+    </div>
+    <div class="flex flex-row items-center justify-center" id="footer-links-container">
+      <a [routerLink]="['/support']">Support</a>
+      <a [routerLink]="['/support']">Terms of use</a>
+      <a [routerLink]="['/support']">Manage Cookies</a>
+      <a [routerLink]="['/support']">Get Started</a>
+    </div>
+  </footer>
+
+  <!-- <a [routerLink]="['/account']" routerLinkActive="active" class="bg-red-400 rounded p-1 shadow">Go to Account</a> -->
 </div>
 

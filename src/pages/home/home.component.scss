@@ -1,0 +1,25 @@
+* {
+  @apply text-[#3d3d3d];
+
+}
+
+#layeredWaves {
+  background-image: url('../../assets/layered-waves-haikei.svg');
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+#footer-links-container {
+  a {
+    @apply mx-3 underline;
+  }
+}
+
+#bgBlob {
+  background-image: url('../../assets/bg-blob.svg');
+  background-blend-mode: hard-light;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

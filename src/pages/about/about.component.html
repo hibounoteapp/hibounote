@@ -1,1 +1,39 @@
-<p>about works!</p>
+<div>
+  <nav class="bg-[#fcfcfc] w-full shadow flex flex-row items-center justify-between px-10 py-4 fixed">
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/']">
+        <img src="../../assets/logoplaceholder.png" alt="icon" class="h-10">
+      </a>
+      <a [routerLink]="['/about']" class="ms-10">
+        About
+      </a>
+    </div>
+    <div>
+      <a [routerLink]="['/login']" class="border-[1px] border-[#3d3d3d] rounded px-8 py-3">Login</a>
+    </div>
+  </nav>
+
+  <main class="h-screen pt-28 flex flex-col items-center">
+    <h1 class="text-center font-bold text-3xl mb-2">Meet the Developers</h1>
+    <div class="rounded bg-[#f3f3f3] shadow flex flex-row items-center justify-center py-4 px-6">
+      <img src="https://placehold.co/128x128?text=User" alt="dev" class="rounded-full">
+      <div class="flex flex-col justify-start text-start ms-5">
+        <h2 class="font-bold text-2xl">Gustavo Silva</h2>
+        <p>Founder</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-[#f3f3f3] flex flex-row items-center justify-between py-12 px-12 shadow">
+    <div class="flex flex-row items-center justify-center">
+      <img src="../../assets/logoplaceholder.png" alt="icon" class="h-10">
+      <p class="ms-5">Mindlab</p>
+    </div>
+    <div class="flex flex-row items-center justify-center" id="footer-links-container">
+      <a [routerLink]="['/support']">Support</a>
+      <a [routerLink]="['/support']">Terms of use</a>
+      <a [routerLink]="['/support']">Manage Cookies</a>
+      <a [routerLink]="['/support']">Get Started</a>
+    </div>
+  </footer>
+</div>

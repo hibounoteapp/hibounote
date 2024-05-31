@@ -1,1 +1,41 @@
-<p>sign-up works!</p>
+<div>
+  <nav class="bg-[#fcfcfc] w-full shadow flex flex-row items-center justify-between px-10 py-4">
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/']">
+        <img src="../../assets/logoplaceholder.png" alt="icon" class="h-10">
+      </a>
+      <a [routerLink]="['/about']" class="ms-10">
+        About
+      </a>
+    </div>
+    <div>
+      <a [routerLink]="['/login']" class="border-[1px] border-[#3d3d3d] rounded px-8 py-3">Login</a>
+    </div>
+  </nav>
+
+
+  <main class="min-h-screen w-full flex justify-center items-center flex-col" id="bgBlobSingle">
+    <div class="flex flex-col text-center justify-center">
+      <h3 class="text-center font-bold text-3xl mb-5">Start thinking unlimited</h3>
+      <p class="text-center text-2xl mb-10">Create your account and start to explore</p>
+    </div>
+    <div class="border-[1px] border-[#3d3d3d] px-10 py-6 rounded shadow max-w-96">
+      <div class="flex flex-col my-4">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" class="border-[1px] border-[#3d3d3d] p-1">
+      </div>
+      <div class="flex flex-col my-4">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" class="border-[1px] border-[#3d3d3d] p-1">
+      </div>
+      <div class="flex flex-col my-4">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="border-[1px] border-[#3d3d3d] p-1">
+      </div>
+      <input type="submit" value="Sign up" class="bg-[#3d3dd3] mt-4 !text-white px-10 py-2 rounded w-full">
+      <button class="border-[1px] border-[#3d3d3d] mt-4 px-10 py-2 rounded w-full">Sign up with Google</button>
+      <button class="border-[1px] border-[#3d3d3d] mt-4 px-10 py-2 rounded w-full">Sign up with Apple</button>
+    </div>
+
+  </main>
+</div>
