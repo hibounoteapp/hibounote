@@ -1,0 +1,13 @@
+button.templateBoard {
+  @apply w-[30%] h-4/5 bg-[#d3d3d3] rounded shadow;
+}
+
+button#createBlank {
+  @apply bg-[#3d3dd3] flex items-center justify-center;
+}
+
+#footer-links-container {
+  a, button {
+    @apply mx-3 underline;
+  }
+}

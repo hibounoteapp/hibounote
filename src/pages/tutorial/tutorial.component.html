@@ -1,1 +1,56 @@
-<p>tutorial works!</p>
+<div>
+  <nav class="flex flex-row justify-between items-center px-8 py-4">
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/']"><img src="../../assets/logoplaceholder.png" alt="logoMindlab" class="w-10"></a>
+      <aside class="ms-4 font-bold">Mindlab</aside>
+      <a [routerLink]="['/about']" class="ms-10">
+        About
+      </a>
+    </div>
+    <div class="flex flex-row items-center">
+      <a class="w-14" [routerLink]="['/account']" matTooltip="Go to dashboard">
+        <img src="https://placehold.co/128x128?text=User" alt="" class="rounded-full w-full">
+      </a>
+    </div>
+  </nav>
+  <main class="w-1/2 m-auto min-h-screen">
+    <h1 class="font-bold text-4xl mb-4">Know the fundamentals</h1>
+    <div class="bg-[#f3f3f3] rounded shadow py-2 px-4 flex flex-row items-center justify-between">
+      <div>
+        <h2 class="font-bold text-xl mb-2">Panning and Zooming the board</h2>
+        <p>Panning and zoom text</p>
+      </div>
+
+      <img src="https://placehold.co/600x400?text=Hello+World" alt="GifExample" class="h-40 rounded shadow">
+    </div>
+
+    <div class="bg-[#f3f3f3] rounded shadow py-2 px-4 flex flex-row items-center justify-between mt-5">
+      <div>
+        <h2 class="font-bold text-xl mb-2">Panning and Zooming the board</h2>
+        <p>Panning and zoom text</p>
+      </div>
+
+      <img src="https://placehold.co/600x400?text=Hello+World" alt="GifExample" class="h-40 rounded shadow">
+    </div>
+  </main>
+
+  <footer class="bg-[#f3f3f3] flex flex-row items-center justify-between py-12 px-12 shadow">
+    <div class="flex flex-row items-center justify-center">
+      <img src="../../assets/logoplaceholder.png" alt="icon" class="h-10">
+      <p class="ms-5">Mindlab</p>
+    </div>
+    <div class="flex flex-row items-center justify-center" id="footer-links-container">
+      <a [routerLink]="['/support']">Support</a>
+      <a [routerLink]="['/terms']">Terms of use</a>
+      <button>Manage Cookies</button>
+      <a [routerLink]="['/signup']">Get Started</a>
+    </div>
+  </footer>
+</div>
+
+
+<!-- <div *ngFor="let item of boardData.boards" class="my-2">
+  <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="bg-red-100 p-2  rounded w-24">
+    {{item.id}}
+  </a>
+</div> -->

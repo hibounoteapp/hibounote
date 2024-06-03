@@ -1,0 +1,25 @@
+#footer-links-container {
+  a {
+    @apply mx-3 underline;
+  }
+}
+
+#contact-info {
+
+  p:not(:last-child) {
+    @apply mb-6;
+  }
+
+  p:last-child {
+    @apply mb-14;
+  }
+
+span {
+  @apply underline text-[#3d3dd3];
+}
+
+a {
+  @apply underline;
+}
+
+}

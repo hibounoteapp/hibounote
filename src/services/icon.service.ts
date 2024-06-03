@@ -13,6 +13,26 @@ export class IconService {
       url: '../assets/save-outline.svg'
     },
     {
+      name: 'info',
+      url: '../assets/information-circle-outline.svg'
+    },
+    {
+      name: 'add',
+      url: '../assets/add-outline.svg'
+    },
+    {
+      name: 'github',
+      url: '../assets/logo-github.svg'
+    },
+    {
+      name: 'search',
+      url: '../assets/search-outline.svg'
+    },
+    {
+      name: 'linkedin',
+      url: '../assets/logo-linkedin.svg'
+    },
+    {
       name: 'person',
       url: '../assets/person-outline.svg'
     },

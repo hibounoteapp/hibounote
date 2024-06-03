@@ -26,6 +26,7 @@ export class BoardDataService implements OnInit{
   createBoard() {
     this.boards.push({
       id: uuid(),
+      name: `${uuid().substring(0,8)}`,
       connetions: [],
       elements: [],
       groups: [],

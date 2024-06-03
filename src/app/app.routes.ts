@@ -7,6 +7,8 @@ import { SignUpComponent } from '../pages/sign-up/sign-up.component';
 import { ResetPasswordComponent } from '../pages/reset-password/reset-password.component';
 import { AboutComponent } from '../pages/about/about.component';
 import { TutorialComponent } from '../pages/tutorial/tutorial.component';
+import { TermsComponent } from '../pages/terms/terms.component';
+import { SupportComponent } from '../pages/support/support.component';
 
 export const routes: Routes = [
   {
@@ -40,5 +42,14 @@ export const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent
+  },
+  {
+    path: 'terms',
+    component: TermsComponent
+  },
+
+  {
+    path: 'support',
+    component: SupportComponent
   },
 ];

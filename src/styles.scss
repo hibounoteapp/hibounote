@@ -42,6 +42,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @tailwind components;
 @tailwind utilities;
 
+* {
+  color: #3d3d3d;
+}
+
 .centerItems {
   @apply flex justify-center items-center;
 }
@@ -144,5 +148,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
+.white-icon {
+  color: #ffffff !important;
+}
 
 
