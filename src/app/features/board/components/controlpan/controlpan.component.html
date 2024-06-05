@@ -1,0 +1,11 @@
+<div #pantools id="pantools">
+  <button class="controlTools" (click)="boardService.resetPan()">
+    <mat-icon>fullscreen</mat-icon>
+  </button>
+  <button class="controlTools" (click)="boardService.zoomClick('in')">
+    <mat-icon>zoom_in</mat-icon>
+  </button>
+  <button class="controlTools" (click)="boardService.zoomClick('out')">
+    <mat-icon>zoom_out</mat-icon>
+  </button>
+</div>

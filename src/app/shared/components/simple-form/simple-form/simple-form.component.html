@@ -1,0 +1,27 @@
+<div class="form-container" #formContainer>
+  <ng-container *ngFor="let field of fields">
+
+    <div class="flex flex-col my-4">
+
+      <label for="{{field.label}}">{{field.label}}</label>
+      <input type="{{field.type}}" name="{{field.label}}" id="{{field.label}}" class="border-[1px] border-[#3d3d3d] p-1">
+      <ng-container *ngIf="field.aside">
+        <a [routerLink]="['/resetpassword']" class="text-sm underline">{{field.aside}}</a>
+      </ng-container>
+
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngFor="let button of buttons" class="w-full">
+    <app-simple-button
+      [customStyles]="'w-full my-2'"
+      [elementType]="button.elementType"
+      [visible]="true"
+      [theme]="button.theme"
+      [text]="button.text">
+    </app-simple-button>
+  </ng-container>
+
+
+</div>

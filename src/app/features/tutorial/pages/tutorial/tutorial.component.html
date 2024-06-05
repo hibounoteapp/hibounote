@@ -1,0 +1,33 @@
+<div>
+  <app-navbar
+    [fixed]="false"
+    [loginButton]="{
+      visible: true,
+      theme: 'btn-secondary'
+    }"
+    [signupButton]="{
+      visible: true,
+      theme: 'btn-primary'
+    }"
+    [accountButton]="{
+      visible: true,
+      theme: 'btn-secondary'
+    }">
+  </app-navbar>
+
+  <main class="w-1/2 m-auto min-h-screen mt-10">
+    <h1 class="main-title mb-4">Know the fundamentals</h1>
+
+    <ng-container *ngFor="let item of tutorialService.tutorials">
+      <tutorial-feature-card
+      [title]="item.title"
+      [description]="item.description"
+      [imageDemonstrationURL]="item.imageDemoURL">
+      </tutorial-feature-card>
+    </ng-container>
+
+    <p class="my-10 text-center">Still need help? <span class="underline text-[#3d3dd3]">mindlab&#64;gmail.com</span></p>
+  </main>
+
+  <app-footer></app-footer>
+</div>

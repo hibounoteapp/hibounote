@@ -1,0 +1,39 @@
+<nav class="{{fixed?'fixed':''}}">
+  <div class="flex flex-row items-center">
+    <a [routerLink]="['/']">
+      <img src="../../assets/logoplaceholder.png" alt="icon" class="h-10">
+    </a>
+    <a [routerLink]="['/about']" class="ms-10">
+      About
+    </a>
+  </div>
+  <div class="flex flex-row items-center">
+    <app-simple-button
+      routerLink="/account"
+      text="Account"
+      [visible]="accountButton.visible"
+      [theme]="accountButton.theme"
+      [elementType]="'a'"
+      >
+    </app-simple-button>
+
+    <app-simple-button
+      routerLink="/login"
+      text="Login"
+      [visible]="loginButton.visible"
+      [theme]="loginButton.theme"
+      [elementType]="'a'"
+    >
+    </app-simple-button>
+
+    <app-simple-button
+      routerLink="/signup"
+      text="Sign up"
+      [visible]="signupButton.visible"
+      [theme]="signupButton.theme"
+      [elementType]="'a'"
+    >
+  </app-simple-button>
+
+  </div>
+</nav>

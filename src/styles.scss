@@ -89,6 +89,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   &:hover {
     @apply bg-zinc-400 bg-opacity-50 transition-all;
   }
+
+  .mat-icon {
+    vertical-align: middle;
+  }
+
 }
 
 .linkActionButton {
@@ -148,8 +153,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-.white-icon {
-  color: #ffffff !important;
+.main-title {
+  @apply text-center font-bold text-4xl;
 }
 
+.sub-title-3xl {
+  @apply text-center font-bold text-3xl;
+}
 
+.sub-title-2xl {
+  @apply text-center font-bold text-2xl;
+}
+
+.sub-title-xl {
+  @apply text-center font-bold text-xl;
+}
+
+.base-text {
+  @apply text-center text-lg;
+}

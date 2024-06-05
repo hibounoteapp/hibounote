@@ -1,0 +1,42 @@
+<div>
+  <app-navbar
+  [fixed]="false"
+  [accountButton]="{
+    visible: true,
+    theme: 'btn-secondary'
+  }"
+
+  [loginButton]="{
+    visible: true,
+    theme: 'btn-secondary'
+  }"
+
+  [signupButton]="{
+    visible: true,
+    theme: 'btn-primary'
+  }">
+
+  </app-navbar>
+
+  <main>
+    <h1 class="main-title">Contact information</h1>
+    <div class="base-text w-1/3 my-10" id="contact-info">
+      <p>
+        Any issue can be contacted in: <br>
+        <span>
+          mindlab&#64;gmail.com
+        </span>
+      </p>
+      <p>
+        You can also contact by github visiting the repository: <br>
+        <a href="https://github.com/gustavofdasilva/mnos" target="_blank">https://github.com/gustavofdasilva/mnos</a>
+      </p>
+      <p>
+        Or my profile: <br>
+        <a href="https://github.com/gustavofdasilva" target="_blank">https://github.com/gustavofdasilva</a>
+      </p>
+    </div>
+  </main>
+
+  <app-footer></app-footer>
+</div>

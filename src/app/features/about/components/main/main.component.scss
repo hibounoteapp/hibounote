@@ -1,0 +1,25 @@
+main {
+  @apply min-h-screen pt-28 flex flex-col items-center;
+}
+
+.founder-card {
+  @apply rounded bg-[#f3f3f3] shadow flex flex-row items-center justify-center py-4 px-6 my-10;
+}
+
+#contributeGuide {
+  p:not(:last-child) {
+    @apply mb-6;
+  }
+
+  p:last-child {
+    @apply mb-14;
+  }
+
+  span {
+    @apply underline text-[#3d3dd3];
+  }
+
+  a {
+    @apply underline;
+  }
+}
