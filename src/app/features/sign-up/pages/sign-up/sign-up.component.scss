@@ -1,0 +1,10 @@
+main {
+  @apply min-h-screen w-full flex justify-center items-center flex-col;
+}
+
+#bgBlobSingle {
+  background-image: url('../../../../../assets/images/bg-blob-single.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+

@@ -1,0 +1,9 @@
+footer {
+  @apply bg-[#f3f3f3] flex flex-row items-center justify-between py-12 px-12 shadow;
+}
+
+#footer-links-container {
+  a, button {
+    @apply mx-3 underline;
+  }
+}

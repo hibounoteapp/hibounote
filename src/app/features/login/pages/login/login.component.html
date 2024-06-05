@@ -1,0 +1,62 @@
+<div>
+  <app-navbar
+  [fixed]="false"
+  [accountButton]="{
+    visible: true,
+    theme: 'btn-secondary'
+  }"
+
+  [loginButton]="{
+    visible: false,
+    theme: 'btn-secondary'
+  }"
+
+  [signupButton]="{
+    visible: true,
+    theme: 'btn-primary'
+  }">
+
+  </app-navbar>
+
+
+  <main id="bgBlobSingle">
+    <div class="flex flex-col text-center justify-center">
+      <h3 class="sub-title-3xl mb-5">Log in to Mindlab</h3>
+    </div>
+
+    <app-simple-form
+    [fields]="[
+      {
+        label: 'Email',
+        type: 'email',
+      },
+      {
+        label: 'Password',
+        type: 'password',
+        aside: 'Forgot your password?'
+      },
+    ]"
+
+    [buttons]="[
+      {
+        text: 'Log in',
+        theme: 'btn-primary',
+        elementType: 'submit',
+      },
+      {
+        text: 'Log in with Google',
+        theme: 'btn-secondary',
+        elementType: 'submit',
+      },
+      {
+        text: 'Log in with Google',
+        theme: 'btn-secondary',
+        elementType: 'submit',
+      },
+    ]"
+    >
+
+    </app-simple-form>
+
+  </main>
+</div>

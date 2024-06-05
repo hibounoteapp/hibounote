@@ -1,0 +1,97 @@
+<main>
+  <div class="landing-container">
+    <div class="ms-16">
+      <h2 class="text-6xl mb-2">The extension for <br> your brain.</h2>
+      <h1 class="text-6xl mb-10">Mindlab.</h1>
+
+      <app-simple-button
+      [routerLink]="'/signup'"
+      [theme]="'btn-primary'"
+      [visible]="true"
+      text="Sing up for free">
+      </app-simple-button>
+    </div>
+    <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+  </div>
+
+  <div class="bg-[#f3f3f3] flex items-center flex-col py-20">
+    <div class="row-between-center text-sections">
+      <div>
+        <h3>Limitless Organization</h3>
+        <p>Create as many boards as you want.</p>
+      </div>
+
+      <div>
+        <h3>Endless Space for infinite Ideas</h3>
+        <p>Never run out of room for your notes and ideas again.</p>
+      </div>
+
+      <div>
+        <h3>Creative Freedom at no Cost</h3>
+        <p>Turn your ideas into reality with limitless space at no cost.</p>
+      </div>
+    </div>
+
+    <img src="https://placehold.co/1366x768?text=Board-iframe" class="w-10/12 self-center shadow rounded" alt="board example">
+  </div>
+
+  <div id="bgBlob">
+    <div class="pt-48 row-between-center">
+      <div class="row-between-center px-20">
+        <div class="flex flex-col w-1/4 mb-16">
+          <h3 class="font-bold mb-5 text-2xl ">Organize, Create, Innovate</h3>
+          <p class="text-justify">Completely free and without any limitations, Mindlab is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands.</p>
+        </div>
+
+        <div class="flex flex-col">
+          <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+          <app-simple-button
+            class="self-end"
+            [routerLink]="'/'"
+            [theme]="'btn-primary'"
+            [visible]="true"
+            text="Test">
+          </app-simple-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-48 pb-24 flex flex-col justify-center items-center">
+      <h3 class="sub-title-3xl mb-10">Creative freedom. No cost</h3>
+
+      <img src="https://placehold.co/1366x768?text=Board-iframe" class="w-10/12 self-center shadow rounded" alt="board example">
+    </div>
+  </div>
+
+  <div class="py-24 bg-[#f3f3f3] row-between-center shadow-md">
+      <div class="row-between-center px-20">
+        <div class="flex flex-col w-1/4">
+          <h3 class="font-bold mb-5 text-2xl ">Ideas Without Limits</h3>
+          <p class="text-justify">Whether you're brainstorming, planning projects, or jotting down notes, Mindlab provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.</p>
+        </div>
+
+        <div class="flex flex-col">
+          <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+          <app-simple-button
+            class="self-end"
+            [routerLink]="'/'"
+            [theme]="'btn-primary'"
+            [visible]="true"
+            text="Test">
+          </app-simple-button>
+        </div>
+      </div>
+  </div>
+
+  <div class="flex flex-col justify-start pt-36 items-center h-screen" id="layeredWaves">
+    <h3 class="sub-title-3xl mb-5">Start thinking unlimited</h3>
+    <p class="sub-title-2xl !font-normal mb-10">Create your account and start to explore</p>
+    <app-simple-button
+      [routerLink]="'/'"
+      [theme]="'btn-primary'"
+      [visible]="true"
+      text="Sing up for free">
+    </app-simple-button>
+  </div>
+
+  </main>

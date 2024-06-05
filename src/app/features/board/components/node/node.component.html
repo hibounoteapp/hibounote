@@ -1,0 +1,13 @@
+<div class="dragDiv nodeElement"></div>
+<div class="fadeDiv nodeElement"></div>
+<div (click)="log('Resize Button')" class="resizeButton nodeElement">
+  <mat-icon style="width: 70%; align-self: center;">open_in_full</mat-icon>
+</div>
+<div class="linkActionButton nodeElement">
+  <div (click)="log('Link Action')" class="linkAction absolute h-full w-full z-10 bg-transparent">
+  </div>
+  <mat-icon class="linkAction absolute" style="width: 80%;">timeline</mat-icon>
+</div>
+<textarea class="desc nodeElement" readonly disabled="true" [value]="innerTextarea"></textarea>
+
+

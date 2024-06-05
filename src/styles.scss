@@ -42,8 +42,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @tailwind components;
 @tailwind utilities;
 
+* {
+  color: #3d3d3d;
+}
+
 .centerItems {
   @apply flex justify-center items-center;
+}
+
+.jtk-connector {
+  z-index:4;
+}
+.jtk-endpoint {
+  z-index:5;
+}
+.jtk-overlay {
+  z-index:6;
 }
 
 .nodeContainer {
@@ -63,7 +77,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   .fadeDiv {
     @apply w-full h-4 absolute bottom-0 left-0;
-    background: linear-gradient(0deg, rgba(241,245,249,1) 0%, rgba(255,255,255,0) 100%);
   }
 
 .dragDiv {
@@ -71,22 +84,31 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .resizeButton {
-  @apply  bg-zinc-300 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
+  @apply  bg-zinc-300 bg-opacity-50 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
 
   &:hover {
-    @apply bg-zinc-400 transition-all;
+    @apply bg-zinc-400 bg-opacity-50 transition-all;
   }
+
+  .mat-icon {
+    vertical-align: middle;
+  }
+
 }
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-zinc-300 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
+  @apply bg-zinc-400 bg-opacity-50 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
 
   &:hover {
-    @apply w-5 h-5 transition-all bg-zinc-400;
+    @apply w-5 h-5 transition-all bg-zinc-500 bg-opacity-50;
   }
 }
 
+}
+
+.labelConnection {
+  @apply bg-slate-100 rounded shadow py-2 px-1 outline-none text-center min-w-20 max-w-60;
 }
 
 .nodeGroup {
@@ -94,9 +116,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .activeNode {
-  @apply border-2 border-black z-20;
+  @apply border-2 border-black;
+  z-index: 8;
+
+  &:has(.nodeContainer) {
+    z-index: 3;
+  }
 }
 
+.controlTools {
+  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
+
+  &:hover {
+    @apply shadow-lg transition-all;
+  }
+}
 
 .grab {
   @apply shadow transition-all w-10 h-10 m-2 flex justify-center items-center;
@@ -119,12 +153,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-.controlTools {
-  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
-
-  &:hover {
-    @apply shadow-lg transition-all;
-  }
+.main-title {
+  @apply text-center font-bold text-4xl;
 }
 
+.sub-title-3xl {
+  @apply text-center font-bold text-3xl;
+}
 
+.sub-title-2xl {
+  @apply text-center font-bold text-2xl;
+}
+
+.sub-title-xl {
+  @apply text-center font-bold text-xl;
+}
+
+.base-text {
+  @apply text-center text-lg;
+}

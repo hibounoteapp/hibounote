@@ -1,0 +1,15 @@
+.boardsCard-container {
+  @apply shadow rounded py-4 px-6 min-h-60 flex flex-col mb-10;
+}
+
+.sub-container{
+  @apply rounded shadow flex flex-row items-center;
+}
+
+.flex-row-center {
+  @apply flex flex-row items-center;
+}
+
+.all-center {
+  @apply flex justify-center items-center;
+}

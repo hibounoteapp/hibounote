@@ -1,0 +1,11 @@
+main {
+  @apply select-none absolute w-full h-full bg-slate-200;
+}
+
+#board {
+  @apply w-full h-full absolute;
+}
+
+#main {
+  @apply bg-black absolute;
+}

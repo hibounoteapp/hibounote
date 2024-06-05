@@ -1,0 +1,17 @@
+<nav>
+  <div class="flex flex-row items-center">
+    <a [routerLink]="['/']"><img src="../../assets/logoplaceholder.png" alt="logoMindlab" class="w-10"></a>
+    <aside class="ms-4 font-bold">Mindlab</aside>
+    <a [routerLink]="['/about']" class="ms-10">
+      About
+    </a>
+  </div>
+  <div class="flex flex-row items-center">
+    <a [routerLink]="['/tutorial']" matTooltip="See tutorials">
+      <mat-icon class="me-4" >info</mat-icon>
+    </a>
+    <button class="w-14">
+      <img src="https://placehold.co/128x128?text=User" alt="" class="rounded-full w-full">
+    </button>
+  </div>
+</nav>

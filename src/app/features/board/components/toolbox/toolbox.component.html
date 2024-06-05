@@ -1,0 +1,37 @@
+<div #toolbox id="toolbox">
+  <div #editingNode class="edit" *ngIf="nodeService.activeNode; else editingConnection">
+      <button class="return controlTools" (click)="deactivateNode()">
+        <mat-icon svgIcon="return"></mat-icon>
+      </button>
+      <button class="w-10 h-10 bg-[#FE5F55] rounded controlTools" (click)="editNode('backgroundColor','#FE5F55')"></button>
+      <button class="w-10 h-10 bg-[#2D93AD] rounded controlTools" (click)="editNode('backgroundColor','#2D93AD')"></button>
+      <button class="w-10 h-10 bg-[#FFAD05] rounded controlTools" (click)="editNode('backgroundColor','#FFAD05')"></button>
+      <button class="w-10 h-10 bg-[#008148] rounded controlTools" (click)="editNode('backgroundColor','#008148')"></button>
+      <button class="w-10 h-10 bg-[#EFF2F1] rounded controlTools" (click)="editNode('backgroundColor','#EFF2F1')"></button>
+  </div>
+
+  <ng-template #editingConnection>
+    <div class="edit" *ngIf="nodeService.activeConnection; else addingNode">
+      <button class="return controlTools" (click)="deactivateConnection()">
+        <mat-icon svgIcon="return"></mat-icon>
+      </button>
+      <button class="w-10 h-10 bg-[#FE5F55] rounded controlTools" (click)="editConnection('#FE5F55')"></button>
+      <button class="w-10 h-10 bg-[#2D93AD] rounded controlTools" (click)="editConnection('#2D93AD')"></button>
+      <button class="w-10 h-10 bg-[#FFAD05] rounded controlTools" (click)="editConnection('#FFAD05')"></button>
+      <button class="w-10 h-10 bg-[#008148] rounded controlTools" (click)="editConnection('#008148')"></button>
+      <button class="w-10 h-10 bg-[#EFF2F1] rounded controlTools" (click)="editConnection('#EFF2F1')"></button>
+      <button class="w-10 h-10 bg-[#EFF2F1] rounded controlTools" (click)="toggleLabelConnection()">
+      Toggle label
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #addingNode id="addNode">
+    <div class="grab" draggable="true" id="note">
+      <mat-icon >article</mat-icon>
+    </div>
+    <div class="grab" draggable="true" id="group">
+      <mat-icon >folder</mat-icon>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,25 @@
+<ng-container *ngIf="elementType === 'a'; else buttonType">
+  <a
+    [routerLink]="['{{routerLink}}']"
+    class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
+      {{text}}
+  </a>
+</ng-container>
+
+<ng-template #buttonType>
+
+  <ng-container *ngIf="elementType === 'button'; else submitType">
+    <button
+    (click)="onClick()"
+    class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
+      {{text}}
+    </button>
+  </ng-container>
+
+  <ng-template #submitType>
+    <input
+      type="submit" value="{{text}}"
+      class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
+  </ng-template>
+
+</ng-template>
