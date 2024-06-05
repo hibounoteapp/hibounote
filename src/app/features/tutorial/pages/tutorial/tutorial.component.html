@@ -1,19 +1,18 @@
 <div>
-  <app-navbar
-    [fixed]="false"
-    [loginButton]="{
-      visible: true,
-      theme: 'btn-secondary'
-    }"
-    [signupButton]="{
-      visible: true,
-      theme: 'btn-primary'
-    }"
-    [accountButton]="{
-      visible: true,
-      theme: 'btn-secondary'
-    }">
-  </app-navbar>
+  <nav class="flex flex-row justify-between items-center px-8 py-4">
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/']"><img src="../../assets/logoplaceholder.png" alt="logoMindlab" class="w-10"></a>
+      <aside class="ms-4 font-bold">Mindlab</aside>
+      <a [routerLink]="['/about']" class="ms-10">
+        About
+      </a>
+    </div>
+    <div class="flex flex-row items-center">
+      <a class="w-14" [routerLink]="['/account']" matTooltip="Go to dashboard">
+        <img src="https://placehold.co/128x128?text=User" alt="" class="rounded-full w-full">
+      </a>
+    </div>
+  </nav>
 
   <main class="w-1/2 m-auto min-h-screen mt-10">
     <h1 class="main-title mb-4">Know the fundamentals</h1>

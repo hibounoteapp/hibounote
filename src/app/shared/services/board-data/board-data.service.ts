@@ -17,6 +17,12 @@ export class BoardDataService implements OnInit{
     return this._boards;
   }
 
+  public set boards(v : Board[]) {
+    this._boards = v;
+  }
+
+
+
 
   constructor(
     protected boardService: BoardService,
@@ -85,6 +91,29 @@ export class BoardDataService implements OnInit{
 
   getData(id: string) {
     return this.boards.find(element => element.id === id)
+  }
+
+  deleteBoard(id: string) {
+    let newBoards: Board[] = this.boards.filter((board: Board)=>{
+      if(board.id === id) {
+        return false;
+      }
+      return true;
+    })
+    this.boards = newBoards;
+  }
+
+  editBoardName(id: string, name: string) {
+    let newBoards: Board[] = this.boards.map((board: Board)=>{
+      if(board.id === id) {
+        return {
+          ...board,
+          name,
+        }
+      }
+      return board
+    })
+    this.boards = newBoards;
   }
 
   ngOnInit(): void {

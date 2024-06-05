@@ -251,7 +251,6 @@ export class BoardComponent implements AfterViewInit, OnInit{
   ngOnInit(): void {
     this.nodeService.clearActiveConnection();
     this.nodeService.clearActiveNote(this.renderer);
-    this.boardService.resetZoom();
   }
 
   ngAfterViewInit(): void {

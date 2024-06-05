@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FooterComponent } from '@shared-components/footer';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { MainComponent } from '../../components/main/main.component';
+import { EditBoardModalComponent } from '../../components/edit-board-modal/edit-board-modal.component';
 
 
 @Component({
@@ -23,7 +24,8 @@ import { MainComponent } from '../../components/main/main.component';
     MatTooltipModule,
     FooterComponent,
     NavbarComponent,
-    MainComponent
+    MainComponent,
+    EditBoardModalComponent
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss'
@@ -40,45 +42,4 @@ export class AccountComponent{
     private dialog: MatDialog,
   ) {}
 
-  createBoard() {
-    this.boardData.createBoard()
-  }
-
-  filter() {
-    if(this.input === '') {
-      this.filteredBoards = this.boardData.boards
-      return
-    }
-    const boards = [...this.boardData.boards];
-    const newBoards = boards.filter((board)=>board.name.includes(this.input))
-    this.filteredBoards = newBoards;
-  }
-
-  editBoard(event: Event, id: string) {
-    const dialog = this.dialog.open(DialogContent);
-
-    dialog.afterClosed().subscribe(result=>{
-      console.log(result);
-    })
-  }
-
-  setSearch(event: Event) {
-    if(event.target instanceof HTMLInputElement)
-    this.input = event.target.value;
-    this.filter();
-  }
 }
-
-@Component({
-  selector: 'modal-editboard',
-  template: `
-  <h2>MODAL!!!1!</h2>
-
-  <mat-dialog-actions align='end'>
-    <button mat-dialog-close>Cancel</button>
-    <button [mat-dialog-close]='true'>Confirm</button>
-  </mat-dialog-actions>`,
-  standalone: true,
-  imports: [MatDialogModule]
-})
-export class DialogContent {}

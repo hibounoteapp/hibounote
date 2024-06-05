@@ -22,3 +22,13 @@
   }
 }
 
+.btn-warn {
+  @apply bg-[#dd1111] text-white transition-all;
+
+  &:hover {
+    @apply bg-[#cc0000] transition-all;
+  }
+}
+
+
+
