@@ -32,14 +32,7 @@ import { EditBoardModalComponent } from '../../components/edit-board-modal/edit-
 })
 export class AccountComponent{
 
-  input: string = '';
-  filteredBoards: Board[] = this.boardData.boards;
-
   constructor(
-    public boardData: BoardDataService,
-    private renderer: Renderer2,
-    private boardService: BoardService,
-    private dialog: MatDialog,
   ) {}
 
 }

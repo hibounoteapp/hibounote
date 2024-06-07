@@ -21,9 +21,6 @@ export class BoardDataService implements OnInit{
     this._boards = v;
   }
 
-
-
-
   constructor(
     protected boardService: BoardService,
     protected activatedRoute: ActivatedRoute
@@ -32,7 +29,8 @@ export class BoardDataService implements OnInit{
   createBoard() {
     this.boards.push({
       id: uuid(),
-      name: `${uuid().substring(0,8)}`,
+      dateCreated: new Date(),
+      name: `Untitled board`,
       connetions: [],
       elements: [],
       groups: [],

@@ -3,19 +3,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
 import { BoardService } from '@shared-services/board/board.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Board } from '@custom-interfaces/board';
 import { CommonModule } from '@angular/common';
+import { BoardCardComponent } from './components/board-card/board-card.component';
 import { EditBoardModalComponent } from '../../../edit-board-modal/edit-board-modal.component';
 
 @Component({
-  selector: 'account-main-boardsCard',
+  selector: 'account-main-boardsContainer',
   standalone: true,
-  imports: [MatIconModule, RouterModule, CommonModule],
-  templateUrl: './boards-card.component.html',
-  styleUrl: './boards-card.component.scss'
+  imports: [MatIconModule, RouterModule, CommonModule, BoardCardComponent],
+  templateUrl: './boards-container.component.html',
+  styleUrl: './boards-container.component.scss'
 })
-export class BoardsCardComponent {
+export class BoardsContainerComponent {
   input: string = '';
   filteredBoards: Board[] = this.boardData.boards;
 
@@ -29,16 +30,6 @@ export class BoardsCardComponent {
 
   createBoard() {
     this.boardData.createBoard()
-  }
-
-  filter() {
-    if(this.input === '') {
-      this.filteredBoards = this.boardData.boards
-      return
-    }
-    const boards = [...this.boardData.boards];
-    const newBoards = boards.filter((board)=>board.name.includes(this.input))
-    this.filteredBoards = newBoards;
   }
 
   editBoard(event: Event, id: string) {
@@ -66,6 +57,16 @@ export class BoardsCardComponent {
     dialog.afterClosed().subscribe(result=>{
       console.log(result);
     })
+  }
+
+  filter() {
+    if(this.input === '') {
+      this.filteredBoards = this.boardData.boards
+      return
+    }
+    const boards = [...this.boardData.boards];
+    const newBoards = boards.filter((board)=>board.name.includes(this.input))
+    this.filteredBoards = newBoards;
   }
 
   setSearch(event: Event) {

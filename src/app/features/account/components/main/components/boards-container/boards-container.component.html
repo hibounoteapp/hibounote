@@ -17,7 +17,7 @@
           </button>
           <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="h-full flex-grow rounded bg-[#fcfcfc] flex-row-center justify-between px-2">
             <p class="text-sm">{{item.name}}</p>
-            <p class="text-sm">Created at: YYYY-MM-DD</p>
+            <p class="text-sm">Created at: {{item.dateCreated | date}} </p>
           </a>
         </div>
       </div>
