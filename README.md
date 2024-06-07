@@ -12,12 +12,14 @@
 
 <div align="center">
   
-  ![Mindlab placeholder banner](./.github/assets/🚧MNOS🚧.png)
+  ![Mindlab placeholder banner](./.github/assets/banner.png)
   
 </div>
 
 ## Introduction
-Completely free and without any limitations, Mindlab is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands. Whether you're brainstorming, planning projects, or jotting down notes, Mindlab provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.
+<p align="justify"> 
+Completely free and without any limitations, Mindlab is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands. Whether you're brainstorming, planning projects, or jotting down notes, Mindlab provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.  
+</p>
 
 Built in `Angular` with [jsplumb](https://jsplumbtoolkit.com/community) and [Panzoom](https://github.com/timmywil/panzoom/tree/main) Mindlab is a free and open-source alternative to note organization apps like:
 - Milanote;
@@ -25,9 +27,7 @@ Built in `Angular` with [jsplumb](https://jsplumbtoolkit.com/community) and [Pan
 - Notion.
 
 The idea it's to be a completely free web app, since all these options offer a freemium aproach. 
-
 <br>
-
 ## Development
 If you want to contribute, see the [contributing](#contributing) section. Your help will be very important to build the project!
 <details><summary>Pre-requisites</summary>
