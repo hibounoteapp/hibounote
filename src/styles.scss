@@ -172,3 +172,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .base-text {
   @apply text-center text-lg;
 }
+
+.bg-visible {
+  @apply bg-transparent;
+}

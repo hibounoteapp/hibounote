@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { TemplateCardComponent } from './components/template-card/template-card.component';
-import { BoardsCardComponent } from './components/boards-card/boards-card.component';
+import { BoardsContainerComponent } from './components/boards-container/boards-container.component';
 
 @Component({
   selector: 'account-main',
@@ -13,7 +13,8 @@ import { BoardsCardComponent } from './components/boards-card/boards-card.compon
     RouterModule,
     MatIconModule,
     TemplateCardComponent,
-    BoardsCardComponent],
+    BoardsContainerComponent
+  ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

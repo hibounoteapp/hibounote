@@ -2,6 +2,7 @@ import { Connection, ManagedElement } from "@jsplumb/browser-ui";
 
 export interface Board {
   id: string,
+  dateCreated: Date,
   connetions: Record<string, Connection> | Array<Connection> | null,
   name: string,
   elements: {

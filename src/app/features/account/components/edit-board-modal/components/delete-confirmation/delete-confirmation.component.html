@@ -1,0 +1,19 @@
+<div class="w-full h-full flex flex-col items-center justify-center p-4">
+<h1 class="sub-title-xl">Delete board?</h1>
+<mat-dialog-actions>
+  <app-simple-button
+    mat-dialog-close
+    [text]="'Cancel'"
+    [elementType]="'button'"
+    [theme]="'btn-secondary'"
+    [visible]="true">
+  </app-simple-button>
+  <app-simple-button
+    mat-dialog-close="DELETE"
+    [text]="'Confirm'"
+    [elementType]="'button'"
+    [theme]="'btn-warn'"
+    [visible]="true">
+  </app-simple-button>
+</mat-dialog-actions>
+</div>
