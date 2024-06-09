@@ -1,3 +1,7 @@
+main {
+  @apply bg-background-base-50
+}
+
 div.landing-container {
   @apply flex flex-row justify-between items-center h-screen;
 }
@@ -19,6 +23,7 @@ div.text-sections {
 }
 
 #layeredWaves {
+  @apply bg-background-base-50;
   background-image: url('../../../../../assets/images/bg-layered-waves.svg');
   background-position: bottom;
   background-size: cover;
@@ -26,6 +31,7 @@ div.text-sections {
 }
 
 #bgBlob {
+  @apply bg-background-base-50;
   background-image: url('../../../../../assets/images/bg-blob.svg');
   background-position: bottom;
   background-size: cover;

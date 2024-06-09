@@ -1,0 +1,7 @@
+nav {
+  @apply absolute w-full bg-background-200 p-2 flex flex-row justify-end z-10 shadow;
+}
+
+button {
+  @apply shadow px-2 py-1 rounded flex justify-center items-center;
+}

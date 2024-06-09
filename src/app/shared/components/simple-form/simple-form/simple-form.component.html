@@ -4,7 +4,7 @@
     <div class="flex flex-col my-4">
 
       <label for="{{field.label}}">{{field.label}}</label>
-      <input type="{{field.type}}" name="{{field.label}}" id="{{field.label}}" class="border-[1px] border-[#3d3d3d] p-1">
+      <input type="{{field.type}}" name="{{field.label}}" id="{{field.label}}" class="border-[1px] border-text-800 p-1 rounded">
       <ng-container *ngIf="field.aside">
         <a [routerLink]="['/resetpassword']" class="text-sm underline">{{field.aside}}</a>
       </ng-container>

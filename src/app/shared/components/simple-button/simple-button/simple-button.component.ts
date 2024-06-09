@@ -16,7 +16,7 @@ export class SimpleButtonComponent{
   @Input() routerLink!: string;
   @Input() text!: string;
   @Input() visible!: boolean;
-  @Input() theme!: 'btn-primary' | 'btn-secondary' | 'btn-warn';
+  @Input() theme?: 'btn-primary' | 'btn-secondary' | 'btn-warn';
   @Input() customStyles!: string;
   @Input() elementType!: 'button' | 'a' | 'submit';
   @Input() onClick: ()=>void = ()=>{};

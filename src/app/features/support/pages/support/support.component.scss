@@ -1,5 +1,5 @@
 main {
-  @apply min-h-screen pt-28 flex flex-col items-center;
+  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50;
 }
 
 #contact-info {
@@ -13,11 +13,11 @@ main {
   }
 
 span {
-  @apply underline text-[#3d3dd3];
+  @apply underline text-secondary-400;
 }
 
 a {
-  @apply underline;
+  @apply underline text-accent-900;
 }
 
 }

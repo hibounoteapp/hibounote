@@ -2,7 +2,7 @@
   <div class="landing-container">
     <div class="ms-16">
       <h2 class="text-6xl mb-2">The extension for <br> your brain.</h2>
-      <h1 class="text-6xl mb-10">Mindlab.</h1>
+      <h1 class="text-6xl mb-10">hibounote.</h1>
 
       <app-simple-button
       [routerLink]="'/signup'"
@@ -14,7 +14,7 @@
     <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
   </div>
 
-  <div class="bg-[#f3f3f3] flex items-center flex-col py-20">
+  <div class="bg-background-200 flex items-center flex-col py-20">
     <div class="row-between-center text-sections">
       <div>
         <h3>Limitless Organization</h3>
@@ -40,15 +40,15 @@
       <div class="row-between-center px-20">
         <div class="flex flex-col w-1/4 mb-16">
           <h3 class="font-bold mb-5 text-2xl ">Organize, Create, Innovate</h3>
-          <p class="text-justify">Completely free and without any limitations, Mindlab is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands.</p>
+          <p class="text-justify">Completely free and without any limitations, Hibounote is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands.</p>
         </div>
 
         <div class="flex flex-col">
           <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
           <app-simple-button
+            [customStyles]="'!bg-secondary-500 text-background-base-50 transition-all !mx-0 mt-1'"
             class="self-end"
             [routerLink]="'/'"
-            [theme]="'btn-primary'"
             [visible]="true"
             text="Test">
           </app-simple-button>
@@ -63,19 +63,19 @@
     </div>
   </div>
 
-  <div class="py-24 bg-[#f3f3f3] row-between-center shadow-md">
+  <div class="py-24 bg-background-200 row-between-center shadow-md">
       <div class="row-between-center px-20">
         <div class="flex flex-col w-1/4">
           <h3 class="font-bold mb-5 text-2xl ">Ideas Without Limits</h3>
-          <p class="text-justify">Whether you're brainstorming, planning projects, or jotting down notes, Mindlab provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.</p>
+          <p class="text-justify">Whether you're brainstorming, planning projects, or jotting down notes, Hibounote provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.</p>
         </div>
 
         <div class="flex flex-col">
           <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
           <app-simple-button
+            [customStyles]="'!bg-accent-base-800 text-background-base-50 transition-all !mx-0 mt-1'"
             class="self-end"
             [routerLink]="'/'"
-            [theme]="'btn-primary'"
             [visible]="true"
             text="Test">
           </app-simple-button>
