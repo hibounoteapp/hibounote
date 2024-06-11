@@ -43,8 +43,8 @@ To be able to start development on Hibounote, make sure you have the following p
 
 1. Clone the repository and install dependencies:
 ```
-git clone https://github.com/gustavofdasilva/mnos.git
-cd mnos
+git clone https://github.com/gustavofdasilva/hibounote.git
+cd hibounote
 npm install
 ```
 <br>
