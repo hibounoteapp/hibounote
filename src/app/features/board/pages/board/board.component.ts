@@ -259,6 +259,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
     this.initEvents();
     this.boardService.disablePanzoom()
     this.boardService.enablePanzoom()
+    
   }
 
 }

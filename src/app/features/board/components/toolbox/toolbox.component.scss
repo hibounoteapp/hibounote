@@ -1,5 +1,5 @@
 div#toolbox {
-  @apply w-20 h-[500px] rounded-r bg-background-200 shadow-xl absolute flex flex-col justify-center items-center z-10;
+  @apply min-w-20 max-h-[600px] rounded-r bg-background-300 shadow-xl absolute flex flex-col justify-center items-center z-10 p-4;
   top: 50%;
   transform: translate(0,-50%)
 }
@@ -12,6 +12,6 @@ div#toolbox {
   }
 
   button.return {
-    @apply absolute w-full h-6 top-0 left-0 m-0;
+    @apply w-full h-6 top-0 left-0 m-0;
   }
 }

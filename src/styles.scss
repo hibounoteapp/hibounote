@@ -61,7 +61,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .nodeContainer {
-  @apply min-w-48 max-w-56 min-h-20 max-h-44 bg-background-200 absolute p-2 box-border rounded shadow;
+  @apply min-w-48 max-w-56 min-h-20 max-h-44 bg-background-300 absolute p-2 box-border rounded shadow;
 
   &:hover {
     @apply shadow-md;
@@ -176,3 +176,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .bg-visible {
   @apply bg-transparent;
 }
+
+#logo {
+  object-fit: cover;
+  width: 30px;
+  height: 50px;
+}
+

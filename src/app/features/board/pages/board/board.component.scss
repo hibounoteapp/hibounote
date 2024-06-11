@@ -1,5 +1,5 @@
 main {
-  @apply select-none absolute w-full h-full bg-background-base-50;
+  @apply select-none absolute w-full h-full bg-background-100;
 }
 
 #board {
@@ -8,4 +8,12 @@ main {
 
 #main {
   @apply bg-black absolute;
+}
+
+.polka {
+  background-image:
+    radial-gradient(rgb(5, 1, 21) 13.6%, transparent 13.6%);
+  background-position: 8px 8px;
+  background-size: 16px 16px;
+  background-color: rgb(250, 248, 241);
 }
