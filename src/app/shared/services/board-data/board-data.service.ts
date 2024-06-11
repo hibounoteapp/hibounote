@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Board } from '../../../core/models/interfaces/board';
 import { BoardService } from '../board/board.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UINode, uuid } from '@jsplumb/browser-ui';
 
 @Injectable({
@@ -23,12 +23,20 @@ export class BoardDataService implements OnInit{
 
   constructor(
     protected boardService: BoardService,
-    protected activatedRoute: ActivatedRoute
-  ) {}
+    protected activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
+    this.activatedRoute.queryParamMap.subscribe((p)=>{
+      this.activeId = p.get("id") ?? '';
+    })
+  }
 
   createBoard() {
+
+    const id = uuid();
+
     this.boards.push({
-      id: uuid(),
+      id,
       dateCreated: new Date(),
       name: `Untitled board`,
       connetions: [],
@@ -37,7 +45,15 @@ export class BoardDataService implements OnInit{
       zoomScale: 1,
     })
 
+    this.router.navigate(['/board'], {
+      queryParams: {
+        id,
+      }
+    })
+
   }
+
+
 
   saveData() {
     const elements = this.boardService.instance.getManagedElements()
@@ -89,6 +105,10 @@ export class BoardDataService implements OnInit{
 
   getData(id: string) {
     return this.boards.find(element => element.id === id)
+  }
+
+  getActiveBoard() {
+    return this.getData(this.activeId);
   }
 
   deleteBoard(id: string) {

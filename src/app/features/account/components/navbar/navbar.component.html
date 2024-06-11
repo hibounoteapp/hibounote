@@ -1,13 +1,14 @@
 <nav>
   <div class="flex flex-row items-center">
-    <a [routerLink]="['/']"><img src="../../assets/logoplaceholder.png" alt="logoMindlab" class="w-10"></a>
-    <aside class="ms-4 font-bold">Mindlab</aside>
-    <a [routerLink]="['/about']" class="ms-10">
-      About
-    </a>
+    <a [routerLink]="['/']"><img src="../../assets/logoplaceholder.svg" alt="logoHibounote" id="logo"></a>
+    <aside class="ms-4 font-bold">Hibounote</aside>
+
   </div>
   <div class="flex flex-row items-center">
-    <a [routerLink]="['/tutorial']" matTooltip="See tutorials">
+    <a [routerLink]="['/about']" class="me-10">
+      About
+    </a>
+    <a [routerLink]="['/tutorial']" matTooltip="See tutorials" class="flex justify-center items-center">
       <mat-icon class="me-4" >info</mat-icon>
     </a>
     <button class="w-14">

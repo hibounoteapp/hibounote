@@ -3,11 +3,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { NodeService } from '../../services/node/node.service';
 import { CommonModule } from '@angular/common';
 import { BoardService } from '../../../../shared/services/board/board.service';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'toolbox-component',
   standalone: true,
-  imports: [MatIconModule, CommonModule],
+  imports: [MatIconModule, CommonModule, MatTooltipModule],
   templateUrl: './toolbox.component.html',
   styleUrl: './toolbox.component.scss'
 })

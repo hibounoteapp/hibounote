@@ -1,0 +1,17 @@
+nav {
+  @apply absolute w-full bg-background-300 p-2 flex flex-row justify-between z-10 shadow items-center px-4;
+}
+
+input {
+  &:focus {
+    @apply border-b-text-base-900 border-b-[1px];
+  }
+}
+
+button.btn-shadow {
+  @apply shadow px-2 py-1 rounded flex justify-center items-center;
+}
+
+span {
+  @apply text-sm;
+}
