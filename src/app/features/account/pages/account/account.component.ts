@@ -11,6 +11,7 @@ import { FooterComponent } from '@shared-components/footer';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { MainComponent } from '../../components/main/main.component';
 import { EditBoardModalComponent } from '../../components/edit-board-modal/edit-board-modal.component';
+import { IconService } from '@shared-services/icon/icon.service';
 
 
 @Component({
@@ -25,14 +26,13 @@ import { EditBoardModalComponent } from '../../components/edit-board-modal/edit-
     FooterComponent,
     NavbarComponent,
     MainComponent,
-    EditBoardModalComponent
+    EditBoardModalComponent,
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss'
 })
 export class AccountComponent{
 
-  constructor(
-  ) {}
+  constructor() {}
 
 }

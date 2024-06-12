@@ -1,19 +1,19 @@
 <nav>
   <div class="flex flex-row items-center justify-between">
     <button class="me-4 flex items-center justify-center" [matMenuTriggerFor]="boardMenu">
-      <mat-icon>menu</mat-icon>
+      <mat-icon svgIcon="menu"></mat-icon>
     </button>
     <input type="text" class="px-2 outline-none bg-transparent text-lg" [value]="boardData.getActiveBoard()?.name"
     (blur)="changeName($event)">
 
   </div>
   <button (click)="saveData()" class="btn-shadow">
-    <mat-icon>person</mat-icon>
+    <mat-icon svgIcon="person"></mat-icon>
   </button>
 
   <mat-menu #boardMenu="matMenu" class="!bg-background-200 !text-sm !shadow-md">
     <button mat-menu-item [matMenuTriggerFor]="boardConfig">
-      <mat-icon style="transform: scale(0.85);">content_paste</mat-icon>
+      <mat-icon style="transform: scale(0.85);" svgIcon="clipboard"></mat-icon>
       <span>Board</span>
     </button>
     <button mat-menu-item>
@@ -28,11 +28,11 @@
       <span>New board</span>
     </button>
     <button mat-menu-item [matMenuTriggerFor]="bgColor">
-      <mat-icon style="transform: scale(0.85);">palette</mat-icon>
+      <mat-icon style="transform: scale(0.85);" svgIcon="color_fill"></mat-icon>
       <span>Background Color</span>
     </button>
     <button mat-menu-item (click)="deleteBoard()">
-      <mat-icon style="transform: scale(0.85);">delete</mat-icon>
+      <mat-icon style="transform: scale(0.85);" svgIcon="trash">delete</mat-icon>
       <span>Delete</span>
     </button>
   </mat-menu>

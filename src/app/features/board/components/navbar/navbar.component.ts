@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { IconService } from '@shared-services/icon/icon.service';
 
 @Component({
   selector: 'navbar-component',
@@ -26,6 +27,7 @@ export class NavbarComponent {
     private renderer: Renderer2,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private iconService: IconService
   ) {
 
   }

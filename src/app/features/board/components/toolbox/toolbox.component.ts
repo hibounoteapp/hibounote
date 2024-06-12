@@ -4,6 +4,7 @@ import { NodeService } from '../../services/node/node.service';
 import { CommonModule } from '@angular/common';
 import { BoardService } from '../../../../shared/services/board/board.service';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { IconService } from '@shared-services/icon/icon.service';
 
 @Component({
   selector: 'toolbox-component',
@@ -20,6 +21,7 @@ export class ToolboxComponent implements AfterViewInit {
     public nodeService: NodeService,
     private boardService: BoardService,
     private renderer: Renderer2,
+    private iconService: IconService
   ) {
 
   }
