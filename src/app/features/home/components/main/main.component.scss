@@ -1,9 +1,30 @@
 main {
-  @apply bg-background-base-50
+  @apply bg-background-base-50;
+
 }
 
 div.landing-container {
-  @apply flex flex-row justify-between items-center h-screen;
+  @apply flex flex-row justify-between items-center h-screen  pt-4;
+
+  h2 {
+    @apply text-[3rem] mb-2;
+
+    @media screen and (max-width: 1000px) {
+      @apply text-[2rem];
+    }
+  }
+
+  h1 {
+    @apply text-[3rem] mb-10;
+
+    @media screen and (max-width: 1000px) {
+      @apply text-[2rem];
+    }
+  }
+
+  img {
+    @apply w-[50%] rounded me-2;
+  }
 }
 
 div.row-between-center {
@@ -13,8 +34,16 @@ div.row-between-center {
 div.text-sections {
   @apply text-center pb-20 px-32;
 
+  @media screen and (max-width: 1000px) {
+    @apply px-16;
+  }
+
   div {
     @apply w-1/6;
+
+    @media screen and (max-width: 1000px) {
+      @apply w-1/4;
+    }
 
     h3 {
       @apply font-bold mb-2 text-lg;
@@ -36,5 +65,13 @@ div.text-sections {
   background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
+
+  img {
+    @apply w-[50%] rounded me-2;
+  }
+
+  @media screen and (max-width: 1000px) {
+
+  }
 }
 
