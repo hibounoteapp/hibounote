@@ -1,0 +1,23 @@
+<div class="fixed z-10 bg-transparent w-screen h-screen top-0 left-0 ">
+
+</div>
+<div id="popup-container">
+<p>By clicking “Accept cookies”, you agree to the storing of cookies on your device to enhance website navigation.</p>
+<div>
+  <app-simple-button
+    id="accept"
+    [theme]="'btn-primary'"
+    text="Accept cookies"
+    [visible]="true"
+    [elementType]="'button'"
+    (click)="closePopup($event)">
+  </app-simple-button>
+  <app-simple-button
+    id="decline"
+    [theme]="'btn-secondary'"
+    text="Decline cookies"
+    [visible]="true"
+    [elementType]="'button'">
+  </app-simple-button>
+</div>
+</div>

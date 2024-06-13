@@ -19,5 +19,5 @@ import { MainComponent } from '../../components/main/main.component';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-
+  showCookiesPopup: boolean = true;
 }

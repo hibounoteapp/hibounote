@@ -3,6 +3,7 @@ import { Board } from '../../../core/models/interfaces/board';
 import { BoardService } from '../board/board.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UINode, uuid } from '@jsplumb/browser-ui';
+import { NodeService } from '../../../features/board/services/node/node.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class BoardDataService implements OnInit{
   constructor(
     protected boardService: BoardService,
     protected activatedRoute: ActivatedRoute,
+    protected nodeService: NodeService,
     private router: Router
   ) {
     this.activatedRoute.queryParamMap.subscribe((p)=>{
@@ -49,6 +51,8 @@ export class BoardDataService implements OnInit{
       queryParams: {
         id,
       }
+    }).then(()=>{
+      this.nodeService.clearAll();
     })
 
   }

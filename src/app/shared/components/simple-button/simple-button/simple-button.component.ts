@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -14,10 +14,11 @@ import { RouterModule } from '@angular/router';
 })
 export class SimpleButtonComponent{
   @Input() routerLink!: string;
+  @Input() id?: string;
   @Input() text!: string;
   @Input() visible!: boolean;
   @Input() theme?: 'btn-primary' | 'btn-secondary' | 'btn-warn';
   @Input() customStyles!: string;
   @Input() elementType!: 'button' | 'a' | 'submit';
-  @Input() onClick: ()=>void = ()=>{};
+  @Output('click') click = new EventEmitter<Event>();
 }

@@ -249,7 +249,7 @@ export class NodeService {
     this.boardService.instance.repaintEverything();
   }
 
-  deleteNode(node: Element, renderer: Renderer2, nodeService: NodeService) {
+  deleteNode(node: Element, renderer: Renderer2, nodeService: NodeService) { //!
     const container = renderer.selectRootElement('#main',true)
 
     const checkGroup = (element: Element | null): UIGroup | undefined=>{
@@ -271,6 +271,10 @@ export class NodeService {
     nodeService.clearActiveConnection();
     nodeService.clearActiveNote(renderer);
     renderer.removeChild(node.parentElement,node);
+  }
+
+  clearAll() {
+    this.boardService.instance.reset()
   }
 
   setActiveNote(element: Element, renderer: Renderer2) {

@@ -1,4 +1,5 @@
-<nav class="{{fixed?'fixed':''}}">
+<nav
+[style.position]="fixed?'fixed':'relative'">
   <div class="flex flex-row items-center">
     <a [routerLink]="['/']">
       <img src="../../assets/logoplaceholder.svg" alt="icon" id="logo">

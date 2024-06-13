@@ -44,6 +44,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 * {
   @apply text-text-base-900;
+  font-family: "Inter", sans-serif;
 }
 
 .centerItems {
@@ -61,7 +62,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .nodeContainer {
-  @apply min-w-48 max-w-56 min-h-20 max-h-44 bg-background-300 absolute p-2 box-border rounded shadow;
+  @apply min-w-48 max-w-56 min-h-12 max-h-44 bg-background-base-50 absolute p-2 box-border rounded shadow;
 
   &:hover {
     @apply shadow-md;
@@ -73,6 +74,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   .desc {
     @apply text-base w-full overflow-hidden resize-none h-full bg-transparent outline-none text-justify;
+  }
+
+  .desc::placeholder {
+    @apply opacity-50 text-text-base-900;
   }
 
   .fadeDiv {
@@ -98,7 +103,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-background-400 bg-opacity-50 w-3 h-3 -m-5 rounded absolute transition-all centerItems;
+  @apply bg-background-600 bg-opacity-50 w-4 h-4 -m-5 rounded absolute transition-all centerItems;
 
   &:hover {
     @apply w-5 h-5 transition-all bg-background-500 bg-opacity-50;
@@ -108,7 +113,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .labelConnection {
-  @apply bg-background-200 rounded shadow py-2 px-1 outline-none text-center min-w-20 max-w-60;
+  @apply bg-background-base-50 rounded shadow py-2 px-1 outline-none text-center min-w-20 max-w-60;
 }
 
 .nodeGroup {

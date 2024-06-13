@@ -48,6 +48,30 @@ export class IconService {
       name: "return",
       url: "../../../../assets/icons/return-outline.svg"
     },
+    {
+      name: "github",
+      url: "../../../../assets/icons/logo-github.svg"
+    },
+    {
+      name: "linkedin",
+      url: "../../../../assets/icons/logo-linkedin.svg"
+    },
+    {
+      name: "link",
+      url: "../../../../assets/icons/link-outline.svg"
+    },
+    {
+      name: "resize",
+      url: "../../../../assets/icons/resize-outline.svg"
+    },
+    {
+      name: "view",
+      url: "../../../../assets/icons/eye-outline.svg"
+    },
+    {
+      name: "close",
+      url: "../../../../assets/icons/close-outline.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

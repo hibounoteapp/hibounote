@@ -25,7 +25,8 @@
       "@shared-components/*" : ["./src/app/shared/components/*"],
       "@shared-services/*" : ["./src/app/shared/services/*"],
       "@custom-interfaces/*" : ["./src/app/core/models/interfaces/*"],
-      "@custom-icons/*":["./src/assets/icons/*"]
+      "@custom-icons/*":["./src/assets/icons/*"],
+      "@core-services/*":["./src/app/core/services/*"]
     }
   },
   "angularCompilerOptions": {

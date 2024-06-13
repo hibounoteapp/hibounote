@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { IconService } from '@shared-services/icon/icon.service';
 
 @Component({
   selector: 'node-component',
@@ -11,7 +12,5 @@ import { MatIconModule } from '@angular/material/icon';
 export class NodeComponent{
   @Input() innerTextarea: string| null = null;
 
-  log(msg: string) {
-    console.log(msg)
-  }
+  constructor(iconService: IconService){}
 }

@@ -1,0 +1,26 @@
+<button class="flex items-center justify-center mt-4 me-4 self-end" mat-dialog-close>
+  <mat-icon svgIcon="close"></mat-icon>
+</button>
+<div class="w-full h-full px-10 pb-12 pt-4 flex flex-col">
+  <p class="mb-8 text-justify">We use required cookies to perform essential website functions. For example, they're used to log you in and save all board configurations in your browser. If you disable it, these functions will not be available.</p>
+
+<div class="justify-between flex flex-row items-center">
+  <app-simple-button
+    mat-dialog-close="accept"
+    id="accept"
+    [theme]="'btn-primary'"
+    text="Accept cookies"
+    [visible]="true"
+    [elementType]="'button'">
+  </app-simple-button>
+  <app-simple-button
+    mat-dialog-close="decline"
+    id="decline"
+    [theme]="'btn-secondary'"
+    text="Decline cookies"
+    [visible]="true"
+    [elementType]="'button'">
+  </app-simple-button>
+
+</div>
+</div>

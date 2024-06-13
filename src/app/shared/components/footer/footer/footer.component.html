@@ -1,3 +1,5 @@
+
+
 <footer>
   <div class="flex flex-row items-center justify-center">
     <img src="../../assets/logoplaceholder.svg" alt="icon" id="logo">
@@ -9,7 +11,7 @@
   <div class="flex flex-row items-center justify-center" id="footer-links-container">
     <a [routerLink]="['/support']">Support</a>
     <a [routerLink]="['/terms']">Terms of use</a>
-    <button>Manage Cookies</button>
+    <button (click)="openModalCookies()">Manage Cookies</button>
     <a [routerLink]="['/signup']">Get Started</a>
   </div>
 </footer>
