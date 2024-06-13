@@ -10,7 +10,6 @@ export class CookiesService {
   }
   public set accepted(value: boolean) {
     this._accepted = value;
-    console.log('ACCEPT COOKIES?:',value)
   }
 
   constructor() { }

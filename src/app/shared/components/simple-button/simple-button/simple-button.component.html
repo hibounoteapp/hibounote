@@ -1,7 +1,7 @@
 <ng-container *ngIf="elementType === 'a'; else buttonType">
   <a
     [id]="id"
-    [routerLink]="['{{routerLink}}']"
+    [routerLink]="[routerLink]"
     class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
       {{text}}
   </a>

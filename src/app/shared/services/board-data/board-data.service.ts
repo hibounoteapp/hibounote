@@ -4,6 +4,7 @@ import { BoardService } from '../board/board.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UINode, uuid } from '@jsplumb/browser-ui';
 import { NodeService } from '../../../features/board/services/node/node.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class BoardDataService implements OnInit{
     protected boardService: BoardService,
     protected activatedRoute: ActivatedRoute,
     protected nodeService: NodeService,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService,
   ) {
     this.activatedRoute.queryParamMap.subscribe((p)=>{
       this.activeId = p.get("id") ?? '';
@@ -52,7 +54,9 @@ export class BoardDataService implements OnInit{
         id,
       }
     }).then(()=>{
-      this.nodeService.clearAll();
+      try {
+        this.nodeService.clearAll();
+      } catch (error) {}
     })
 
   }
@@ -105,6 +109,8 @@ export class BoardDataService implements OnInit{
 
       board.zoomScale = this.boardService.panzoom.getScale();
     }
+
+    this.cookieService.set("boards",JSON.stringify(this.boards))
   }
 
   getData(id: string) {

@@ -10,7 +10,7 @@
       About
     </a>
     <app-simple-button
-      routerLink="/account"
+      [routerLink]="'/account'"
       text="Account"
       [visible]="accountButton.visible"
       [theme]="accountButton.theme"
@@ -19,7 +19,7 @@
     </app-simple-button>
 
     <app-simple-button
-      routerLink="/login"
+      [routerLink]="'/login'"
       text="Login"
       [visible]="loginButton.visible"
       [theme]="loginButton.theme"
@@ -28,7 +28,7 @@
     </app-simple-button>
 
     <app-simple-button
-      routerLink="/signup"
+      [routerLink]="'/signup'"
       text="Sign up"
       [visible]="signupButton.visible"
       [theme]="signupButton.theme"
