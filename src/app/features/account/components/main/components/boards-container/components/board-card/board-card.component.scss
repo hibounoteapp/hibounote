@@ -1,0 +1,15 @@
+.board-container {
+  @apply w-full h-10 rounded shadow bg-background-base-50 flex-row-center justify-between;
+}
+
+.sub-container{
+  @apply rounded shadow flex flex-row items-center;
+}
+
+.flex-row-center {
+  @apply flex flex-row items-center;
+}
+
+.all-center {
+  @apply flex justify-center items-center;
+}

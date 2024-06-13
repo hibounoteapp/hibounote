@@ -72,6 +72,10 @@ export class IconService {
       name: "close",
       url: "../../../../assets/icons/close-outline.svg"
     },
+    {
+      name: "edit",
+      url: "../../../../assets/icons/edit-outline.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
