@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Connection, Overlay, UINode, uuid } from '@jsplumb/browser-ui';
 import { NodeService } from '../../../features/board/services/node/node.service';
 import { CookieService } from 'ngx-cookie-service';
+import { CookiesService } from '@core-services/cookies/cookies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,15 @@ export class BoardDataService implements OnInit{
     protected nodeService: NodeService,
     private router: Router,
     private cookieService: CookieService,
+    private cookiesService: CookiesService
   ) {
     this.activatedRoute.queryParamMap.subscribe((p)=>{
       this.activeId = p.get("id") ?? '';
     })
+  }
+
+  loadBoards(boards: Board[]) {
+    this.boards = boards;
   }
 
   createBoard() {
@@ -61,9 +67,8 @@ export class BoardDataService implements OnInit{
 
   }
 
-
-
   saveData() {
+    if(!this.cookiesService.accepted) return
     const id = this.activatedRoute.snapshot.queryParamMap.get('id')
     let board = this.boards.find(element=>element.id === id)
 
@@ -79,8 +84,7 @@ export class BoardDataService implements OnInit{
       board.zoomScale = this.boardService.panzoom.getScale();
     }
 
-    // this.cookieService.set("boards",JSON.stringify(this.boards))
-    console.log("SAVED DATA:",this.boards);
+    this.cookieService.set("boards",JSON.stringify(this.boards))
   }
 
   saveConnections(board: Board){
@@ -151,7 +155,7 @@ export class BoardDataService implements OnInit{
           })
 
         } catch (error) {}
-        
+
         const x = Number(element.style.left.replace(/[a-z]/g,''));
         const y = Number(element.style.top.replace(/[a-z]/g,''));
         const width = Number(element.style.width.replace(/[a-z]/g,''));
@@ -191,6 +195,7 @@ export class BoardDataService implements OnInit{
       return true;
     })
     this.boards = newBoards;
+    this.cookieService.set("boards",JSON.stringify(this.boards))
   }
 
   editBoardName(id: string, name: string) {

@@ -1,9 +1,7 @@
-import { ElementRef, Injectable, Renderer2, ViewChildren, inject } from '@angular/core';
+import { ElementRef, Injectable, Renderer2 } from '@angular/core';
 import * as jsplumb from '@jsplumb/browser-ui'
 import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 import { NodeService } from '../../../features/board/services/node/node.service';
-import { createCustomElement } from '@angular/elements';
-import { NodeComponent } from '../../../features/board/components/node/node.component';
 import { ActivatedRoute } from '@angular/router';
 import { BoardDataService } from '../board-data/board-data.service';
 

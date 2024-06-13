@@ -15,6 +15,7 @@ import { Connection, Overlay, OverlaySpec } from '@jsplumb/browser-ui';
 import { SavedNode } from '@custom-interfaces/saved-node';
 import { Board } from '@custom-interfaces/board';
 import { SavedConnection } from '@custom-interfaces/saved-connection';
+import { CookiesService } from '@core-services/cookies/cookies.service';
 
 @Component({ selector: 'board',
     standalone: true,
@@ -84,6 +85,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
   }
 
   checkData(boardData: BoardDataService, nodeService: NodeService, renderer: Renderer2) {
+    if(!this.cookiesService.accepted) return
     const id = this.activeRoute.snapshot.queryParamMap.get('id') ?? ''
     const activeBoard: Board | undefined = boardData.getData(id)
 
@@ -163,7 +165,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
           })
         })
       }
-      
+
       if(activeBoard.groups) {
 
         activeBoard.groups.forEach(e=>{
@@ -235,7 +237,8 @@ export class BoardComponent implements AfterViewInit, OnInit{
     private activeRoute: ActivatedRoute,
     public nodeService: NodeService,
     public boardService: BoardService,
-    public boardData: BoardDataService,) {
+    public boardData: BoardDataService,
+    private cookiesService: CookiesService) {
       boardService.appRenderer = renderer
     }
 

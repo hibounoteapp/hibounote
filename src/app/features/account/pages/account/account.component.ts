@@ -12,6 +12,8 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { MainComponent } from '../../components/main/main.component';
 import { EditBoardModalComponent } from '../../components/edit-board-modal/edit-board-modal.component';
 import { IconService } from '@shared-services/icon/icon.service';
+import { CookieService } from 'ngx-cookie-service';
+import { CookiesService } from '@core-services/cookies/cookies.service';
 
 
 @Component({
@@ -33,6 +35,15 @@ import { IconService } from '@shared-services/icon/icon.service';
 })
 export class AccountComponent{
 
-  constructor() {}
+  constructor(
+    cookieService: CookieService,
+    cookiesService: CookiesService,
+    boardData: BoardDataService
+  ) {
+    if(cookiesService.accepted) {
+      const fetchedBoards = JSON.parse(cookieService.get('boards'))
+      boardData.boards = fetchedBoards
+    }
+  }
 
 }

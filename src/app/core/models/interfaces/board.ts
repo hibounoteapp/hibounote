@@ -1,4 +1,4 @@
-import { Connection, ManagedElement } from "@jsplumb/browser-ui";
+
 import { SavedNode } from "./saved-node";
 import { SavedConnection } from "./saved-connection";
 

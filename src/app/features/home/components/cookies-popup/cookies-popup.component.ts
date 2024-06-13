@@ -25,12 +25,10 @@ export class CookiesPopupComponent {
   }
 
   acceptCookies(){
-    console.log("Cookies accepted!")
     this.cookiesService.accepted = true;
   }
 
   declineCookies(){
-    console.log("Cookies declined")
     this.cookiesService.accepted = false;
   }
 

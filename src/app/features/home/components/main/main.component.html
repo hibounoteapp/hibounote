@@ -1,5 +1,5 @@
 <main>
-  <ng-container *ngIf="homeComponent.showCookiesPopup">
+  <ng-container *ngIf="homeComponent.showCookiesPopup && !cookiesService.accepted">
     <home-cookies-popup></home-cookies-popup>
   </ng-container>
   <div class="landing-container">

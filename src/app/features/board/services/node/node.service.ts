@@ -1,9 +1,9 @@
-import { ApplicationRef, ElementRef, EnvironmentInjector, Injectable, Renderer2, createComponent, inject } from '@angular/core';
+import { ApplicationRef, EnvironmentInjector, Injectable, Renderer2, createComponent, inject } from '@angular/core';
 import { BoardService } from '../../../../shared/services/board/board.service';
-import { NgElement, WithProperties, createCustomElement } from '@angular/elements';
+import { NgElement, WithProperties } from '@angular/elements';
 import { NodeComponent } from '../../components/node/node.component';
 import { NodeGroupComponent } from '../../components/node-group/node-group.component';
-import { Connection, UIGroup, uuid } from '@jsplumb/browser-ui';
+import { Connection, UIGroup } from '@jsplumb/browser-ui';
 
 
 @Injectable({

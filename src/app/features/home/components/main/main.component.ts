@@ -4,6 +4,8 @@ import { SimpleButtonComponent } from '@shared-components/simple-button';
 import { CookiesPopupComponent } from '../cookies-popup/cookies-popup.component';
 import { HomeComponent } from '../../pages/home/home.component';
 import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { CookiesService } from '@core-services/cookies/cookies.service';
 
 @Component({
   selector: 'home-main',
@@ -13,7 +15,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  constructor(public homeComponent: HomeComponent){
+  constructor(public homeComponent: HomeComponent, public cookiesService: CookiesService){
 
   }
+
 }
