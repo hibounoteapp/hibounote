@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Board } from '../../../core/models/interfaces/board';
 import { BoardService } from '../board/board.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UINode, uuid } from '@jsplumb/browser-ui';
+import { Connection, Overlay, UINode, uuid } from '@jsplumb/browser-ui';
 import { NodeService } from '../../../features/board/services/node/node.service';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -64,10 +64,6 @@ export class BoardDataService implements OnInit{
 
 
   saveData() {
-    const elements = this.boardService.instance.getManagedElements()
-    const connections = this.boardService.instance.getConnections({
-      scope: '*',
-    })
     const id = this.activatedRoute.snapshot.queryParamMap.get('id')
     let board = this.boards.find(element=>element.id === id)
 
@@ -76,41 +72,107 @@ export class BoardDataService implements OnInit{
     if(board?.connetions) board.connetions=[]
 
     if(board) {
-      board.connetions = connections;
+      this.saveConnections(board);
 
-      for (const key in elements) {
-        const element = elements[key].el
-        if(element instanceof HTMLElement) {
-          try {
-            const groupElement = elements[key].el._jsPlumbGroup;
-            const groupId = groupElement.elId;
-            const children: {id:string| null}[] = [];
-
-            groupElement.children.forEach((subElement: UINode<Element>)=>{
-              const childId = subElement.el.getAttribute('data-jtk-managed')
-              children.push({
-                id: childId,
-              })
-            })
-
-            board.groups.push({
-              groupId,
-              children
-            })
-
-          } catch (error) {}
-
-          board.elements.push({
-            element,
-            id: this.boardService.instance.getId(element)
-          })
-        }
-      }
+      this.saveNodes(board);
 
       board.zoomScale = this.boardService.panzoom.getScale();
     }
 
-    this.cookieService.set("boards",JSON.stringify(this.boards))
+    // this.cookieService.set("boards",JSON.stringify(this.boards))
+    console.log("SAVED DATA:",this.boards);
+  }
+
+  saveConnections(board: Board){
+    const connections = this.boardService.instance.getConnections({
+      scope: '*',
+    })
+    if(connections instanceof Array) {
+      connections.forEach((connection: Connection)=>{
+        type CustomOverlay2 <T> = Partial<T> & {
+          canvas?: HTMLInputElement
+        };//? For some reason, JsPlumb 'CustomOverlay' base type don't have the reference for 'canvas', which is necessary to get internal information about the overlay
+
+        const paintStyle = connection.paintStyle;
+        const hoverPaintStyle = connection.hoverPaintStyle;
+        const endpointStyle = connection.endpointStyle;
+        const sourceId = connection.sourceId;
+        const targetId = connection.targetId;
+        let overlays:{
+          label:{
+            inputValue:string,
+          }
+        }[]=[];
+
+        for (const key in connection.overlays) {
+          const overlay:CustomOverlay2<Overlay> = connection.overlays[key];
+          const inputValue = overlay.canvas?.value ?? '';
+          overlays.push({
+            label:{
+              inputValue,
+            }
+          })
+        }
+
+        board.connetions.push({
+          anchor: "Continuous",
+          connector: "Bezier",
+          sourceId,
+          targetId,
+          paintStyle,
+          hoverPaintStyle,
+          endpointStyle,
+          overlays
+        })
+      })
+    }
+  }
+
+  saveNodes(board: Board){
+    const elements = this.boardService.instance.getManagedElements()
+    for (const key in elements) {
+      const element = elements[key].el
+      if(element instanceof HTMLElement) {
+        try {
+          const groupElement = elements[key].el._jsPlumbGroup;
+          const groupId = groupElement.elId;
+          const children: {id:string| null}[] = [];
+
+          groupElement.children.forEach((subElement: UINode<Element>)=>{
+            const childId = subElement.el.getAttribute('data-jtk-managed')
+            children.push({
+              id: childId,
+            })
+          })
+
+          board.groups.push({
+            groupId,
+            children
+          })
+
+        } catch (error) {}
+        
+        const x = Number(element.style.left.replace(/[a-z]/g,''));
+        const y = Number(element.style.top.replace(/[a-z]/g,''));
+        const width = Number(element.style.width.replace(/[a-z]/g,''));
+        const height = Number(element.style.height.replace(/[a-z]/g,''));
+        const color = element.style.backgroundColor;
+        const innerText = element.querySelector('textarea')?.value ?? null;
+        const type = element.classList.contains('nodeGroup') ? 'group' : 'node'
+        const id = this.boardService.instance.getId(element);
+
+        board.elements.push({
+          x,
+          y,
+          width,
+          height,
+          innerText,
+          color,
+          type,
+          id
+        })
+      }
+    }
   }
 
   getData(id: string) {

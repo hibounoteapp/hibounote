@@ -129,6 +129,8 @@ export class NodeService {
     renderer.setStyle(node,'position','absolute')
     renderer.setStyle(node,'top',`${top}px`)
     renderer.setStyle(node,'left',`${left}px`)
+    renderer.setStyle(node, 'width','200px')
+    renderer.setStyle(node, 'height','100px')
 
     this.applicationRef.attachView(nodeComponentRef.hostView)
 
