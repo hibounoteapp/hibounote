@@ -11,8 +11,8 @@
 
   <ng-container *ngIf="elementType === 'button'; else submitType">
     <button
-    [id]="id"
-    class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
+      [id]="id"
+      class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
       {{text}}
     </button>
   </ng-container>

@@ -20,5 +20,8 @@ export class SimpleButtonComponent{
   @Input() theme?: 'btn-primary' | 'btn-secondary' | 'btn-warn';
   @Input() customStyles!: string;
   @Input() elementType!: 'button' | 'a' | 'submit';
+  @Input() width?: string;
+  @Input() height?: string;
   @Output('click') click = new EventEmitter<Event>();
+
 }

@@ -13,3 +13,7 @@
 .all-center {
   @apply flex justify-center items-center;
 }
+
+.edit-modal {
+  @apply w-[40%] h-[30%] p-4;
+}

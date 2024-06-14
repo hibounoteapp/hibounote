@@ -4,3 +4,15 @@ div#popup-container {
   --tw-shadow-colored: 0 -1px 3px 0 var(--tw-shadow-color), 0 -1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+
+div#buttons {
+  @media screen and (max-width: 768px) {
+    @apply flex-col;
+  }
+}
+
+.closeButton {
+  @media screen and (max-width: 768px) {
+    @apply my-1 w-full;
+  }
+}

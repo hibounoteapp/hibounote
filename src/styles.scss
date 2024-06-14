@@ -188,3 +188,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 50px;
 }
 
+.cookieModal {
+  @apply w-[50vw];
+
+  @media screen and (max-width: 1000px)  {
+    @apply w-[70vw];
+  }
+}
+

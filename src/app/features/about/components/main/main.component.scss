@@ -1,5 +1,5 @@
 main {
-  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50;
+  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50 px-2;
 }
 
 .founder-card {
@@ -7,6 +7,8 @@ main {
 }
 
 #contributeGuide {
+  @apply w-[30vw];
+
   p:not(:last-child) {
     @apply mb-6;
   }
@@ -21,5 +23,14 @@ main {
 
   a {
     @apply underline;
+  }
+
+  @media screen and (max-width: 768px) {
+    @apply w-[70vw];
+  }
+
+
+  @media screen and (min-width: 768px) and (max-width: 1000px) {
+    @apply w-[45vw];
   }
 }

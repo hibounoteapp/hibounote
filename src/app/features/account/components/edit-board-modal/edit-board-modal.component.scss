@@ -1,3 +1,24 @@
 input {
-  @apply border-[1px] border-text-base-900 p-1 rounded outline-none bg-background-base-50;
+  @apply border-[1px] border-text-base-900 p-1 rounded outline-none bg-background-base-50 my-8;
+}
+
+#buttons {
+
+  @apply w-full;
+
+  @media screen and (max-width: 768px) {
+    @apply flex flex-col items-center;
+  }
+}
+
+.closeButton {
+  @media screen and (max-width: 768px) {
+    @apply w-full my-1;
+  }
+}
+
+#nameInput-container {
+  @media screen and (max-width: 768px) {
+    @apply flex flex-col justify-center items-center;
+  }
 }

@@ -4,9 +4,11 @@
 <div class="w-full h-full px-10 pb-12 pt-4 flex flex-col">
   <p class="mb-8 text-justify">We use required cookies to perform essential website functions. For example, they're used to log you in and save all board configurations in your browser. If you disable it, these functions will not be available.</p>
 
-<div class="justify-between flex flex-row items-center">
+<div class="justify-between flex flex-row items-center w-full" id="buttons">
   <app-simple-button
+    [customStyles]="'!w-full'"
     mat-dialog-close="accept"
+    class="closeButton"
     id="accept"
     [theme]="'btn-primary'"
     text="Accept cookies"
@@ -14,7 +16,9 @@
     [elementType]="'button'">
   </app-simple-button>
   <app-simple-button
+    [customStyles]="'!w-full'"
     mat-dialog-close="decline"
+    class="closeButton"
     id="decline"
     [theme]="'btn-secondary'"
     text="Decline cookies"

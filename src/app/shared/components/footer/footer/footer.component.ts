@@ -17,7 +17,7 @@ export class FooterComponent {
 
   openModalCookies(){
     const modalCookies = this.dialog.open(CookiesModalComponent,{
-      panelClass: "w-2/5"
+      panelClass: "cookieModal"
     });
 
     modalCookies.afterClosed().subscribe((result)=>{
