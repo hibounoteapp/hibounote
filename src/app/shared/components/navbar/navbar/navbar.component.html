@@ -1,39 +1,101 @@
-<nav class="{{fixed?'fixed':''}}">
-  <div class="flex flex-row items-center">
-    <a [routerLink]="['/']">
-      <img src="../../assets/logoplaceholder.svg" alt="icon" id="logo">
-    </a>
-  </div>
-  <div class="flex flex-row items-center">
-    <a [routerLink]="['/about']" class="me-3">
-      About
-    </a>
-    <app-simple-button
-      routerLink="/account"
-      text="Account"
-      [visible]="accountButton.visible"
-      [theme]="accountButton.theme"
-      [elementType]="'a'"
+<nav [style.position]="fixed?'fixed':'relative'">
+  <div id="desktop-port">
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/']">
+        <img src="../../assets/logoplaceholder.svg" alt="icon" id="logo">
+      </a>
+    </div>
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/about']" class="me-3">
+        About
+      </a>
+      <app-simple-button
+        [routerLink]="'/account'"
+        text="Account"
+        [visible]="accountButton.visible"
+        [theme]="accountButton.theme"
+        [elementType]="'a'"
+        >
+      </app-simple-button>
+
+      <app-simple-button
+        [routerLink]="'/login'"
+        text="Login"
+        [visible]="loginButton.visible"
+        [theme]="loginButton.theme"
+        [elementType]="'a'"
+      >
+      </app-simple-button>
+
+      <app-simple-button
+        [routerLink]="'/signup'"
+        text="Sign up"
+        [visible]="signupButton.visible"
+        [theme]="signupButton.theme"
+        [elementType]="'a'"
       >
     </app-simple-button>
 
-    <app-simple-button
-      routerLink="/login"
-      text="Login"
-      [visible]="loginButton.visible"
-      [theme]="loginButton.theme"
-      [elementType]="'a'"
-    >
-    </app-simple-button>
+    </div>
+  </div>
 
-    <app-simple-button
-      routerLink="/signup"
-      text="Sign up"
-      [visible]="signupButton.visible"
-      [theme]="signupButton.theme"
-      [elementType]="'a'"
-    >
-  </app-simple-button>
+  <div id="mobile-port">
+    <mat-drawer-container [hasBackdrop]="'false'" style="overflow: visible;">
+      <mat-drawer #drawer mode="over" position="end" id="drawer">
+        <div class="flex flex-row justify-end w-full">
+          <button (click)="drawer.toggle()" >
+            <mat-icon svgIcon="close" style="width: 30px; height: 30px;"></mat-icon>
+          </button>
+        </div>
+        <div class="flex flex-col items-center">
+          <a [routerLink]="['/about']" class="my-3 underline">
+            About
+          </a>
+          <app-simple-button
+            class="button"
+            [customStyles]="'!w-[100%] flex-grow'"
+            [routerLink]="'/account'"
+            text="Account"
+            [visible]="accountButton.visible"
+            [theme]="accountButton.theme"
+            [elementType]="'a'"
+            >
+          </app-simple-button>
 
+          <app-simple-button
+            class="button"
+            [customStyles]="'!w-full'"
+            [routerLink]="'/login'"
+            text="Login"
+            [visible]="loginButton.visible"
+            [theme]="loginButton.theme"
+            [elementType]="'a'"
+          >
+          </app-simple-button>
+
+          <app-simple-button
+            class="button"
+            [customStyles]="'!flex-grow'"
+            [routerLink]="'/signup'"
+            text="Sign up"
+            [visible]="signupButton.visible"
+            [theme]="signupButton.theme"
+            [elementType]="'a'"
+          >
+        </app-simple-button>
+
+        </div>
+      </mat-drawer>
+
+      <div class="w-full h-full flex flex-row justify-between items-center">
+        <a [routerLink]="['/']">
+          <img src="../../assets/logoplaceholder.svg" alt="icon" id="logo">
+        </a>
+        <button class="flex items-center justify-center py-2" (click)="drawer.toggle()">
+          <mat-icon svgIcon="menu" style="height: 30px; width: 30px;"></mat-icon>
+        </button>
+      </div>
+    </mat-drawer-container>
   </div>
 </nav>
+

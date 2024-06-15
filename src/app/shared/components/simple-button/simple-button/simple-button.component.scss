@@ -1,5 +1,5 @@
 .btn {
-  @apply rounded px-8 py-3 mx-1 shadow;
+  @apply rounded px-8 py-3 mx-1 shadow text-center;
 
   &:hover {
     @apply transition-all;

@@ -4,22 +4,16 @@
       <mat-icon>add</mat-icon>
     </button>
     <div class="sub-container p-2 flex-grow">
-      <mat-icon class="me-2">search</mat-icon>
-      <input type="text" name="searchBoard" id="searchBoard" class="border-b-2 bg-transparent flex-grow outline-none px-2" (input)="setSearch($event)">
+      <mat-icon class="me-2" svgIcon="search"></mat-icon>
+      <input type="text" name="searchBoard" id="searchBoard" class="border-b-2 bg-transparent flex-grow outline-none px-2 w-2" (input)="setSearch($event)">
     </div>
   </div>
   <ng-container *ngIf="boardData.boards.length !== 0; else emptyBoards">
     <ng-container *ngIf="filteredBoards.length !== 0; else searchNotFound">
-      <div *ngFor="let item of filteredBoards;" class="my-2" >
-        <div class="w-full h-10 rounded shadow bg-background-base-50 flex-row-center justify-between" id='{{item.id}}'>
-          <button class="all-center rounded p-1 shadow m-1" (click)="editBoard($event, item.id)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="h-full flex-grow rounded bg-background-base-50 flex-row-center justify-between px-2">
-            <p class="text-sm">{{item.name}}</p>
-            <p class="text-sm">Created at: {{item.dateCreated | date}} </p>
-          </a>
-        </div>
+      <div *ngFor="let item of filteredBoards;" class="board-card-container">
+        <board-container-card
+        [item]="item"
+        (editBoard)="editBoard($event,item.id)"></board-container-card>
       </div>
     </ng-container>
     <ng-template #searchNotFound>

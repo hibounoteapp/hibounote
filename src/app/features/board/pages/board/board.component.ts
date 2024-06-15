@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
 import { NodeComponent } from '../../components/node/node.component';
@@ -12,6 +12,10 @@ import { BoardService } from '@shared-services/board/board.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
 import { Connection, Overlay, OverlaySpec } from '@jsplumb/browser-ui';
+import { SavedNode } from '@custom-interfaces/saved-node';
+import { Board } from '@custom-interfaces/board';
+import { SavedConnection } from '@custom-interfaces/saved-connection';
+import { CookiesService } from '@core-services/cookies/cookies.service';
 
 @Component({ selector: 'board',
     standalone: true,
@@ -25,7 +29,8 @@ import { Connection, Overlay, OverlaySpec } from '@jsplumb/browser-ui';
       ContextMenuComponent,
       ToolboxComponent,
       ControlpanComponent,
-      NavbarComponent
+      NavbarComponent,
+      RouterModule
     ],
     providers: [HttpClient]
   })
@@ -81,8 +86,9 @@ export class BoardComponent implements AfterViewInit, OnInit{
   }
 
   checkData(boardData: BoardDataService, nodeService: NodeService, renderer: Renderer2) {
+    if(!this.cookiesService.accepted) return
     const id = this.activeRoute.snapshot.queryParamMap.get('id') ?? ''
-    const activeBoard = boardData.getData(id)
+    const activeBoard: Board | undefined = boardData.getData(id)
 
     if(activeBoard) {
       const scale = activeBoard.zoomScale;
@@ -92,17 +98,14 @@ export class BoardComponent implements AfterViewInit, OnInit{
       this.boardService.translation = this.boardService.panzoom.getPan()
 
       if(activeBoard.elements) {
-        activeBoard.elements.forEach((e: {
-          element: HTMLElement,
-          id: string | null
-        }) => {
-          const x = Number(e.element.style.left.replace(/[a-z]/g,'')) * activeBoard.zoomScale;
-          const y = Number(e.element.style.top.replace(/[a-z]/g,'')) * activeBoard.zoomScale;
-          const width = Number(e.element.style.width.replace(/[a-z]/g,''));
-          const height = Number(e.element.style.height.replace(/[a-z]/g,''));
-          const color = e.element.style.backgroundColor;
-          const innerText = e.element.querySelector('textarea')?.value ?? null;
-          const type = e.element.classList.contains('nodeGroup') ? 'group' : 'node'
+        activeBoard.elements.forEach((e:SavedNode)=>{
+          const x = e.x * activeBoard.zoomScale;
+          const y = e.y * activeBoard.zoomScale;
+          const width = e.width;
+          const height = e.height;
+          const color = e.color;
+          const innerText = e.innerText ?? '';
+          const type = e.type;
           const nodeId = e.id;
 
           nodeService.loadNode(x,y,width,height,color,innerText,type,renderer,nodeId)
@@ -110,44 +113,36 @@ export class BoardComponent implements AfterViewInit, OnInit{
       }
 
       if(activeBoard.connetions) {
+        activeBoard.connetions.forEach((c: SavedConnection)=>{
+          let source;
+          try { //? Check if source element is a group, since the group Id and Element Id are different
+            source = this.boardService.instance.getGroup(c.sourceId).el;
+          } catch (error) {
+            source = this.boardService.instance.getManagedElement(c.sourceId);
+          }
 
-        if(activeBoard.connetions instanceof Array) {
-          activeBoard.connetions.forEach((e: Connection)=>{
+          let target
+          try {//?
+            target = this.boardService.instance.getGroup(c.targetId).el;
+          } catch (error) {
+            target = this.boardService.instance.getManagedElement(c.targetId);
+          }
 
-            let source;
-            try { //? Check if source element is a group, since the group Id and Element Id are different
-              source = this.boardService.instance.getGroup(e.sourceId).el;
-            } catch (error) {
-              source = this.boardService.instance.getManagedElement(e.sourceId);
-            }
-
-            let target
-            try {//?
-              target = this.boardService.instance.getGroup(e.targetId).el;
-            } catch (error) {
-              target = this.boardService.instance.getManagedElement(e.targetId);
-            }
-
-            const paintStyle = e.paintStyle;
-            const hoverPaintStyle = e.hoverPaintStyle
-            const endpointStyle = e.endpointStyle
-
-            type CustomOverlay2 <T> = Partial<T> & {
-              canvas?: HTMLInputElement
-            };//? For some reason, JsPlumb 'CustomOverlay' base type don't have the reference for 'canvas', which is necessary to get internal information about the overlay
-            let overlays = e.overlays;
-            let overlaysToAdd:OverlaySpec[]=[];
-            for (const key in overlays) {
-              const element: CustomOverlay2<Overlay> = overlays[key];
-              const inputValue = element.canvas?.value;
-              let overlayConfig: OverlaySpec;
-              if(inputValue) {
+          const anchor = c.anchor;
+          const connector = c.connector;
+          const paintStyle = c.paintStyle;
+          const hoverPaintStyle = c.hoverPaintStyle
+          const endpointStyle = c.endpointStyle
+          let overlays:OverlaySpec[]=[];
+          c.overlays.forEach((overlay)=>{
+            	let overlayConfig:OverlaySpec;
+              if(overlay.label.inputValue != '') {
                 overlayConfig = {
                   type: 'Custom',
                   options: {
                     create: ()=>{
                       const label: HTMLInputElement = renderer.createElement('input');
-                      label.value = inputValue;
+                      label.value = overlay.label.inputValue;
                       renderer.setAttribute(label, 'class', 'labelConnection');
                       renderer.setAttribute(label,'type','text');
                       return label;
@@ -155,22 +150,21 @@ export class BoardComponent implements AfterViewInit, OnInit{
                     location: 0.5,
                   }
                 }
-                overlaysToAdd.push(overlayConfig);
+                overlays.push(overlayConfig);
               }
-            }
-
-            this.boardService.instance.connect({
-              anchor: 'Continuous',
-              connector: 'Bezier',
-              source,
-              target,
-              paintStyle,
-              hoverPaintStyle,
-              endpointStyle,
-              overlays: overlaysToAdd,
-            })
           })
-        }
+
+          this.boardService.instance.connect({
+            anchor,
+            connector,
+            source,
+            target,
+            paintStyle,
+            hoverPaintStyle,
+            endpointStyle,
+            overlays,
+          })
+        })
       }
 
       if(activeBoard.groups) {
@@ -244,7 +238,8 @@ export class BoardComponent implements AfterViewInit, OnInit{
     private activeRoute: ActivatedRoute,
     public nodeService: NodeService,
     public boardService: BoardService,
-    public boardData: BoardDataService,) {
+    public boardData: BoardDataService,
+    private cookiesService: CookiesService) {
       boardService.appRenderer = renderer
     }
 
@@ -259,7 +254,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
     this.initEvents();
     this.boardService.disablePanzoom()
     this.boardService.enablePanzoom()
-    
+
   }
 
 }

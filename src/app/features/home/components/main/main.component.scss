@@ -1,20 +1,90 @@
 main {
-  @apply bg-background-base-50
+  @apply bg-background-base-50;
+
 }
 
 div.landing-container {
-  @apply flex flex-row justify-between items-center h-screen;
+  @apply flex flex-row justify-between items-center min-h-screen pt-4;
+
+  @media screen and (max-width: 768px) {
+    @apply flex flex-col pt-32;
+  }
+
+  #title-info {
+    @apply ms-12 pe-10 px-2;
+
+    @media screen and (max-width: 768px) {
+      @apply ms-0 p-0 flex flex-col items-center text-center;
+    }
+  }
+
+  h2 {
+    @apply text-[3rem] mb-2;
+
+    @media screen and (max-width: 768px) {
+      @apply flex flex-col mx-4;
+    }
+
+    @media screen and (max-width: 1000px) {
+      @apply text-[2rem];
+    }
+  }
+
+  h1 {
+    @apply text-[3rem] mb-5;
+
+    @media screen and (max-width: 1000px) {
+      @apply text-[2rem];
+    }
+  }
+
+  img {
+    @apply w-[50%] rounded me-2;
+
+    @media screen and (max-width: 768px) {
+      @apply w-[80%] my-10 me-0;
+    }
+  }
 }
 
 div.row-between-center {
   @apply flex flex-row justify-between items-center;
 }
 
+div#three-paragraph-container{
+  @apply bg-background-200 flex items-center flex-col py-20;
+
+  @media screen and (max-width:768px) {
+    @apply py-10;
+  }
+}
+
 div.text-sections {
   @apply text-center pb-20 px-32;
 
+  @media screen and (max-width: 380px) {
+    @apply px-10;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    @apply flex-col;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1000px) {
+    @apply px-16;
+  }
+
   div {
     @apply w-1/6;
+
+    @media screen and (max-width: 768px) {
+      @apply w-[80%] mt-8;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1000px) {
+      @apply w-1/4;
+    }
 
     h3 {
       @apply font-bold mb-2 text-lg;
@@ -28,13 +98,88 @@ div.text-sections {
   background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
+
+  @media screen and (max-width: 768px){
+    h3 {
+      @apply text-2xl mx-2;
+    }
+    p {
+      @apply text-xl mx-2;
+    }
+  }
 }
 
 #bgBlob {
   @apply bg-background-base-50;
   background-image: url('../../../../../assets/images/bg-blob.svg');
-  background-position: bottom;
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
+
+
+  @media screen and (max-width: 768px) {
+
+    h3 {
+      @apply mx-4;
+    }
+
+    div#text-and-image {
+      @apply pt-20;
+
+      .paragraph {
+        @apply w-[80vw] text-center;
+      }
+
+      img {
+        @apply w-[80vw];
+      }
+
+      &>div {
+        @apply flex-col px-5;
+      }
+    }
+  }
+
+  img {
+    @apply w-[50vw] rounded;
+
+    @media screen and (max-width: 1000px){
+      @apply w-[40vw];
+    }
+  }
+
+  img:last-child {
+    @apply w-[80vw]
+  }
+}
+
+div#text-and-image {
+  img {
+    @apply w-[50vw] rounded;
+
+    @media screen and (max-width: 1000px){
+      @apply w-[40vw];
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  div#text-and-image {
+    @apply pt-20;
+
+    .paragraph {
+      @apply w-[80vw] text-center mb-10;
+    }
+
+    img {
+      @apply w-[80vw];
+    }
+
+    &>div {
+      @apply flex-col px-5;
+    }
+  }
 }
 

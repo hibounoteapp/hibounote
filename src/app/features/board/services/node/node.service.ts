@@ -1,9 +1,9 @@
-import { ApplicationRef, ElementRef, EnvironmentInjector, Injectable, Renderer2, createComponent, inject } from '@angular/core';
+import { ApplicationRef, EnvironmentInjector, Injectable, Renderer2, createComponent, inject } from '@angular/core';
 import { BoardService } from '../../../../shared/services/board/board.service';
-import { NgElement, WithProperties, createCustomElement } from '@angular/elements';
+import { NgElement, WithProperties } from '@angular/elements';
 import { NodeComponent } from '../../components/node/node.component';
 import { NodeGroupComponent } from '../../components/node-group/node-group.component';
-import { Connection, UIGroup, uuid } from '@jsplumb/browser-ui';
+import { Connection, UIGroup } from '@jsplumb/browser-ui';
 
 
 @Injectable({
@@ -129,6 +129,8 @@ export class NodeService {
     renderer.setStyle(node,'position','absolute')
     renderer.setStyle(node,'top',`${top}px`)
     renderer.setStyle(node,'left',`${left}px`)
+    renderer.setStyle(node, 'width','200px')
+    renderer.setStyle(node, 'height','100px')
 
     this.applicationRef.attachView(nodeComponentRef.hostView)
 
@@ -249,7 +251,7 @@ export class NodeService {
     this.boardService.instance.repaintEverything();
   }
 
-  deleteNode(node: Element, renderer: Renderer2, nodeService: NodeService) {
+  deleteNode(node: Element, renderer: Renderer2, nodeService: NodeService) { //!
     const container = renderer.selectRootElement('#main',true)
 
     const checkGroup = (element: Element | null): UIGroup | undefined=>{
@@ -271,6 +273,10 @@ export class NodeService {
     nodeService.clearActiveConnection();
     nodeService.clearActiveNote(renderer);
     renderer.removeChild(node.parentElement,node);
+  }
+
+  clearAll() {
+    this.boardService.instance.reset()
   }
 
   setActiveNote(element: Element, renderer: Renderer2) {

@@ -1,0 +1,11 @@
+div#buttons {
+  @media screen and (max-width: 768px) {
+    @apply flex-col;
+  }
+}
+
+.closeButton {
+  @media screen and (max-width: 768px) {
+    @apply my-1 w-full;
+  }
+}

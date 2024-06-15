@@ -34,8 +34,7 @@ export class BoardsContainerComponent {
 
   editBoard(event: Event, id: string) {
     const dialog = this.dialog.open(EditBoardModalComponent,{
-      width: '30%',
-      height: '40%',
+      panelClass: "edit-modal",
       data:{id:id}
     });
 

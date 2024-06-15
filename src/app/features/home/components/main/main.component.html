@@ -1,20 +1,25 @@
 <main>
+  <ng-container *ngIf="homeComponent.showCookiesPopup && !cookiesService.accepted">
+    <home-cookies-popup></home-cookies-popup>
+  </ng-container>
   <div class="landing-container">
-    <div class="ms-16">
-      <h2 class="text-6xl mb-2">The extension for <br> your brain.</h2>
-      <h1 class="text-6xl mb-10">hibounote.</h1>
+    <div id="title-info">
+      <h2>The extension for your brain.</h2>
+      <h1>hibounote.</h1>
 
       <app-simple-button
       [routerLink]="'/signup'"
       [theme]="'btn-primary'"
       [visible]="true"
-      text="Sing up for free">
+      text="Sign up for free"
+      [elementType]="'a'">
       </app-simple-button>
+
     </div>
-    <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+    <img src="https://placehold.co/600x400?text=Board-iframe" alt="board">
   </div>
 
-  <div class="bg-background-200 flex items-center flex-col py-20">
+  <div id="three-paragraph-container">
     <div class="row-between-center text-sections">
       <div>
         <h3>Limitless Organization</h3>
@@ -36,9 +41,9 @@
   </div>
 
   <div id="bgBlob">
-    <div class="pt-48 row-between-center">
-      <div class="row-between-center px-20">
-        <div class="flex flex-col w-1/4 mb-16">
+    <div class="pt-60 row-between-center" id="text-and-image">
+      <div class="row-between-center px-20 w-full">
+        <div class="flex flex-col w-[30vw] mb-16 paragraph" >
           <h3 class="font-bold mb-5 text-2xl ">Organize, Create, Innovate</h3>
           <p class="text-justify">Completely free and without any limitations, Hibounote is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands.</p>
         </div>
@@ -63,9 +68,9 @@
     </div>
   </div>
 
-  <div class="py-24 bg-background-200 row-between-center shadow-md">
-      <div class="row-between-center px-20">
-        <div class="flex flex-col w-1/4">
+  <div class="py-24 bg-background-200 row-between-center shadow-md" id="text-and-image">
+      <div class="row-between-center px-20 w-full" >
+        <div class="flex flex-col w-[30vw] paragraph">
           <h3 class="font-bold mb-5 text-2xl ">Ideas Without Limits</h3>
           <p class="text-justify">Whether you're brainstorming, planning projects, or jotting down notes, Hibounote provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.</p>
         </div>
@@ -83,14 +88,15 @@
       </div>
   </div>
 
-  <div class="flex flex-col justify-start pt-36 items-center h-screen" id="layeredWaves">
+  <div class="flex flex-col justify-start pt-36 items-center min-h-screen" id="layeredWaves">
     <h3 class="sub-title-3xl mb-5">Start thinking unlimited</h3>
     <p class="sub-title-2xl !font-normal mb-10">Create your account and start to explore</p>
     <app-simple-button
+      class="mb-20"
       [routerLink]="'/'"
       [theme]="'btn-primary'"
       [visible]="true"
-      text="Sing up for free">
+      text="Sign up for free">
     </app-simple-button>
   </div>
 

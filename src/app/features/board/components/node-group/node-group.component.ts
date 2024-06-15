@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { IconService } from '@shared-services/icon/icon.service';
 
 @Component({
   selector: 'node-group-component',
@@ -10,4 +11,5 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class NodeGroupComponent {
   @Input() innerTextarea: string | null = null;
+  constructor(iconService:IconService){}
 }

@@ -1,0 +1,20 @@
+.board-container {
+  @apply w-full rounded shadow bg-background-base-50 flex-row-center justify-between text-sm;
+
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.8rem !important;
+  }
+}
+
+.sub-container{
+  @apply rounded shadow flex flex-row items-center;
+}
+
+.flex-row-center {
+  @apply flex flex-row items-center;
+}
+
+.all-center {
+  @apply flex justify-center items-center;
+}

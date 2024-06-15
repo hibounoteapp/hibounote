@@ -1,6 +1,7 @@
-<ng-container *ngIf="elementType === 'a'; else buttonType">
+<ng-container *ngIf="elementType === 'a'; else buttonType" class="{{customStyles}} w-full" >
   <a
-    [routerLink]="['{{routerLink}}']"
+    [id]="id"
+    [routerLink]="[routerLink]"
     class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
       {{text}}
   </a>
@@ -10,14 +11,15 @@
 
   <ng-container *ngIf="elementType === 'button'; else submitType">
     <button
-    (click)="onClick()"
-    class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
+      [id]="id"
+      class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
       {{text}}
     </button>
   </ng-container>
 
   <ng-template #submitType>
     <input
+      [id]="id"
       type="submit" value="{{text}}"
       class="btn {{theme}} {{customStyles}} {{visible ? 'inline' : 'hidden'}}">
   </ng-template>

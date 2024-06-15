@@ -7,7 +7,7 @@ ul {
   @apply w-full flex flex-col;
 
   li {
-    @apply w-full text-center bg-background-300  transition-all;
+    @apply w-full text-center bg-background-base-50  transition-all;
 
     &:hover {
       @apply bg-background-200 transition-all;

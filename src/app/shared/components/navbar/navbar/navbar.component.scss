@@ -1,3 +1,35 @@
 nav {
-  @apply bg-background-100 w-full shadow flex flex-row items-center justify-between px-10 py-4;
+  @apply bg-background-100 w-full shadow flex flex-row items-center justify-between;
+
+  #desktop-port {
+    @apply w-full flex flex-row items-center justify-between mx-10 my-4;
+
+    @media screen and (max-width: 768px){
+      @apply hidden;
+    }
+  }
+
+  #mobile-port {
+    @apply hidden;
+
+    .mat-drawer-container {
+      @apply h-full w-full bg-transparent;
+    }
+
+    #drawer {
+      @apply h-[100vh] w-[60vw] absolute mt-[-1rem] me-[-1rem] flex flex-col p-4 bg-background-100;
+    }
+
+    @media screen and (max-width: 768px){
+      @apply w-full flex flex-row items-center justify-between mx-4 my-3 ;
+    }
+
+    .button {
+      @apply my-1 w-full flex items-center justify-center;
+    }
+
+  }
+
+
 }
+

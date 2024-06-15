@@ -4,6 +4,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { SimpleButtonComponent } from '@shared-components/simple-button';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
 import { DeleteConfirmationComponent } from './components/delete-confirmation/delete-confirmation.component';
+import { IconService } from '@shared-services/icon/icon.service';
 
 @Component({
   selector: 'account-edit-board-modal',
@@ -23,7 +24,8 @@ export class EditBoardModalComponent implements AfterViewInit{
     public dialog: MatDialog,
     private renderer: Renderer2,
     public boardData: BoardDataService,
-    private selfDialog: MatDialogRef<EditBoardModalComponent>
+    private selfDialog: MatDialogRef<EditBoardModalComponent>,
+    public iconService: IconService
   ) {}
 
   @ViewChild('inputName',{static:true}) inputName!: ElementRef<HTMLInputElement>;
@@ -49,6 +51,8 @@ export class EditBoardModalComponent implements AfterViewInit{
       }
     })
   }
+
+
 
   ngAfterViewInit(): void {
     const abstractInput:HTMLInputElement = this.renderer.selectRootElement(this.inputName.nativeElement,true);

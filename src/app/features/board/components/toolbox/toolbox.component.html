@@ -2,7 +2,7 @@
 
   <div #editingNode class="flex flex-col justify-between" *ngIf="nodeService.activeNode; else editingConnection">
     <button class="return controlTools" (click)="deactivateNode()">
-      <mat-icon>keyboard_return</mat-icon>
+      <mat-icon svgIcon="return"></mat-icon>
     </button>
     <div class="mt-10 bg-background-200 rounded p-2">
       <div class="flex flex-col items-center">
@@ -10,7 +10,7 @@
         <button class="w-10 h-10 bg-[#2D93AD] rounded controlTools" (click)="editNode('backgroundColor','#2D93AD')"></button>
         <button class="w-10 h-10 bg-[#FFAD05] rounded controlTools" (click)="editNode('backgroundColor','#FFAD05')"></button>
         <button class="w-10 h-10 bg-[#008148] rounded controlTools" (click)="editNode('backgroundColor','#008148')"></button>
-        <button class="w-10 h-10 bg-[#f0eee7] rounded controlTools" (click)="editNode('backgroundColor','#f0eee7')"></button>
+        <button class="w-10 h-10 bg-[#fffdf6] rounded controlTools" (click)="editNode('backgroundColor','#fffdf6')"></button>
       </div>
     </div>
   </div>
@@ -18,15 +18,15 @@
   <ng-template #editingConnection>
     <div class="edit" *ngIf="nodeService.activeConnection; else addingNode">
       <button class="return controlTools" (click)="deactivateConnection()">
-        <mat-icon>keyboard_return</mat-icon>
+        <mat-icon svgIcon="return"></mat-icon>
       </button>
       <div class="mt-10 bg-background-200 rounded p-2 flex flex-col items-center">
         <button class="w-10 h-10 bg-[#FE5F55] rounded controlTools" (click)="editConnection('#FE5F55')"></button>
         <button class="w-10 h-10 bg-[#2D93AD] rounded controlTools" (click)="editConnection('#2D93AD')"></button>
         <button class="w-10 h-10 bg-[#FFAD05] rounded controlTools" (click)="editConnection('#FFAD05')"></button>
         <button class="w-10 h-10 bg-[#008148] rounded controlTools" (click)="editConnection('#008148')"></button>
-        <button class="w-10 h-10 bg-[#f0eee7] rounded controlTools" (click)="editConnection('#f0eee7')"></button>
-        <button class="px-2 text-sm bg-[#f0eee7] rounded controlTools" (click)="toggleLabelConnection()">
+        <button class="w-10 h-10 bg-[#fffdf6] rounded controlTools" (click)="editConnection('#fffdf6')"></button>
+        <button class="px-2 text-sm bg-[#fffdf6] rounded controlTools" (click)="toggleLabelConnection()">
         Toggle label
         </button>
       </div>
@@ -35,10 +35,10 @@
 
   <ng-template #addingNode id="addNode">
     <div class="grab" draggable="true" id="note" matTooltip="Note - Drag to add" matTooltipPosition="right">
-      <mat-icon >article</mat-icon>
+      <mat-icon svgIcon="note"></mat-icon>
     </div>
     <div class="grab" draggable="true" id="group" matTooltip="Group note - Drag to add" matTooltipPosition="right">
-      <mat-icon >folder</mat-icon>
+      <mat-icon svgIcon="folder"></mat-icon>
     </div>
   </ng-template>
 </div>

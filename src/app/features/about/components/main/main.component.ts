@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { IconService } from '@shared-services/icon/icon.service';
 
 @Component({
   selector: 'about-main',
@@ -9,5 +10,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-
+  constructor(iconService: IconService) {}
 }

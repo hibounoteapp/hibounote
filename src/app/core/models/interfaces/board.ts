@@ -1,17 +1,18 @@
-import { Connection, ManagedElement } from "@jsplumb/browser-ui";
+
+import { SavedNode } from "./saved-node";
+import { SavedConnection } from "./saved-connection";
 
 export interface Board {
   id: string,
   dateCreated: Date,
-  connetions: Record<string, Connection> | Array<Connection> | null,
+  connetions: SavedConnection[],
   name: string,
-  elements: {
-    element: HTMLElement,
-    id: string | null,
-  }[] ,
+  elements: SavedNode[] ,
   groups: {
     groupId: string | null,
-    children: {id: string | null}[]
+    children: {
+      id: string | null
+    }[]
   }[],
   zoomScale: number,
 }

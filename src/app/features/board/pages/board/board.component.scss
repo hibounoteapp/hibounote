@@ -1,5 +1,17 @@
 main {
-  @apply select-none absolute w-full h-full bg-background-100;
+  @apply select-none absolute w-full h-full bg-background-300;
+
+  @media screen and (max-width: 768px){
+    @apply hidden;
+  }
+}
+
+#mobile-msg {
+  @apply hidden;
+
+  @media screen and (max-width: 768px){
+    @apply flex items-center justify-center flex-col select-none absolute w-full h-full bg-background-300 px-5 text-center;
+  }
 }
 
 #board {

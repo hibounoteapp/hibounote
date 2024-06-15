@@ -1,3 +1,21 @@
 nav {
-  @apply flex flex-row justify-between items-center px-8 py-4;
+  @apply flex flex-row justify-between items-center;
+}
+
+div#desktop-port {
+
+  @apply flex flex-row justify-between items-center w-full h-full mx-8 my-4;
+
+  @media screen and (max-width: 768px) {
+    @apply hidden
+  }
+}
+
+div#mobile-port {
+
+  @apply hidden;
+
+  @media screen and (max-width: 768px) {
+    @apply flex flex-row justify-between items-center w-full h-full m-4;
+  }
 }

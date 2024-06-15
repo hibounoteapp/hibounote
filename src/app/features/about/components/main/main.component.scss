@@ -1,12 +1,14 @@
 main {
-  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50;
+  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50 px-2;
 }
 
 .founder-card {
-  @apply rounded bg-background-100 shadow flex flex-row items-center justify-center py-4 px-6 my-10;
+  @apply rounded bg-background-100 shadow flex flex-row items-center justify-center py-4 px-6 mb-10 mt-5;
 }
 
 #contributeGuide {
+  @apply w-[30vw];
+
   p:not(:last-child) {
     @apply mb-6;
   }
@@ -21,5 +23,14 @@ main {
 
   a {
     @apply underline;
+  }
+
+  @media screen and (max-width: 768px) {
+    @apply w-[70vw];
+  }
+
+
+  @media screen and (min-width: 768px) and (max-width: 1000px) {
+    @apply w-[45vw];
   }
 }

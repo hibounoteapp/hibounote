@@ -1,0 +1,12 @@
+main {
+  @apply w-1/2 m-auto;
+
+
+  @media screen and (min-width: 768px) and (max-width: 1000px) {
+    @apply w-[70vw];
+  }
+
+  @media screen and (max-width: 768px) {
+    @apply w-[90vw];
+  }
+}

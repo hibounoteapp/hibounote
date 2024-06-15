@@ -4,6 +4,7 @@ import { FooterComponent } from '@shared-components/footer';
 import { NavbarComponent } from '@shared-components/navbar';
 import { SimpleButtonComponent } from '@shared-components/simple-button';
 import { MainComponent } from '../../components/main/main.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -19,5 +20,11 @@ import { MainComponent } from '../../components/main/main.component';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  showCookiesPopup: boolean = true;
 
+  constructor(
+    private cookieService: CookieService
+  ){
+    console.log(cookieService.getAll())
+  }
 }

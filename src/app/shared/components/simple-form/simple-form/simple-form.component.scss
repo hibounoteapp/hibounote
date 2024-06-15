@@ -1,3 +1,7 @@
 .form-container {
-  @apply border-[1px] border-text-base-900 px-10 py-6 rounded shadow max-w-96 bg-background-base-50;
+  @apply border-[1px] border-text-base-900 px-10 py-6 rounded shadow max-w-96 bg-background-base-50 mx-4;
+
+  @media screen and (max-width: 768px) {
+    @apply p-4;
+  }
 }

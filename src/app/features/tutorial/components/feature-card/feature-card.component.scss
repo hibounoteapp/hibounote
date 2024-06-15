@@ -1,7 +1,15 @@
 div.feature-card-container {
-  @apply bg-background-100 rounded shadow py-2 px-4 flex flex-row items-center justify-between my-5;
+  @apply bg-background-100 rounded shadow p-4 flex flex-row items-center justify-between my-5;
+
+  @media screen and (max-width: 768px) {
+    @apply flex-col;
+  }
 }
 
 img {
-  @apply h-44 rounded shadow ms-16;
+  @apply h-[30vh] rounded shadow ms-16;
+
+  @media screen and (max-width: 768px) {
+    @apply w-[100%] h-auto ms-0 mt-5;
+  }
 }

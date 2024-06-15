@@ -1,3 +1,45 @@
 input {
-  @apply border-[1px] border-text-base-900 p-1 rounded outline-none bg-background-base-50;
+  @apply border-[1px] border-text-base-900 p-1 rounded outline-none bg-background-base-50 my-8;
+}
+
+#buttons {
+
+  @apply flex w-full flex-row items-center justify-around;
+
+  @media screen and (max-width: 768px) {
+    @apply flex flex-col items-center;
+  }
+}
+
+.closeButton {
+  @apply my-2;
+
+  @media screen and (max-width: 768px) {
+    @apply w-full my-1;
+  }
+}
+
+#nameInput-container {
+
+  @apply self-center flex flex-row items-center;
+
+  label {
+    @apply me-2;
+
+    @media screen and (max-width: 768px) {
+      @apply me-0;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    @apply flex flex-col justify-center items-center my-4 text-start;
+
+    label {
+      @apply self-start;
+    }
+
+    input {
+      @apply my-2 w-full;
+    }
+  }
 }

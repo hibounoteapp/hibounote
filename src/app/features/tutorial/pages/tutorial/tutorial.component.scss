@@ -1,3 +1,34 @@
+nav {
+  @apply flex flex-row justify-between items-center px-8 py-4;
+
+  @media screen and (max-width: 768px){
+    @apply px-4;
+
+    #aboutLink {
+      @apply me-4;
+    }
+  }
+}
+
+main {
+  @apply w-[60vw] m-auto min-h-screen mt-10;
+
+
+  @media screen and (max-width: 768px) {
+    @apply w-[90vw];
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1000px) {
+    @apply w-[80vw];
+  }
+}
+
+#logo-label {
+  @media screen and (max-width: 768px) {
+    @apply hidden;
+  }
+}
+
 #footer-links-container {
   a, button {
     @apply mx-3 underline;
