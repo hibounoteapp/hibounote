@@ -14,7 +14,7 @@ div.landing-container {
     @apply ms-12 pe-10 px-2;
 
     @media screen and (max-width: 768px) {
-      @apply ms-0 pe-0 flex flex-col items-center text-center;
+      @apply ms-0 p-0 flex flex-col items-center text-center;
     }
   }
 
@@ -22,7 +22,7 @@ div.landing-container {
     @apply text-[3rem] mb-2;
 
     @media screen and (max-width: 768px) {
-      @apply flex flex-col;
+      @apply flex flex-col mx-4;
     }
 
     @media screen and (max-width: 1000px) {
@@ -42,7 +42,7 @@ div.landing-container {
     @apply w-[50%] rounded me-2;
 
     @media screen and (max-width: 768px) {
-      @apply w-[80%] my-10;
+      @apply w-[80%] my-10 me-0;
     }
   }
 }
@@ -62,11 +62,16 @@ div#three-paragraph-container{
 div.text-sections {
   @apply text-center pb-20 px-32;
 
+  @media screen and (max-width: 380px) {
+    @apply px-10;
+  }
+
+
   @media screen and (max-width: 768px) {
     @apply flex-col;
   }
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (min-width: 768px) and (max-width: 1000px) {
     @apply px-16;
   }
 
@@ -111,7 +116,13 @@ div.text-sections {
   background-size: cover;
   background-repeat: no-repeat;
 
+
+
   @media screen and (max-width: 768px) {
+
+    h3 {
+      @apply mx-4;
+    }
 
     div#text-and-image {
       @apply pt-20;

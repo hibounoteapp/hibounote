@@ -1,11 +1,11 @@
 <div>
-  <nav class="flex flex-row justify-between items-center px-8 py-4">
+  <nav>
     <div class="flex flex-row items-center">
       <a [routerLink]="['/']"><img src="../../assets/logoplaceholder.svg" alt="logoHibounote" id="logo"></a>
-      <aside class="ms-4 font-bold">Hibounote</aside>
+      <aside class="ms-4 font-bold" id="logo-label">Hibounote</aside>
     </div>
     <div class="flex flex-row items-center">
-      <a [routerLink]="['/about']" class="me-10">
+      <a [routerLink]="['/about']" class="me-10" id="aboutLink">
         About
       </a>
       <a class="w-14" [routerLink]="['/account']" matTooltip="Go to dashboard">
@@ -25,7 +25,7 @@
       </tutorial-feature-card>
     </ng-container>
 
-    <p class="my-10 text-center">Still need help? <span class="underline text-secondary-400">hibounote&#64;gmail.com</span></p>
+    <p class="my-10 mx-4 text-center">Still need help? <span class="underline text-secondary-400">hibounote&#64;gmail.com</span></p>
   </main>
 
   <app-footer></app-footer>

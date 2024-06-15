@@ -1,5 +1,17 @@
 .boardsCard-container {
   @apply shadow rounded py-4 px-6 min-h-60 flex flex-col mb-10 bg-background-base-50;
+
+  @media screen and (max-width: 768px) {
+    @apply px-2;
+  }
+}
+
+.board-card-container {
+  @apply my-2;
+
+  @media screen and (max-width: 768px) {
+    @apply my-1;
+  }
 }
 
 .sub-container{
@@ -15,5 +27,5 @@
 }
 
 .edit-modal {
-  @apply w-[40%] h-[30%] p-4;
+  @apply p-4;
 }

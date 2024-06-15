@@ -3,7 +3,7 @@
     <mat-icon svgIcon="edit" style="width: 80%;"></mat-icon>
   </button>
   <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="h-full flex-grow rounded bg-background-base-50 flex-row-center justify-between px-2">
-    <p class="text-sm">{{item.name}}</p>
-    <p class="text-sm">Created at: {{item.dateCreated | date}} </p>
+    <p class="me-5 text-start">{{item.name}}</p>
+    <p class="text-end">Created at: {{item.dateCreated | date}} </p>
   </a>
 </div>

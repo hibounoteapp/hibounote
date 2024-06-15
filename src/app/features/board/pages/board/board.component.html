@@ -13,9 +13,15 @@
   <toolbox-component></toolbox-component>
 
   <div #board id="board">
-    
+
     <div #main id="main" class="polka">
 
     </div>
   </div>
 </main>
+
+<div id="mobile-msg">
+  <h1 class="sub-title-2xl">Oh no!</h1>
+  <p>You can't open a board in a smartphone</p>
+  <a [routerLink]="['/account']" class="underline text-accent-base-800">Return to account</a>
+</div>

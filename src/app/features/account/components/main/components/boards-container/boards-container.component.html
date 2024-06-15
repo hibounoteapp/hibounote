@@ -5,12 +5,12 @@
     </button>
     <div class="sub-container p-2 flex-grow">
       <mat-icon class="me-2" svgIcon="search"></mat-icon>
-      <input type="text" name="searchBoard" id="searchBoard" class="border-b-2 bg-transparent flex-grow outline-none px-2 min-w-5" (input)="setSearch($event)">
+      <input type="text" name="searchBoard" id="searchBoard" class="border-b-2 bg-transparent flex-grow outline-none px-2 w-2" (input)="setSearch($event)">
     </div>
   </div>
   <ng-container *ngIf="boardData.boards.length !== 0; else emptyBoards">
     <ng-container *ngIf="filteredBoards.length !== 0; else searchNotFound">
-      <div *ngFor="let item of filteredBoards;" class="my-2" >
+      <div *ngFor="let item of filteredBoards;" class="board-card-container">
         <board-container-card
         [item]="item"
         (editBoard)="editBoard($event,item.id)"></board-container-card>

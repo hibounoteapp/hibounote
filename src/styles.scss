@@ -36,7 +36,6 @@ $mnos-theme: mat.define-light-theme((
 @include mat.all-component-themes($mnos-theme);
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @tailwind base;
 @tailwind components;
@@ -46,6 +45,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   @apply text-text-base-900;
   font-family: "Inter", sans-serif;
 }
+
 
 .centerItems {
   @apply flex justify-center items-center;
@@ -192,7 +192,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   @apply w-[50vw];
 
   @media screen and (max-width: 1000px)  {
-    @apply w-[70vw];
+    @apply w-[90vw] my-2 overflow-scroll text-[0.9rem];
   }
 }
 

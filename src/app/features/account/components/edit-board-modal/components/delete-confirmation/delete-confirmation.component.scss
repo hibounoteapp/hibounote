@@ -1,0 +1,21 @@
+#delete-container {
+  @apply w-full h-full flex flex-col items-center justify-center p-8 bg-background-100;
+}
+
+#buttons {
+
+  @apply flex;
+
+  @media screen and (max-width: 768px) {
+    @apply flex-col;
+  }
+}
+
+.closeButton {
+
+  @apply mx-2;
+
+  @media screen and (max-width: 768px) {
+    @apply w-full my-1 mx-0;
+  }
+}

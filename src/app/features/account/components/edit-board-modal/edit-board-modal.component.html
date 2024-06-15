@@ -5,13 +5,13 @@
       <mat-icon svgIcon="trash"></mat-icon>
     </button>
   </div>
-  <div class="self-center flex flex-row items-center" id="nameInput-container">
-    <label for="name" class="me-2">Board name: </label>
+  <div id="nameInput-container">
+    <label for="name" id="label">Board name: </label>
     <input type="text" name="name" id="name" #inputName (input)="setNewName($event)">
   </div>
-  <div class="self-end" id="buttons">
+  <div id="buttons">
     <app-simple-button
-    [customStyles]="'!w-full'"
+    [customStyles]="'!w-full !m-0'"
     class="closeButton"
     [text]="'Close'"
     [visible]="true"
@@ -20,7 +20,7 @@
     mat-dialog-close>
     </app-simple-button>
     <app-simple-button
-    [customStyles]="'!me-0 !w-full'"
+    [customStyles]="'!m-0 !w-full'"
     class="closeButton"
     [text]="'Confirm'"
     [visible]="true"

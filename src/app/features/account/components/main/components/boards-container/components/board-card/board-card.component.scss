@@ -1,5 +1,10 @@
 .board-container {
-  @apply w-full h-10 rounded shadow bg-background-base-50 flex-row-center justify-between;
+  @apply w-full rounded shadow bg-background-base-50 flex-row-center justify-between text-sm;
+
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.8rem !important;
+  }
 }
 
 .sub-container{

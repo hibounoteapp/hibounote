@@ -1,8 +1,13 @@
 main {
-  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50;
+  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50 px-12;
+
 }
 
 #contact-info {
+
+  @media screen and (max-width: 768px) {
+    @apply text-sm;
+  }
 
   p:not(:last-child) {
     @apply mb-6;

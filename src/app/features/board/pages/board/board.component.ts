@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
 import { NodeComponent } from '../../components/node/node.component';
@@ -29,7 +29,8 @@ import { CookiesService } from '@core-services/cookies/cookies.service';
       ContextMenuComponent,
       ToolboxComponent,
       ControlpanComponent,
-      NavbarComponent
+      NavbarComponent,
+      RouterModule
     ],
     providers: [HttpClient]
   })

@@ -88,10 +88,11 @@
       </div>
   </div>
 
-  <div class="flex flex-col justify-start pt-36 items-center h-screen" id="layeredWaves">
+  <div class="flex flex-col justify-start pt-36 items-center min-h-screen" id="layeredWaves">
     <h3 class="sub-title-3xl mb-5">Start thinking unlimited</h3>
     <p class="sub-title-2xl !font-normal mb-10">Create your account and start to explore</p>
     <app-simple-button
+      class="mb-20"
       [routerLink]="'/'"
       [theme]="'btn-primary'"
       [visible]="true"

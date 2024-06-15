@@ -4,7 +4,15 @@ footer {
 
 
   @media screen and (max-width: 768px) {
-    @apply text-[0.8rem] px-5;
+    @apply text-[0.65rem] px-3;
+
+    #logoCP, #hibounote {
+      @apply ms-2;
+    }
+
+    #logo-container {
+      @apply w-[40%];
+    }
   }
 
   @media screen and (min-width: 768px) and (max-width: 1000px) {
