@@ -44,8 +44,10 @@ export class AccountComponent{
 
       let fetchedBoards = boardData.boards;
       try {
-        fetchedBoards = JSON.parse(cookieService.get('boards'))
+        fetchedBoards = JSON.parse(localStorage.getItem("boards")??'')??[]
       } catch (error) {}
+
+
       boardData.boards = fetchedBoards
     }
   }

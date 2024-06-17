@@ -24,7 +24,5 @@ export class HomeComponent {
 
   constructor(
     private cookieService: CookieService
-  ){
-    console.log(cookieService.getAll())
-  }
+  ){}
 }

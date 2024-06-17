@@ -16,7 +16,7 @@
       </app-simple-button>
 
     </div>
-    <img src="https://placehold.co/600x400?text=Board-iframe" alt="board">
+    <img src="../../../../../assets/images/example-boards/timeline.png" alt="board">
   </div>
 
   <div id="three-paragraph-container">
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <img src="https://placehold.co/1366x768?text=Board-iframe" class="w-10/12 self-center shadow rounded" alt="board example">
+    <img src="../../../../../assets/images/example-boards/product-brainstorm.png" class="w-10/12 self-center shadow rounded" alt="board example">
   </div>
 
   <div id="bgBlob">
@@ -49,11 +49,12 @@
         </div>
 
         <div class="flex flex-col">
-          <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+          <img src="../../../../../assets/images/example-boards/usecase-diagram.png" alt="board" class=" w-[40%] rounded">
           <app-simple-button
             [customStyles]="'!bg-secondary-500 text-background-base-50 transition-all !mx-0 mt-1'"
             class="self-end"
-            [routerLink]="'/'"
+            elementType="button"
+            (click)="createTestBoard('useCase')"
             [visible]="true"
             text="Test">
           </app-simple-button>
@@ -64,7 +65,7 @@
     <div class="mt-48 pb-24 flex flex-col justify-center items-center">
       <h3 class="sub-title-3xl mb-10">Creative freedom. No cost</h3>
 
-      <img src="https://placehold.co/1366x768?text=Board-iframe" class="w-10/12 self-center shadow rounded" alt="board example">
+      <img src="../../../../../assets/images/example-boards/app-design.png" class="w-10/12 self-center shadow rounded" alt="board example">
     </div>
   </div>
 
@@ -76,11 +77,12 @@
         </div>
 
         <div class="flex flex-col">
-          <img src="https://placehold.co/600x400?text=Board-iframe" alt="board" class=" w-[700px] rounded">
+          <img src="../../../../../assets/images/example-boards/sprint-retro.png" alt="board" class=" w-[700px] rounded">
           <app-simple-button
             [customStyles]="'!bg-accent-base-800 text-background-base-50 transition-all !mx-0 mt-1'"
             class="self-end"
-            [routerLink]="'/'"
+            elementType="button"
+            (click)="createTestBoard('sprint-retro2')"
             [visible]="true"
             text="Test">
           </app-simple-button>

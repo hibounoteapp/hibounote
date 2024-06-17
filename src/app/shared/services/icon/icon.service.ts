@@ -79,7 +79,6 @@ export class IconService {
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    console.log("Registering icons!")
     this.source.forEach((icon)=>{
       iconRegistry.addSvgIcon(
         icon.name,

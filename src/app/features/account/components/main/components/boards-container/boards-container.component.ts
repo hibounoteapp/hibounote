@@ -51,11 +51,6 @@ export class BoardsContainerComponent {
       this.boardData.editBoardName(id,value)
       this.filter();
     })
-
-
-    dialog.afterClosed().subscribe(result=>{
-      console.log(result);
-    })
   }
 
   filter() {

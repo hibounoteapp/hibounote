@@ -71,7 +71,8 @@ export class BoardService {
   }
 
   zoom = (event: WheelEvent) => {
-    if(!event.shiftKey) return
+    event.preventDefault()
+    if(!event.ctrlKey) return
 
     this.panzoom.zoomWithWheel(event)
 

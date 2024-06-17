@@ -9,6 +9,9 @@ import { CookiesService } from '@core-services/cookies/cookies.service';
 import kanban from '@core-board-templates/kanban';
 import sprintRetrospective from '@core-board-templates/sprint-retrospective';
 import { TemplateBoard } from '../../../core/models/types/template-board';
+import sprintRetro2 from '@core-board-templates/sprint-retrospective2';
+import sprintRetro from '@core-board-templates/sprint-retrospective';
+import useCase from '@core-board-templates/usecase';
 
 @Injectable({
   providedIn: 'root'
@@ -73,14 +76,24 @@ export class BoardDataService implements OnInit{
   createBoardFromTemplate(
     template:
     "sprint-retro" |
-    "kanban"
+    "kanban" |
+    "useCase" |
+    "sprint-retro2"
   ) {
 
     let templateBoard: TemplateBoard = kanban;
 
     switch (template) {
       case "sprint-retro":
-        templateBoard = sprintRetrospective;
+        templateBoard = sprintRetro;
+        break;
+
+      case "sprint-retro2":
+        templateBoard = sprintRetro2;
+        break;
+
+      case "useCase":
+        templateBoard = useCase;
         break;
 
       case "kanban":
@@ -101,8 +114,6 @@ export class BoardDataService implements OnInit{
       groups: templateBoard.groups,
       zoomScale: templateBoard.zoomScale,
     })
-
-    console.log(this.boards[this.boards.length - 1])
 
     this.router.navigate(['/board'], {
       queryParams: {
@@ -129,10 +140,7 @@ export class BoardDataService implements OnInit{
       board.zoomScale = this.boardService.panzoom.getScale();
     }
 
-    console.log(JSON.stringify(this.boards))
-    this.cookieService.set("boards",JSON.stringify(this.boards));
-
-    console.log("Object: ",this.boards)
+    localStorage.setItem("boards",JSON.stringify(this.boards))
   }
 
   saveConnections(board: Board){
@@ -165,8 +173,6 @@ export class BoardDataService implements OnInit{
             }
           })
         }
-
-        console.log(board.connetions)
 
         board.connetions.push({
           anchor: "Continuous",
@@ -245,7 +251,7 @@ export class BoardDataService implements OnInit{
       return true;
     })
     this.boards = newBoards;
-    this.cookieService.set("boards",JSON.stringify(this.boards))
+    localStorage.setItem('boards',JSON.stringify(newBoards));
   }
 
   editBoardName(id: string, name: string) {
