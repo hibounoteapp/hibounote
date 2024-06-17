@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class CookiesService {
-  private _accepted: boolean = true;
+  private _accepted: boolean = false;
   public get accepted(): boolean {
     return this._accepted;
   }
@@ -15,8 +15,8 @@ export class CookiesService {
   }
 
   constructor(protected cookieService: CookieService) {
-    this.accepted = JSON.parse(cookieService.get("accept-cookies"))
-
-    console.log(this.accepted)
+    try {
+      this.accepted = JSON.parse(cookieService.get("accept-cookies"))
+    } catch (error) {}
   }
 }

@@ -7,7 +7,7 @@
 }
 
 .board-card-container {
-  @apply my-2;
+  @apply my-2 h-full;
 
   @media screen and (max-width: 768px) {
     @apply my-1;

@@ -39,7 +39,7 @@ div.landing-container {
   }
 
   img {
-    @apply w-[50%] rounded me-2;
+    @apply w-[55%] rounded me-2;
 
     @media screen and (max-width: 768px) {
       @apply w-[80%] my-10 me-0;

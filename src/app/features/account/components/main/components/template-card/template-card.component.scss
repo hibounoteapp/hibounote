@@ -9,3 +9,19 @@ button.templateBoard {
 button#createBlank {
   @apply bg-primary-base-600 flex items-center justify-center;
 }
+
+#kanban {
+  background-image: url('../../../../../../../assets/images/template-boards/kanban.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#sprint-retro {
+  background-image: url('../../../../../../../assets/images/template-boards/sprint-retro.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+

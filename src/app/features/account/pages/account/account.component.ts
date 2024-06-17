@@ -41,7 +41,13 @@ export class AccountComponent{
     boardData: BoardDataService
   ) {
     if(cookiesService.accepted) {
-      const fetchedBoards = JSON.parse(cookieService.get('boards'))
+
+      let fetchedBoards = boardData.boards;
+      try {
+        fetchedBoards = JSON.parse(localStorage.getItem("boards")??'')??[]
+      } catch (error) {}
+
+
       boardData.boards = fetchedBoards
     }
   }
