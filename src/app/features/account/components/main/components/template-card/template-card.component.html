@@ -2,6 +2,12 @@
   <button class="templateBoard" id="createBlank" (click)="boardData.createBoard()">
     <mat-icon class="text-background-base-50">add</mat-icon>
   </button>
-  <button class="templateBoard" matTooltip="🚧 In progress!" ></button>
-  <button class="templateBoard" matTooltip="🚧 In progress!" ></button>
+  <button
+    class="templateBoard"
+    (click)="boardData.createBoardFromTemplate('sprint-retro')"
+    matTooltip="Sprint retrospective"></button>
+  <button
+    class="templateBoard"
+    (click)="boardData.createBoardFromTemplate('kanban')"
+    matTooltip="Kanban"></button>
 </div>

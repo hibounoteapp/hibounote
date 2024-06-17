@@ -16,7 +16,7 @@ import { CookiesService } from '@core-services/cookies/cookies.service';
 })
 export class MainComponent {
   constructor(public homeComponent: HomeComponent, public cookiesService: CookiesService){
-
+    console.log(cookiesService.accepted)
   }
 
 }

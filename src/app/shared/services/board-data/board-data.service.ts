@@ -6,6 +6,9 @@ import { Connection, Overlay, UINode, uuid } from '@jsplumb/browser-ui';
 import { NodeService } from '../../../features/board/services/node/node.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CookiesService } from '@core-services/cookies/cookies.service';
+import kanban from '@core-board-templates/kanban';
+import sprintRetrospective from '@core-board-templates/sprint-retrospective';
+import { TemplateBoard } from '../../../core/models/types/template-board';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +70,48 @@ export class BoardDataService implements OnInit{
 
   }
 
+  createBoardFromTemplate(
+    template:
+    "sprint-retro" |
+    "kanban"
+  ) {
+
+    let templateBoard: TemplateBoard = kanban;
+
+    switch (template) {
+      case "sprint-retro":
+        templateBoard = sprintRetrospective;
+        break;
+
+      case "kanban":
+        templateBoard = kanban;
+        break;
+      default:
+
+        break;
+    }
+
+    const id = uuid();
+    this.boards.push({
+      id,
+      dateCreated: new Date(),
+      name: templateBoard.name,
+      connetions: templateBoard.connetions,
+      elements: templateBoard.elements,
+      groups: templateBoard.groups,
+      zoomScale: templateBoard.zoomScale,
+    })
+
+    console.log(this.boards[this.boards.length - 1])
+
+    this.router.navigate(['/board'], {
+      queryParams: {
+        id,
+      }
+    })
+
+  }
+
   saveData() {
     if(!this.cookiesService.accepted) return
     const id = this.activatedRoute.snapshot.queryParamMap.get('id')
@@ -84,7 +129,10 @@ export class BoardDataService implements OnInit{
       board.zoomScale = this.boardService.panzoom.getScale();
     }
 
-    this.cookieService.set("boards",JSON.stringify(this.boards))
+    console.log(JSON.stringify(this.boards))
+    this.cookieService.set("boards",JSON.stringify(this.boards));
+
+    console.log("Object: ",this.boards)
   }
 
   saveConnections(board: Board){
@@ -117,6 +165,8 @@ export class BoardDataService implements OnInit{
             }
           })
         }
+
+        console.log(board.connetions)
 
         board.connetions.push({
           anchor: "Continuous",
