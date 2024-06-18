@@ -1,4 +1,4 @@
-## :construction: In Progress! :construction:
+## Open test available!
 
 <div align="center">
 
@@ -24,7 +24,8 @@ Completely free and without any limitations, Hibounote is a Open Source project 
 Built in `Angular` with [jsplumb](https://jsplumbtoolkit.com/community) and [Panzoom](https://github.com/timmywil/panzoom/tree/main) Hibounote is a free and open-source alternative to note organization apps like:
 - Milanote;
 - Evernote;
-- Notion.
+- Notion;
+- Miro.
 
 The idea it's to be a completely free web app, since all these options offer a freemium aproach. 
 <br>
@@ -68,8 +69,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 <br>
 
 ## Contributing
-:construction: *Since the project it's in a very early stage, probably some features won't be added for now.* :construction: 
-
 Hibounote is an open-source project. I really apreciate any effort on it. You can help by: 
 - Finding bugs; 
 - Proposing new features;
