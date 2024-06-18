@@ -24,7 +24,7 @@
   </ng-container>
   <ng-template #emptyBoards class="w-full h-full">
     <div class="w-full flex-grow all-center">
-      <p>No boards found. <a href="/signup" class="underline">Start creating!</a></p>
+      <p>No boards found. <button (click)="createBoard()" class="underline">Start creating!</button></p>
     </div>
   </ng-template>
 </div>

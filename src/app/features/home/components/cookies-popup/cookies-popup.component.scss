@@ -1,6 +1,30 @@
 div#popup-container {
-  @apply fixed w-full bg-background-100 z-10 bottom-0 left-0 flex flex-row justify-between items-center shadow px-3 py-7;
+  @apply fixed w-full bg-background-100 z-10 bottom-0 left-0 flex flex-row justify-between items-center shadow px-5 py-7;
   --tw-shadow: 0 -1px 5px 0 rgb(0 0 0 / 0.1), 0 -1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 -1px 3px 0 var(--tw-shadow-color), 0 -1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+
+  #buttons {
+    @apply flex flex-row items-start justify-end w-full;
+
+    #accept, #decline {
+      @apply mx-1;
+    }
+
+    @media screen and (max-width: 768px) {
+      @apply flex-col justify-between;
+
+      #accept, #decline {
+        @apply w-full my-1 mx-0;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    @apply flex-col px-4;
+
+    p {
+      @apply mb-3 text-center;
+    }
+  }
 }

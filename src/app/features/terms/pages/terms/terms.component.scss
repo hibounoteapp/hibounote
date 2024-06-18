@@ -1,3 +1,11 @@
 main {
-  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50;
+  @apply min-h-screen pt-28 flex flex-col items-center bg-background-base-50 px-4;
+}
+
+#terms {
+  @apply w-1/2 my-10 text-justify;
+
+  @media screen and (max-width: 768px) {
+    @apply w-auto mx-4;
+  }
 }
