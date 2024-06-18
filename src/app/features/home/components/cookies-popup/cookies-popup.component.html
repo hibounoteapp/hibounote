@@ -3,9 +3,10 @@
 </div>
 <div id="popup-container">
 <p>By clicking “Accept cookies”, you agree to the storing of cookies on your device to enhance website navigation.</p>
-<div>
+<div id="buttons">
   <app-simple-button
     id="accept"
+    [customStyles]="'!w-full !m-0'"
     [theme]="'btn-primary'"
     text="Accept cookies"
     [visible]="true"
@@ -14,6 +15,7 @@
   </app-simple-button>
   <app-simple-button
     id="decline"
+    [customStyles]="'!w-full !m-0'"
     [theme]="'btn-secondary'"
     text="Decline cookies"
     [visible]="true"

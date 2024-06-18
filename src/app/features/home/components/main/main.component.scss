@@ -7,7 +7,7 @@ div.landing-container {
   @apply flex flex-row justify-between items-center min-h-screen pt-4;
 
   @media screen and (max-width: 768px) {
-    @apply flex flex-col pt-32;
+    @apply flex flex-col pt-32 min-h-0;
   }
 
   #title-info {
@@ -68,7 +68,7 @@ div.text-sections {
 
 
   @media screen and (max-width: 768px) {
-    @apply flex-col;
+    @apply flex-col px-3;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1000px) {
@@ -100,6 +100,9 @@ div.text-sections {
   background-repeat: no-repeat;
 
   @media screen and (max-width: 768px){
+
+    @apply min-h-0;
+
     h3 {
       @apply text-2xl mx-2;
     }

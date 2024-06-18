@@ -4,14 +4,14 @@ footer {
 
 
   @media screen and (max-width: 768px) {
-    @apply text-[0.65rem] px-3;
+    @apply px-3 flex-col-reverse;
 
     #logoCP, #hibounote {
-      @apply ms-2;
+      @apply ms-2 self-start;
     }
 
     #logo-container {
-      @apply w-[40%];
+      @apply m-0 pt-10;
     }
   }
 
@@ -27,10 +27,10 @@ footer {
   }
 
   @media screen and (max-width: 768px) {
-    @apply flex-col items-end;
+    @apply flex-col items-center;
 
     a, button {
-      @apply my-1;
+      @apply my-2;
     }
   }
 }
