@@ -22,11 +22,16 @@ body:
     attributes:
       label: Steps to reproduce the error
       description: Describe by steps how this bug occurs.
+      value: |
+      1.
+      2.
+      3.
+      ...
     validations:
       required: true
   - type: textarea
     attributes:
-      label: Screenshots/Vídeo
+      label: Screenshots/Video
       description: Add some screenshots and videos to help explain the problem.
     validations:
       required: true
