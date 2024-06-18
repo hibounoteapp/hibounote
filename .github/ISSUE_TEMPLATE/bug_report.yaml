@@ -34,5 +34,5 @@ body:
     attributes:
       label: Device information
       description: Add the device information: OS, Browser, Version, Device (if in mobile).
-    validation:
+    validations:
       required: true
