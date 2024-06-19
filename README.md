@@ -16,7 +16,7 @@
   
 </div>
 
-## Introduction
+## 🦉Introduction
 <p align="justify"> 
 Completely free and without any limitations, Hibounote is a Open Source project that offers a visual and infinite canvas where you can create and manage as many boards as your creativity demands. Whether you're brainstorming, planning projects, or jotting down notes, Hibounote provides an unrestricted, seamless environment to help you turn your thoughts into structured plans.  
 </p>
@@ -28,9 +28,13 @@ Built in `Angular` with [jsplumb](https://jsplumbtoolkit.com/community) and [Pan
 - Miro.
 
 The idea it's to be a completely free web app, since all these options offer a freemium aproach. 
+
+ ![Hibounote placeholder banner](./.github/assets/landing-page-screenshot.png)
+
 <br>
-## Development
-If you want to contribute, see the [contributing](#contributing) section. Your help will be very important to build the project!
+
+## 👨‍💻Development
+If you want to contribute, see the [contributing](./contributing.md) section. Your help will be very important to build the project!
 <details><summary>Pre-requisites</summary>
 <br>
 To be able to start development on Hibounote, make sure you have the following prerequisites installed:
@@ -68,7 +72,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 <br>
 
-## Contributing
+## 💡Contributing
 Hibounote is an open-source project. I really apreciate any effort on it. You can help by: 
 - Finding bugs; 
 - Proposing new features;
@@ -76,9 +80,10 @@ Hibounote is an open-source project. I really apreciate any effort on it. You ca
 - Improving the general design
 - Many more!
 
-:star: All contributors will have their profiles added to the official website. For now, the best thing you can do to help is star the project and keep up with the changes. 
+Find the contributing guide [here](./contributing.md)
 
+:star: All contributors will have their profiles added to the official website.
 <br>
 
-## License
+## 📃License
 Hibounote is licensed under the [MIT License](https://opensource.org/license/mit). See the LICENSE file for more information.
