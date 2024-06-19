@@ -85,5 +85,8 @@ Find the contributing guide [here](./contributing.md)
 :star: All contributors will have their profiles added to the official website.
 <br>
 
+## 💬Stay in touch
+- [X (twitter)](https://x.com/hibounote)
+
 ## 📃License
 Hibounote is licensed under the [MIT License](https://opensource.org/license/mit). See the LICENSE file for more information.
