@@ -83,10 +83,26 @@ Hibounote is an open-source project. I really apreciate any effort on it. You ca
 Find the contributing guide [here](./contributing.md)
 
 :star: All contributors will have their profiles added to the official website.
+
 <br>
 
 ## 💬Stay in touch
 - [X (twitter)](https://x.com/hibounote)
+
+<br>
+
+## 🎨Assets used
+
+### Logo
+
+[OpenMoji](https://openmoji.org/library/emoji-1F989/#variant=black). License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/#)
+
+### Icons
+
+- [Feather Icons](https://feathericons.com)
+- [Ionicons](https://ionic.io/ionicons)
+
+<br>
 
 ## 📃License
 Hibounote is licensed under the [MIT License](https://opensource.org/license/mit). See the LICENSE file for more information.
