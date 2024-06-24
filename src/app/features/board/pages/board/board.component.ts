@@ -85,111 +85,6 @@ export class BoardComponent implements AfterViewInit, OnInit{
     this.nodeService.clearActiveNote(this.renderer)
   }
 
-  checkData(boardData: BoardDataService, nodeService: NodeService, renderer: Renderer2) {
-    if(!this.cookiesService.accepted) return
-    const id = this.activeRoute.snapshot.queryParamMap.get('id') ?? ''
-    const activeBoard: Board | undefined = boardData.getData(id)
-
-    if(activeBoard) {
-      const scale = activeBoard.zoomScale;
-      this.boardService.zoomScale = scale
-      this.boardService.panzoom.zoom(scale);
-      this.boardService.instance.setZoom(scale);
-      this.boardService.translation = this.boardService.panzoom.getPan()
-
-      if(activeBoard.elements) {
-        activeBoard.elements.forEach((e:SavedNode)=>{
-          const x = e.x * activeBoard.zoomScale;
-          const y = e.y * activeBoard.zoomScale;
-          const width = e.width;
-          const height = e.height;
-          const color = e.color;
-          const innerText = e.innerText ?? '';
-          const type = e.type;
-          const nodeId = e.id;
-
-          nodeService.loadNode(x,y,width,height,color,innerText,type,renderer,nodeId)
-        })
-      }
-
-      if(activeBoard.connetions) {
-        activeBoard.connetions.forEach((c: SavedConnection)=>{
-          let source;
-          try { //? Check if source element is a group, since the group Id and Element Id are different
-            source = this.boardService.instance.getGroup(c.sourceId).el;
-          } catch (error) {
-            source = this.boardService.instance.getManagedElement(c.sourceId);
-          }
-
-          let target
-          try {//?
-            target = this.boardService.instance.getGroup(c.targetId).el;
-          } catch (error) {
-            target = this.boardService.instance.getManagedElement(c.targetId);
-          }
-
-          const anchor = c.anchor;
-          const connector = c.connector;
-          const paintStyle = c.paintStyle;
-          const hoverPaintStyle = c.hoverPaintStyle
-          const endpointStyle = c.endpointStyle
-          let overlays:OverlaySpec[]=[];
-          c.overlays.forEach((overlay)=>{
-            	let overlayConfig:OverlaySpec;
-              if(overlay.label.inputValue != '') {
-                overlayConfig = {
-                  type: 'Custom',
-                  options: {
-                    create: ()=>{
-                      const label: HTMLInputElement = renderer.createElement('input');
-                      label.value = overlay.label.inputValue;
-                      renderer.setAttribute(label, 'class', 'labelConnection');
-                      renderer.setAttribute(label,'type','text');
-                      return label;
-                    },
-                    location: 0.5,
-                  }
-                }
-                overlays.push(overlayConfig);
-              }
-          })
-
-          this.boardService.instance.connect({
-            anchor,
-            connector,
-            source,
-            target,
-            paintStyle,
-            hoverPaintStyle,
-            endpointStyle,
-            overlays,
-          })
-        })
-      }
-
-      if(activeBoard.groups) {
-
-        activeBoard.groups.forEach(e=>{
-          const group = this.boardService.instance.getGroup(e.groupId??'');
-          const children = e.children.map((child)=>{
-            return this.boardService.instance.getManagedElement(child.id??'')
-          })
-
-          children.forEach((c:HTMLElement)=>{
-            if(group.el instanceof HTMLElement) {
-              const top = Number(c.style.top.replace(/[a-z]/g,'')) + Number(group.el.style.top.replace(/[a-z]/g,''));
-              const left = Number(c.style.left.replace(/[a-z]/g,'')) + Number(group.el.style.left.replace(/[a-z]/g,''));
-              renderer.setStyle(c, 'top',`${top}px`)
-              renderer.setStyle(c, 'left',`${left}px`)
-            }
-            this.boardService.instance.addToGroup(group,c);
-          })
-        })
-
-      }
-    }
-  }
-
   initEvents() {
     this.renderer.listen(document, 'pointerup',this.boardService.pointerUp)
 
@@ -250,7 +145,8 @@ export class BoardComponent implements AfterViewInit, OnInit{
 
   ngAfterViewInit(): void {
     this.boardService.init(this.container, this.nodeService, this.boardData, this.renderer);
-    this.checkData(this.boardData,this.nodeService,this.renderer);
+    this.boardData.renderer = this.renderer;
+    this.boardData.checkData(this.renderer);
     this.initEvents();
     this.boardService.disablePanzoom()
     this.boardService.enablePanzoom()

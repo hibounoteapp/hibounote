@@ -44,19 +44,6 @@ export class AccountComponent{
     boardData: BoardDataService,
   ) {
     if(cookiesService.accepted) {
-
-      let fetchedBoards: Board[] = [];
-
-      db.boards.each((e)=>{
-        fetchedBoards.push(e);
-      })
-
-      try {
-        // fetchedBoards = JSON.parse(localStorage.getItem("boards")??'')??[]
-      } catch (error) {}
-
-
-      boardData.boards = fetchedBoards
     }
   }
 
