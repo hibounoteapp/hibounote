@@ -12,6 +12,9 @@ import { TemplateBoard } from '../../../core/models/types/template-board';
 import sprintRetro2 from '@core-board-templates/sprint-retrospective2';
 import sprintRetro from '@core-board-templates/sprint-retrospective';
 import useCase from '@core-board-templates/usecase';
+import Dexie from 'dexie';
+import { DbService } from '@core-services/db/db.service';
+import { db } from '../../../../../db';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +39,7 @@ export class BoardDataService implements OnInit{
     protected nodeService: NodeService,
     private router: Router,
     private cookieService: CookieService,
-    private cookiesService: CookiesService
+    private cookiesService: CookiesService,
   ) {
     this.activatedRoute.queryParamMap.subscribe((p)=>{
       this.activeId = p.get("id") ?? '';
@@ -138,9 +141,24 @@ export class BoardDataService implements OnInit{
       this.saveNodes(board);
 
       board.zoomScale = this.boardService.panzoom.getScale();
+
+      db.boards.get(board.id)
+        .then(()=>{
+          db.boards.update(board.id,{
+            name: board.name,
+            connetions: board.connetions,
+            elements: board.elements,
+            groups: board.groups,
+            zoomScale: board.zoomScale
+          })
+        })
+        .catch(()=>{
+          db.boards.add(board);
+        })
     }
 
-    localStorage.setItem("boards",JSON.stringify(this.boards))
+
+    // localStorage.setItem("boards",JSON.stringify(this.boards))
   }
 
   saveConnections(board: Board){
@@ -251,7 +269,7 @@ export class BoardDataService implements OnInit{
       return true;
     })
     this.boards = newBoards;
-    localStorage.setItem('boards',JSON.stringify(newBoards));
+    db.boards.delete(id);
   }
 
   editBoardName(id: string, name: string) {

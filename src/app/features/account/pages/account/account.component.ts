@@ -14,6 +14,9 @@ import { EditBoardModalComponent } from '../../components/edit-board-modal/edit-
 import { IconService } from '@shared-services/icon/icon.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CookiesService } from '@core-services/cookies/cookies.service';
+import { DbService } from '@core-services/db/db.service';
+import { db } from '../../../../../../db';
+import { liveQuery } from 'dexie';
 
 
 @Component({
@@ -38,13 +41,18 @@ export class AccountComponent{
   constructor(
     cookieService: CookieService,
     cookiesService: CookiesService,
-    boardData: BoardDataService
+    boardData: BoardDataService,
   ) {
     if(cookiesService.accepted) {
 
-      let fetchedBoards = boardData.boards;
+      let fetchedBoards: Board[] = [];
+
+      db.boards.each((e)=>{
+        fetchedBoards.push(e);
+      })
+
       try {
-        fetchedBoards = JSON.parse(localStorage.getItem("boards")??'')??[]
+        // fetchedBoards = JSON.parse(localStorage.getItem("boards")??'')??[]
       } catch (error) {}
 
 
