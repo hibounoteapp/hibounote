@@ -24,6 +24,7 @@
     "@jsplumb/browser-ui": "^6.2.10",
     "@panzoom/panzoom": "^4.5.1",
     "custom-element-register": "^1.0.10",
+    "dexie": "^4.0.7",
     "jquery": "^3.7.1",
     "ngx-cookie-service": "^18.0.0",
     "rxjs": "~7.8.0",
