@@ -3,7 +3,7 @@ footer {
   box-shadow: 0 -1px 5px 0 rgb(0 0 0 / 0.1), 0 -1px 2px -1px rgb(0 0 0 / 0.1);
 
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 900px) {
     @apply px-3 flex-col-reverse;
 
     #logoCP, #hibounote {
@@ -15,7 +15,7 @@ footer {
     }
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1000px) {
+  @media screen and (min-width: 900px) and (max-width: 1000px) {
     @apply text-sm;
   }
 }
@@ -26,7 +26,7 @@ footer {
     @apply mx-3 underline;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 900px) {
     @apply flex-col items-center;
 
     a, button {
