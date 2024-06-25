@@ -1,3 +1,4 @@
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -5,6 +6,7 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     imports: [
       RouterOutlet,
     ],
