@@ -6,9 +6,6 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    providers: [
-      {provide: LocationStrategy, useClass: HashLocationStrategy}
-    ],
     imports: [
       RouterOutlet,
     ],
