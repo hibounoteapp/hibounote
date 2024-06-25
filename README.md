@@ -88,6 +88,7 @@ Find the contributing guide [here](./contributing.md)
 
 ## 💬Stay in touch
 - [X (twitter)](https://x.com/hibounote)
+- [Instagram](https://www.instagram.com/hibounote)
 
 <br>
 
