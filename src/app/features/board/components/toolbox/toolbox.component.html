@@ -6,6 +6,7 @@
     </button>
     <div class="mt-10 bg-background-200 rounded p-2">
       <div class="flex flex-col items-center">
+        <p class="text-center text-[0.75rem] px-1">Background<br>color:</p>
         <button class="w-10 h-10 bg-[#FE5F55] rounded controlTools" (click)="editNode('backgroundColor','#FE5F55')"></button>
         <button class="w-10 h-10 bg-[#2D93AD] rounded controlTools" (click)="editNode('backgroundColor','#2D93AD')"></button>
         <button class="w-10 h-10 bg-[#FFAD05] rounded controlTools" (click)="editNode('backgroundColor','#FFAD05')"></button>
@@ -21,24 +22,27 @@
         <mat-icon svgIcon="return"></mat-icon>
       </button>
       <div class="mt-10 bg-background-200 rounded p-2 flex flex-col items-center">
+        <p class="text-center text-[0.75rem] text-sm">Line color:</p>
         <button class="w-10 h-10 bg-[#FE5F55] rounded controlTools" (click)="editConnection('#FE5F55')"></button>
         <button class="w-10 h-10 bg-[#2D93AD] rounded controlTools" (click)="editConnection('#2D93AD')"></button>
         <button class="w-10 h-10 bg-[#FFAD05] rounded controlTools" (click)="editConnection('#FFAD05')"></button>
         <button class="w-10 h-10 bg-[#008148] rounded controlTools" (click)="editConnection('#008148')"></button>
         <button class="w-10 h-10 bg-[#fffdf6] rounded controlTools" (click)="editConnection('#fffdf6')"></button>
-        <button class="px-2 text-sm bg-[#fffdf6] rounded controlTools" (click)="toggleLabelConnection()">
-        Toggle label
-        </button>
       </div>
+      <button class="px-2 text-[0.75rem]  bg-[#fffdf6] rounded controlTools" (click)="toggleLabelConnection()">
+        Toggle<br>label
+        </button>
     </div>
   </ng-template>
 
   <ng-template #addingNode id="addNode">
-    <div class="grab" draggable="true" id="note" matTooltip="Note - Drag to add" matTooltipPosition="right">
+    <div class="grab flex flex-col p-2" draggable="true" id="note" matTooltip="Drag to add" matTooltipPosition="right">
       <mat-icon svgIcon="note"></mat-icon>
+      <span class=" text-[0.75rem] ">Note</span>
     </div>
-    <div class="grab" draggable="true" id="group" matTooltip="Group note - Drag to add" matTooltipPosition="right">
+    <div class="grab flex flex-col p-2" draggable="true" id="group" matTooltip="Drag to add" matTooltipPosition="right">
       <mat-icon svgIcon="folder"></mat-icon>
+      <span class=" text-[0.75rem] ">Group</span>
     </div>
   </ng-template>
 </div>

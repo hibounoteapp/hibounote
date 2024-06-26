@@ -4,38 +4,59 @@
       <a [routerLink]="['/']">
         <img src="../../assets/logo.svg" alt="icon" id="logo">
       </a>
-      <p class="ms-4 font-bold">Hibounote</p>
+      <button class="flex flex-row justify-center items-center ms-[5vw] navbarButton" [matMenuTriggerFor]="menu">
+        <p class="font-semibold">Resources</p>
+        <mat-icon svgIcon="chevron-down" class="icon-background-400 ms-2"></mat-icon>
+      </button>
+
+      <a [routerLink]="['']" class="flex flex-row justify-center items-center ms-2 navbarButton" matTooltip="In progress 🚧">
+        <p class="font-semibold text-background-600">Download</p>
+      </a>
+
+      <mat-menu #menu id="resourcesMenu" class="!bg-background-100 !px-2 !shadow border-[1px] border-background-400">
+        <div class="!flex !flex-row ">
+          <div class="!flex !flex-col me-6">
+            <a class="menuButton" [routerLink]="['about']">About us</a>
+            <a class="menuButton" [routerLink]="['blog']">Blog</a>
+            <a class="menuButton" [routerLink]="['docs']">Docs</a>
+          </div>
+
+          <div class="!flex flex-col">
+            <p class="menuItem">Stay in tune:</p>
+            <a href="https://github.com/hibounoteapp/hibounote" target="_blank" class="!flex !flex-row menuButton">
+              <mat-icon svgIcon="github" class="icon-background-400" style="scale: 0.8;"></mat-icon>
+              <p class="font-normal ms-2">Github</p>
+            </a>
+            <a href="https://x.com/hibounote" target="_blank" class="!flex !flex-row menuButton">
+              <mat-icon svgIcon="twitter" class="icon-background-400" style="scale: 0.8;"></mat-icon>
+              <p class="font-normal ms-2">Twitter</p>
+            </a>
+            <a href="https://www.instagram.com/hibounote/" target="_blank" class="!flex !flex-row menuButton">
+              <mat-icon svgIcon="instagram" class="icon-background-400" style="scale: 0.8;"></mat-icon>
+              <p class="font-normal ms-2">Instagram</p>
+            </a>
+          </div>
+        </div>
+      </mat-menu>
+
+
     </div>
     <div class="flex flex-row items-center">
-      <a [routerLink]="['/about']" class="me-3">
-        About
-      </a>
-      <app-simple-button
-        [routerLink]="'/account'"
-        text="Test"
-        [visible]="accountButton.visible"
-        [theme]="accountButton.theme"
-        [elementType]="'a'"
-        >
-      </app-simple-button>
 
-      <app-simple-button
-        [routerLink]="'/login'"
-        text="Login"
-        [visible]="loginButton.visible"
-        [theme]="loginButton.theme"
-        [elementType]="'a'"
-      >
-      </app-simple-button>
+      <ng-container *ngFor="let item of buttons">
+          <app-simple-button
+          (click)="item.click"
+          [url]="item.url"
+          [customStyles]="item.customStyles"
+          [icon]="item.icon"
+          [routerLink]="item.routerLink"
+          [elementType]="item.elementType"
+          [text]="item.text"
+          [theme]="item.theme">
+        </app-simple-button>
+      </ng-container>
 
-      <app-simple-button
-        [routerLink]="'/signup'"
-        text="Sign up"
-        [visible]="signupButton.visible"
-        [theme]="signupButton.theme"
-        [elementType]="'a'"
-      >
-    </app-simple-button>
+
 
     </div>
   </div>
@@ -48,43 +69,26 @@
             <mat-icon svgIcon="close" style="width: 30px; height: 30px;"></mat-icon>
           </button>
         </div>
-        <div class="flex flex-col items-center">
-          <a [routerLink]="['/about']" class="my-3 underline">
-            About
+        <div class="flex flex-col items-center mt-2">
+
+          <a class="menuButton border-[1px] border-primary-base-600 text-primary-base-600" [routerLink]="['account']">Get Started</a>
+          <a class="menuButton underline" [routerLink]="['about']">About us</a>
+          <a class="menuButton underline" [routerLink]="['blog']">Blog</a>
+          <a class="menuButton underline" [routerLink]="['docs']">Docs</a>
+
+          <p class="menuItem mt-10">Stay in tune:</p>
+          <a href="https://github.com/hibounoteapp/hibounote" target="_blank" class="!flex !flex-row menuButton">
+            <mat-icon svgIcon="github" class="icon-background-400" style="scale: 0.8;"></mat-icon>
+            <p class="font-normal ms-2">Github</p>
           </a>
-          <app-simple-button
-            class="button"
-            [customStyles]="'!w-[100%] flex-grow'"
-            [routerLink]="'/account'"
-            text="Account"
-            [visible]="accountButton.visible"
-            [theme]="accountButton.theme"
-            [elementType]="'a'"
-            >
-          </app-simple-button>
-
-          <app-simple-button
-            class="button"
-            [customStyles]="'!w-full'"
-            [routerLink]="'/login'"
-            text="Login"
-            [visible]="loginButton.visible"
-            [theme]="loginButton.theme"
-            [elementType]="'a'"
-          >
-          </app-simple-button>
-
-          <app-simple-button
-            class="button"
-            [customStyles]="'!flex-grow'"
-            [routerLink]="'/signup'"
-            text="Sign up"
-            [visible]="signupButton.visible"
-            [theme]="signupButton.theme"
-            [elementType]="'a'"
-          >
-        </app-simple-button>
-
+          <a href="https://x.com/hibounote" target="_blank" class="!flex !flex-row menuButton">
+            <mat-icon svgIcon="twitter" class="icon-background-400" style="scale: 0.8;"></mat-icon>
+            <p class="font-normal ms-2">Twitter</p>
+          </a>
+          <a href="https://www.instagram.com/hibounote/" target="_blank" class="!flex !flex-row menuButton">
+            <mat-icon svgIcon="instagram" class="icon-background-400" style="scale: 0.8;"></mat-icon>
+            <p class="font-normal ms-2">Instagram</p>
+          </a>
         </div>
       </mat-drawer>
 

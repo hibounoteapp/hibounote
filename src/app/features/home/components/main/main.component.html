@@ -2,21 +2,24 @@
   <ng-container *ngIf="homeComponent.showCookiesPopup && !cookiesService.accepted">
     <home-cookies-popup></home-cookies-popup>
   </ng-container>
-  <div class="landing-container">
+  <div class="landing-container bg-blob-nude">
     <div id="title-info">
-      <h2>The extension for your brain.</h2>
-      <h1>hibounote.</h1>
+      <h2 class="font-semibold">The extension for your brain.</h2>
+      <h1 class="font-semibold">hibounote.</h1>
+      <p>Hibounote is a free and open source tool to organize your ideas in visual boards</p>
 
       <app-simple-button
-      [routerLink]="'/account'"
-      [theme]="'btn-primary'"
-      [visible]="true"
-      text="Test"
-      [elementType]="'a'">
+        id="buttonGetStarted"
+        style="align-self: flex-start;"
+        [customStyles]="'!px-16 !text-[1rem]'"
+        [routerLink]="'account'"
+        [theme]="'btn-primary'"
+        text="Get Started"
+        [elementType]="'a'">
       </app-simple-button>
 
     </div>
-    <img src="../../../../../assets/images/example-boards/timeline.png" alt="board">
+    <img src="../../../../../assets/images/example-boards/app-design.png" alt="board">
   </div>
 
   <div id="three-paragraph-container">
@@ -55,7 +58,6 @@
             class="self-end"
             elementType="button"
             (click)="createTestBoard('useCase')"
-            [visible]="true"
             text="Test">
           </app-simple-button>
         </div>
@@ -69,7 +71,7 @@
     </div>
   </div>
 
-  <div class="py-24 bg-background-200 row-between-center shadow-md" id="text-and-image">
+  <div class="py-24 bg-background-200 row-between-center shadow-md border-y-[1px] border-y-background-400" id="text-and-image">
       <div class="row-between-center px-20 w-full" >
         <div class="flex flex-col w-[30vw] paragraph">
           <h3 class="font-bold mb-5 text-2xl ">Ideas Without Limits</h3>
@@ -77,13 +79,12 @@
         </div>
 
         <div class="flex flex-col">
-          <img src="../../../../../assets/images/example-boards/sprint-retro.png" alt="board" class=" w-[700px] rounded">
+          <img src="../../../../../assets/images/example-boards/sprint-retro.png" alt="board" class=" w-[700px] rounded shadow">
           <app-simple-button
             [customStyles]="'!bg-accent-base-800 text-background-base-50 transition-all !mx-0 mt-1'"
             class="self-end"
             elementType="button"
             (click)="createTestBoard('sprint-retro2')"
-            [visible]="true"
             text="Test">
           </app-simple-button>
         </div>
@@ -92,14 +93,15 @@
 
   <div class="flex flex-col justify-start pt-36 items-center min-h-screen" id="layeredWaves">
     <h3 class="sub-title-3xl mb-5">Start thinking unlimited</h3>
-    <p class="sub-title-2xl !font-normal mb-10">Create your account and start to explore</p>
+    <p  class="sub-title-2xl !font-normal mb-10">Test the app and start to explore (app in currently open test)</p>
+    <!-- <p class="sub-title-2xl !font-normal mb-10">Create your account and start to explore</p> -->
     <app-simple-button
-
+      elementType="a"
+      [customStyles]="'!text-[1rem]'"
       class="mb-[12rem]"
-      [routerLink]="'/account'"
+      [routerLink]="'account'"
       [theme]="'btn-primary'"
-      [visible]="true"
-      text="Test">
+      text="Get Started">
     </app-simple-button>
   </div>
 

@@ -1,17 +1,22 @@
 <div>
   <app-navbar
-  [accountButton]="{
-    visible: true,
-    theme: 'btn-primary'
-  }"
-  [loginButton]="{
-    visible: false,
-    theme: 'btn-secondary'
-  }"
-  [signupButton]="{
-    visible: false,
-    theme: 'btn-primary'
-  }">
+  [buttons]="[
+    {
+      elementType: 'a',
+      customStyles:'!py-2 !px-5',
+      routerLink: 'account',
+      text: 'Get Started',
+      theme: 'btn-primary',
+    },
+    {
+      elementType: 'a',
+      customStyles:'!py-2 !px-5',
+      icon:'github',
+      url: 'https://github.com/hibounoteapp/hibounote',
+      text: 'Stars on Github',
+      theme: 'btn-secondary',
+    },
+  ]">
   </app-navbar>
 
   <main>

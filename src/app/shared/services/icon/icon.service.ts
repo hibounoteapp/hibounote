@@ -76,6 +76,34 @@ export class IconService {
       name: "edit",
       url: "../../../../assets/icons/edit-outline.svg"
     },
+    {
+      name: "chevron-down",
+      url: "../../../../assets/icons/chevron-down-outline.svg"
+    },
+    {
+      name: "twitter",
+      url: "../../../../assets/icons/twitter-outline.svg"
+    },
+    {
+      name: "instagram",
+      url: "../../../../assets/icons/logo-instagram.svg"
+    },
+    {
+      name: "add",
+      url: "../../../../assets/icons/add-outline.svg"
+    },
+    {
+      name: "zoom_in",
+      url: "../../../../assets/icons/zoom-in.svg"
+    },
+    {
+      name: "zoom_out",
+      url: "../../../../assets/icons/zoom-out.svg"
+    },
+    {
+      name: "repan",
+      url: "../../../../assets/icons/repan-outline.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

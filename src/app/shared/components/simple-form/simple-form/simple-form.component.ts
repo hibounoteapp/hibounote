@@ -1,19 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, ContentChild, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Button } from '@custom-interfaces/button';
 import { SimpleButtonComponent } from '@shared-components/simple-button';
 
 interface Field {
   label:string,
   type:string,
   aside?:string,
-}
-
-interface Button {
-  text: string,
-  theme: 'btn-primary' | 'btn-secondary',
-  onClick?: ()=>void,
-  elementType: 'a' | 'button' | 'submit',
 }
 
 @Component({

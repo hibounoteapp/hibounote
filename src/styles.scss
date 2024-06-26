@@ -43,7 +43,7 @@ html, body { height: 100%; }
 
 * {
   @apply text-text-base-900;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif !important;
 }
 
 
@@ -130,7 +130,7 @@ html, body { height: 100%; }
 }
 
 .controlTools {
-  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
+  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center border-[1px] border-background-400;
 
   &:hover {
     @apply shadow-lg transition-all;
@@ -138,7 +138,7 @@ html, body { height: 100%; }
 }
 
 .grab {
-  @apply shadow transition-all w-10 h-10 m-2 flex justify-center items-center;
+  @apply shadow transition-all m-2 flex justify-center items-center;
   cursor: move;
   cursor: grab;
   cursor: -moz-grab;
@@ -187,6 +187,41 @@ html, body { height: 100%; }
   width: 30px;
   height: 50px;
 }
+
+.bg-blob-nude {
+  background-image: url('assets/images/bg-blob-single-nude.svg');
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+//? Icon coloring
+
+  .icon-white {
+    filter: invert(100%)
+  }
+
+  .icon-background-400 {
+    filter: brightness(0) saturate(100%) invert(78%) sepia(13%) saturate(286%) hue-rotate(207deg) brightness(81%) contrast(82%);
+  }
+
+//?
+
+//? Shared navbar
+  .menuButton { //shared navbar menu button
+    @apply block w-full my-1 p-2 text-start font-semibold rounded transition-all;
+
+    &:hover {
+      @apply bg-background-300 transition-all;
+    }
+  }
+
+  .menuItem { //shared navbar menu button
+    @apply block w-full my-1 p-2 text-start font-semibold rounded transition-all;
+
+  }
+
+//?
 
 .cookieModal {
   @apply w-[50vw];
