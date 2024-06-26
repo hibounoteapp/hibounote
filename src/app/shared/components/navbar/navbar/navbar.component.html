@@ -2,7 +2,7 @@
   <div id="desktop-port">
     <div class="flex flex-row items-center">
       <a [routerLink]="['/']">
-        <img src="../../assets/logoplaceholder.svg" alt="icon" id="logo">
+        <img src="../../assets/logo.svg" alt="icon" id="logo">
       </a>
       <p class="ms-4 font-bold">Hibounote</p>
     </div>
@@ -12,7 +12,7 @@
       </a>
       <app-simple-button
         [routerLink]="'/account'"
-        text="Account"
+        text="Test"
         [visible]="accountButton.visible"
         [theme]="accountButton.theme"
         [elementType]="'a'"
@@ -90,7 +90,7 @@
 
       <div class="w-full h-full flex flex-row justify-between items-center">
         <a [routerLink]="['/']">
-          <img src="../../assets/logoplaceholder.svg" alt="icon" id="logo">
+          <img src="../../assets/logo.svg" alt="icon" id="logo">
         </a>
         <button class="flex items-center justify-center py-2" (click)="drawer.toggle()">
           <mat-icon svgIcon="menu" style="height: 30px; width: 30px;"></mat-icon>

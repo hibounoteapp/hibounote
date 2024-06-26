@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Renderer2 } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterRenderPhase, AfterRenderRef, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
@@ -8,6 +8,8 @@ import { Board } from '@custom-interfaces/board';
 import { CommonModule } from '@angular/common';
 import { BoardCardComponent } from './components/board-card/board-card.component';
 import { EditBoardModalComponent } from '../../../edit-board-modal/edit-board-modal.component';
+import { db } from '../../../../../../../../db';
+import { DexieOnReadyEvent } from 'dexie';
 
 @Component({
   selector: 'account-main-boardsContainer',
@@ -16,9 +18,10 @@ import { EditBoardModalComponent } from '../../../edit-board-modal/edit-board-mo
   templateUrl: './boards-container.component.html',
   styleUrl: './boards-container.component.scss'
 })
-export class BoardsContainerComponent {
+export class BoardsContainerComponent implements OnChanges{
   input: string = '';
-  filteredBoards: Board[] = this.boardData.boards;
+  @Input('boardsData') boardsData!: Board[]; //? Using 'Input' to track everytime boards array changes
+  filteredBoards: Board[] = this.boardsData;
 
   constructor(
     public boardData: BoardDataService,
@@ -67,5 +70,9 @@ export class BoardsContainerComponent {
     if(event.target instanceof HTMLInputElement)
     this.input = event.target.value;
     this.filter();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.filteredBoards = this.boardsData;
   }
 }
