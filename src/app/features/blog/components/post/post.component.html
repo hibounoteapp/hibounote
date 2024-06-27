@@ -1,0 +1,10 @@
+<a [routerLink]="['/blog/post']" [queryParams]="{id: id}" class="p-2 my-2 rounded shadow border-[1px] border-background-400 post-container bg-background-base-50">
+  <div class="nameInfo">
+    <h2 class="font-semibold">{{title}}</h2>
+    <p>{{shortDesc}}</p>
+  </div>
+  <div class="flex flex-col items-center justify-center tag">
+    <p class="bg-accent-600 rounded-full py-1 px-3 text-[0.8rem] mb-1 whitespace-nowrap">{{tag}}</p>
+    <p>{{date | date}}</p>
+  </div>
+</a>

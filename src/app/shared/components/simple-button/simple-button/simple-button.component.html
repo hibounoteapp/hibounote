@@ -7,7 +7,7 @@
       [href]="url"
       class="btn {{theme}} {{customStyles}}">
         <mat-icon [svgIcon]="icon" class="icon me-2 !p-0" *ngIf="icon" style="height: 18px;"></mat-icon>
-        <p>{{text}}</p>
+        <p class="{{textCustomStyles}}">{{text}}</p>
     </a>
   </ng-container>
   <ng-template #ahref>
@@ -17,7 +17,7 @@
       target="_blank"
       class="btn {{theme}} {{customStyles}}">
         <mat-icon [svgIcon]="icon" class="icon me-2 !p-0" *ngIf="icon" style="height: 18px;"></mat-icon>
-        <p>{{text}}</p>
+        <p class="{{textCustomStyles}}">{{text}}</p>
     </a>
   </ng-template>
 </ng-container>
@@ -28,7 +28,7 @@
     <button
       [id]="id"
       class="btn {{theme}} {{customStyles}}">
-      <p>{{text}}</p>
+      <p class="{{textCustomStyles}}">{{text}}</p>
     </button>
   </ng-container>
 

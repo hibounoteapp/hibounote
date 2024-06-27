@@ -22,6 +22,7 @@ export class SimpleButtonComponent{
   @Input() text!: string;
   @Input() theme?: 'btn-primary' | 'btn-secondary' | 'btn-warn';
   @Input() customStyles?: string;
+  @Input() textCustomStyles?: string;
   @Input() elementType!: 'button' | 'a' | 'submit';
   @Input() width?: string;
   @Input() height?: string;

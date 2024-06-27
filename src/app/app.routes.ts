@@ -9,6 +9,8 @@ import { AboutComponent } from './features/about/pages/about/about.component';
 import { TutorialComponent } from './features/tutorial/pages/tutorial/tutorial.component';
 import { TermsComponent } from './features/terms/pages/terms/terms.component';
 import { SupportComponent } from './features/support/pages/support/support.component';
+import { BlogComponent } from './features/blog/pages/blog/blog.component';
+import { PostComponent } from './features/blog/pages/post/post.component';
 
 export const routes: Routes = [
   {
@@ -51,5 +53,13 @@ export const routes: Routes = [
   {
     path: 'support',
     component: SupportComponent
+  },
+  {
+    path: 'blog',
+    component: BlogComponent
+  },
+  {
+    path: 'blog/post',
+    component: PostComponent
   },
 ];

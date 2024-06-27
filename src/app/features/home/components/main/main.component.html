@@ -54,7 +54,8 @@
         <div class="flex flex-col">
           <img src="../../../../../assets/images/example-boards/usecase-diagram.png" alt="board" class=" w-[40%] rounded">
           <app-simple-button
-            [customStyles]="'!bg-secondary-500 text-background-base-50 transition-all !mx-0 mt-1'"
+            [customStyles]="'!bg-secondary-500 transition-all !mx-0 mt-1'"
+            [textCustomStyles]="'!text-background-base-50'"
             class="self-end"
             elementType="button"
             (click)="createTestBoard('useCase')"
@@ -82,6 +83,7 @@
           <img src="../../../../../assets/images/example-boards/sprint-retro.png" alt="board" class=" w-[700px] rounded shadow">
           <app-simple-button
             [customStyles]="'!bg-accent-base-800 text-background-base-50 transition-all !mx-0 mt-1'"
+            [textCustomStyles]="'!text-background-base-50'"
             class="self-end"
             elementType="button"
             (click)="createTestBoard('sprint-retro2')"

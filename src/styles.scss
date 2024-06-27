@@ -37,6 +37,10 @@ $mnos-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 
+:root {
+
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -223,11 +227,60 @@ html, body { height: 100%; }
 
 //?
 
+//?
+
+//? Blog
+
+.mdc-tab__text-label {
+  transition: 100ms !important;
+}
+
+.mat-mdc-tab-group {
+	--mdc-tab-indicator-active-indicator-color: #4e0bf7; //primary
+}
+
+.mdc-tab--active .mdc-tab__text-label{
+  color: #4e0bf7 !important;
+}
+//?
+
 .cookieModal {
   @apply w-[50vw];
 
   @media screen and (max-width: 1000px)  {
     @apply w-[90vw] my-2 overflow-scroll text-[0.9rem];
+  }
+}
+
+//? Markdown to HTML configuration
+#markdown {
+
+  h1 {
+    @apply font-semibold text-2xl;
+  }
+
+  h2 {
+    @apply font-semibold text-xl;
+  }
+
+  h3 {
+    @apply font-semibold text-lg;
+  }
+
+  p {
+    @apply text-justify;
+  }
+
+  a {
+    @apply underline font-semibold;
+  }
+
+  ul {
+    @apply ps-6;
+
+    li {
+      list-style-type: disc;
+    }
   }
 }
 

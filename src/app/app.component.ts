@@ -1,6 +1,7 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({ selector: 'app-root',
     standalone: true,
@@ -8,6 +9,7 @@ import { RouterOutlet } from '@angular/router';
     styleUrl: './app.component.scss',
     imports: [
       RouterOutlet,
+      MarkdownModule
     ],
   })
 

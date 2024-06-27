@@ -1,0 +1,12 @@
+main {
+  @apply min-h-screen pt-28 flex flex-col items-center justify-start bg-background-base-50;
+}
+
+.content-container {
+  @apply mx-auto p-4 border-[1px] border-background-300 shadow bg-background-base-50 rounded w-[60vw];
+
+  @media screen and (max-width:768px) {
+    @apply w-[90vw]
+  }
+}
+

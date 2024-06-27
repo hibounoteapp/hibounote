@@ -104,6 +104,10 @@ export class IconService {
       name: "repan",
       url: "../../../../assets/icons/repan-outline.svg"
     },
+    {
+      name: "return2",
+      url: "../../../../assets/icons/chevron-back-outline.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

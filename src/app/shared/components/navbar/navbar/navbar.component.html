@@ -1,4 +1,4 @@
-<nav [style.position]="fixed?'fixed':'relative'">
+<nav [style.position]="fixed?'fixed':'relative'" style="z-index: 10;">
   <div id="desktop-port">
     <div class="flex flex-row items-center">
       <a [routerLink]="['/']">
@@ -16,9 +16,9 @@
       <mat-menu #menu id="resourcesMenu" class="!bg-background-100 !px-2 !shadow border-[1px] border-background-400">
         <div class="!flex !flex-row ">
           <div class="!flex !flex-col me-6">
-            <a class="menuButton" [routerLink]="['about']">About us</a>
-            <a class="menuButton" [routerLink]="['blog']">Blog</a>
-            <a class="menuButton" [routerLink]="['docs']">Docs</a>
+            <a class="menuButton" [routerLink]="['/about']">About us</a>
+            <a class="menuButton" [routerLink]="['/blog']">Blog</a>
+            <a class="menuButton" [routerLink]="['/docs']">Docs</a>
           </div>
 
           <div class="!flex flex-col">
@@ -72,9 +72,9 @@
         <div class="flex flex-col items-center mt-2">
 
           <a class="menuButton border-[1px] border-primary-base-600 text-primary-base-600" [routerLink]="['account']">Get Started</a>
-          <a class="menuButton underline" [routerLink]="['about']">About us</a>
-          <a class="menuButton underline" [routerLink]="['blog']">Blog</a>
-          <a class="menuButton underline" [routerLink]="['docs']">Docs</a>
+          <a class="menuButton underline" [routerLink]="['/about']">About us</a>
+          <a class="menuButton underline" [routerLink]="['/blog']">Blog</a>
+          <a class="menuButton underline" [routerLink]="['/docs']">Docs</a>
 
           <p class="menuItem mt-10">Stay in tune:</p>
           <a href="https://github.com/hibounoteapp/hibounote" target="_blank" class="!flex !flex-row menuButton">
