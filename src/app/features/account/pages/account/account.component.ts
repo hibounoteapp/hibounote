@@ -17,6 +17,7 @@ import { CookiesService } from '@core-services/cookies/cookies.service';
 import { DbService } from '@core-services/db/db.service';
 import { db } from '../../../../../../db';
 import { liveQuery } from 'dexie';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
 
 @Component({
@@ -32,6 +33,7 @@ import { liveQuery } from 'dexie';
     NavbarComponent,
     MainComponent,
     EditBoardModalComponent,
+    SidebarComponent
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss'

@@ -1,0 +1,97 @@
+div.sidebar-container {
+  @apply h-full border-e-[1px] border-e-background-400 shadow px-8 bg-background-base-50;
+
+  @media screen and (max-width: 1000px) {
+    @apply px-1 ;
+    font-size: 0.7rem !important;
+  }
+
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.5fr 0.9fr 2fr 0.3fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "logo-container"
+    "utilLinks"
+    "tags-fav-container"
+    "download";
+}
+
+div#logo-container {
+  grid-area: logo-container;
+}
+
+div#utilLinks {
+  grid-area: utilLinks;
+  @apply flex flex-col mb-1;
+
+  button.link, input.link {
+    @apply flex flex-row items-center justify-start my-1 transition-all py-2 px-2 rounded;
+
+    &:hover {
+      @apply bg-background-400 transition-all;
+    }
+
+    p {
+      @apply ms-2;
+
+    }
+  }
+}
+
+div.iconText {
+  @apply flex flex-row items-center justify-start my-2 ;
+
+  p {
+    @apply ms-2;
+  }
+}
+
+div#tags-fav-container {
+  grid-area: tags-fav-container;
+  @apply border-[1px] border-background-400 rounded overflow-auto flex flex-col items-center;
+
+
+
+  #favorites, #tags {
+    @apply w-full
+  }
+
+  #tags {
+    @apply mt-4;
+  }
+
+  div.emptyMessage {
+    @apply flex items-center justify-center h-20 mb-8;
+
+    p {
+      @apply text-sm text-background-700;
+    }
+  }
+}
+
+button#download {
+  grid-area: download;
+  @apply border-[1px] border-background-400 rounded p-3 justify-self-end my-3 transition-all flex flex-row items-center w-full justify-center;
+  &:hover {
+    @apply bg-background-400 transition-all;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  @apply rounded;
+}
+
+::-webkit-scrollbar-track {
+  @apply rounded bg-background-200 m-1;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-background-500 transition-all m-1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply rounded bg-background-600 transition-all;
+}

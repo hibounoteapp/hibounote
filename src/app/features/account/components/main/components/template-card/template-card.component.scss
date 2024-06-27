@@ -3,7 +3,7 @@ div.template-container {
 }
 
 button.templateBoard {
-  @apply w-[30%] h-4/5 bg-background-400 rounded shadow;
+  @apply w-[30%] h-4/5 bg-background-400 rounded shadow mx-3;
 }
 
 button#createBlank {

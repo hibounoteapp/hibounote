@@ -108,6 +108,30 @@ export class IconService {
       name: "return2",
       url: "../../../../assets/icons/chevron-back-outline.svg"
     },
+    {
+      name: "settings",
+      url: "../../../../assets/icons/settings-outline.svg"
+    },
+    {
+      name: "upload",
+      url: "../../../../assets/icons/upload-outline.svg"
+    },
+    {
+      name: "template",
+      url: "../../../../assets/icons/template-outline.svg"
+    },
+    {
+      name: "download",
+      url: "../../../../assets/icons/download-outline.svg"
+    },
+    {
+      name: "more",
+      url: "../../../../assets/icons/more-horizontal.svg"
+    },
+    {
+      name: "star",
+      url: "../../../../assets/icons/star.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

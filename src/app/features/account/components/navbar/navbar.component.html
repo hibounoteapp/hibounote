@@ -1,29 +1,26 @@
-<nav>
-  <div id="desktop-port">
-    <div class="flex flex-row items-center">
-      <a [routerLink]="['/']"><img src="../../../../../assets/logo.svg" alt="logoHibounote" id="logo"></a>
-      <aside class="ms-4 font-bold">Hibounote</aside>
+<nav class="bg-background-base-50 border-b-[1px] border-b-background-400 shadow">
 
-    </div>
     <div class="flex flex-row items-center">
-      <a [routerLink]="['/tutorial']" matTooltip="See tutorials" class="flex justify-center items-center">
+      <a [routerLink]="['/tutorial']" class="link">
+        Tutorials
+      </a>
+      <a href="https://hibounote.netlify.app" target="_blank" class="link">
+        Docs
+      </a>
+      <a href="https://hibounote.netlify.app/blog" target="_blank" class="link">
+        Blog
+      </a>
+      <a href="https://github.com/hibounoteapp/hibounote" target="_blank" class="link">
+        Contribute!
+      </a>
+    </div>
+
+    <div class="flex flex-row items-center">
+      <a [routerLink]="['/about']" matTooltip="About" class="flex justify-center items-center">
         <mat-icon class="me-4" svgIcon="info"></mat-icon>
       </a>
       <button class="w-14">
-        <img src="../../../../../assets/user_placeholder.svg" alt="" class="rounded-full w-full" matTooltip="🚧 In progress!">
+        <img src="../../../../../assets/user_placeholder.svg" alt="" class="rounded-full w-[80%]" matTooltip="🚧 In progress!">
       </button>
     </div>
-  </div>
-
-  <div id="mobile-port">
-    <a [routerLink]="['/']"><img src="../../assets/logo.svg" alt="logoHibounote" id="logo"></a>
-    <div class="flex flex-row items-center">
-      <a [routerLink]="['/tutorial']" matTooltip="See tutorials" class="flex justify-center items-center">
-        <mat-icon class="me-4" svgIcon="info"></mat-icon>
-      </a>
-      <button class="w-14">
-        <img src="https://placehold.co/128x128?text=User" alt="" class="rounded-full w-full" matTooltip="🚧 In progress!">
-      </button>
-    </div>
-  </div>
 </nav>
