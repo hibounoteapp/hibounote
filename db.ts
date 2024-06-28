@@ -4,11 +4,16 @@ import Dexie, { Table } from 'dexie';
 
 export class AppDB extends Dexie {
   boards!: Table<Board, string>
+  tags!: Table<{
+    id: string,
+    name: string
+  },string>
 
   constructor() {
     super('ngdexieliveQuery');
     this.version(1).stores({
-      boards: 'id'
+      boards: 'id',
+      tags: 'id'
     });
   }
 }

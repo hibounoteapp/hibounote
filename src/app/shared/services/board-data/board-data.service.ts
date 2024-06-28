@@ -13,10 +13,10 @@ import sprintRetro2 from '@core-board-templates/sprint-retrospective2';
 import sprintRetro from '@core-board-templates/sprint-retrospective';
 import useCase from '@core-board-templates/usecase';
 import Dexie from 'dexie';
-import { DbService } from '@core-services/db/db.service';
 import { db } from '../../../../../db';
 import { SavedConnection } from '@custom-interfaces/saved-connection';
 import { SavedNode } from '@custom-interfaces/saved-node';
+import { Tag } from '@custom-interfaces/tag';
 
 @Injectable({
   providedIn: 'root'
@@ -180,6 +180,8 @@ export class BoardDataService implements OnInit{
         elements: board.elements,
         groups: board.groups,
         zoomScale: 1,
+        favorite: board.favorite,
+        tag: board.tag,
       })
     } else {
       this.boards.push({
@@ -284,7 +286,7 @@ export class BoardDataService implements OnInit{
           zoomScale: board.zoomScale
         })
       } else {
-        console.log(boardInDb)
+        console.log(JSON.stringify(board))
         await db.boards.add(board);
       }
     }
@@ -404,6 +406,27 @@ export class BoardDataService implements OnInit{
     db.boards.delete(id);
   }
 
+  toggleFavorite(id: string) {
+
+    let newBoards: Board[] = this.boards.map(element=>{
+      if(element.id === id) {
+        if(element.favorite) {
+          element.favorite = !element.favorite;
+
+        } else {
+          element.favorite = true;
+        }
+
+        db.boards.update(id, {
+          favorite: element.favorite
+        });
+      }
+      return element
+    })
+
+    this.boards = newBoards;
+  }
+
   editBoardName(id: string, name: string) {
     let newBoards: Board[] = this.boards.map((board: Board)=>{
       if(board.id === id) {
@@ -414,7 +437,23 @@ export class BoardDataService implements OnInit{
       }
       return board
     })
+    db.boards.update(id, {
+      name,
+    });
+    
     this.boards = newBoards;
+  }
+
+  toggleTag(tag: Tag,id: string) {
+    let board = this.boards.find(e=>e.id===id)
+    if(!board) return
+
+    if(board.tag) {
+      let selectedTag = board.tag.find(e=>e.id === tag.id)
+      console.log(selectedTag)
+    } else {
+      board.tag = [tag]
+    }
   }
 
   ngOnInit(): void {

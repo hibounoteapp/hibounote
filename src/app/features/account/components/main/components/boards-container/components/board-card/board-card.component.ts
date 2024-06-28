@@ -9,6 +9,7 @@ import { BoardDataService } from '@shared-services/board-data/board-data.service
 import { IconService } from '@shared-services/icon/icon.service';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { DeleteConfirmationComponent } from '../../../../../edit-board-modal/components/delete-confirmation/delete-confirmation.component';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'board-container-card',
@@ -27,9 +28,14 @@ export class BoardCardComponent {
     private boardData: BoardDataService,
     public iconService: IconService,
     protected renderer: Renderer2,
-    protected router: Router
+    protected router: Router,
+    public userData: UserDataService
   ) {
 
+  }
+
+  toggleFavorite() {
+    this.boardData.toggleFavorite(this.item.id);
   }
 
   confirmDelete(id: string) {
@@ -41,6 +47,13 @@ export class BoardCardComponent {
         return
       }
     })
+  }
+
+  findTags(id:string) {
+    if(this.item.tag) {
+      return this.item.tag.find(e=>e.id===id);
+    }
+    return false
   }
 
   enterBoard(event: Event) {
@@ -55,9 +68,6 @@ export class BoardCardComponent {
 
   }
 
-  favBoard(event: Event) {
-    console.log('FAV',event)
-  }
 
   // editBoard(event: Event, id: string) {
   //   const dialog = this.dialog.open(EditBoardModalComponent,{

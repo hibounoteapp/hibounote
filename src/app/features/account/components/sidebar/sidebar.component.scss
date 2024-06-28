@@ -1,5 +1,5 @@
 div.sidebar-container {
-  @apply h-full border-e-[1px] border-e-background-400 shadow px-8 bg-background-base-50;
+  @apply h-full border-e-[1px] border-e-background-400 shadow px-8 bg-background-base-50 w-[20vw];
 
   @media screen and (max-width: 1000px) {
     @apply px-1 ;
@@ -30,12 +30,81 @@ div#utilLinks {
     @apply flex flex-row items-center justify-start my-1 transition-all py-2 px-2 rounded;
 
     &:hover {
-      @apply bg-background-400 transition-all;
+      @apply bg-background-200 transition-all;
     }
 
     p {
       @apply ms-2;
 
+    }
+  }
+}
+
+.favBoardItem {
+
+  @apply mx-4 rounded-full flex relative flex-row items-center justify-between px-2 mb-2 transition-all;
+
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+
+  a {
+    @apply text-[0.9rem] h-full py-1 pe-6;
+
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  button{
+    @apply hidden transition-all absolute right-2 h-[80%];
+  }
+
+  &:hover {
+
+    @apply bg-background-200 transition-all;
+
+    button {
+      @apply flex transition-all;
+
+      &:hover {
+        filter: brightness(0.95);
+        @apply bg-background-300 rounded;
+      }
+    }
+  }
+}
+
+.tagItem {
+  @apply border-[1px] border-primary-base-600 text-center mx-4 rounded-full transition-all flex flex-row items-center justify-between mb-2 flex-grow relative;
+
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+
+  button#tagButton {
+    @apply text-[0.8rem] h-full py-1 pe-6 ps-2 text-primary-base-600;
+
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  button#more {
+    @apply hidden transition-all absolute right-2 h-[80%];
+  }
+
+  &:hover {
+
+    @apply bg-background-200 transition-all;
+
+    button#more {
+      @apply flex transition-all;
+
+      &:hover {
+        filter: brightness(0.95);
+        @apply bg-background-300 rounded;
+      }
     }
   }
 }
@@ -75,7 +144,7 @@ button#download {
   grid-area: download;
   @apply border-[1px] border-background-400 rounded p-3 justify-self-end my-3 transition-all flex flex-row items-center w-full justify-center;
   &:hover {
-    @apply bg-background-400 transition-all;
+    @apply bg-background-200 transition-all;
   }
 }
 

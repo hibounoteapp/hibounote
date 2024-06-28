@@ -138,8 +138,6 @@ div.text-sections {
   background-size: cover;
   background-repeat: no-repeat;
 
-
-
   @media screen and (max-width: 768px) {
 
     h3 {
@@ -176,8 +174,6 @@ div.text-sections {
   }
 }
 
-
-
 div#text-and-image {
   img {
     @apply w-[50vw] rounded;
@@ -206,4 +202,3 @@ div#text-and-image {
     }
   }
 }
-

@@ -6,7 +6,7 @@ nav {
   @apply flex flex-row items-center justify-start my-1 transition-all py-1 px-6 rounded-full border-[1px] border-background-400 mx-2;
 
   &:hover {
-    @apply bg-background-400 transition-all;
+    @apply bg-background-200 transition-all;
   }
 
   p {
