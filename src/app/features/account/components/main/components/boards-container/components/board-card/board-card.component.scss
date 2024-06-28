@@ -1,6 +1,10 @@
 .board-container {
-  @apply w-full h-full rounded shadow bg-background-base-50 flex-row-center justify-between p-2;
+  @apply w-full h-full rounded shadow bg-background-base-50 flex-row-center justify-between transition-all;
 
+  &:hover {
+    filter: brightness(0.9);
+    @apply transition-all;
+  }
 }
 
 .sub-container{
