@@ -11,10 +11,6 @@ import { NodeService } from '../../services/node/node.service';
 import { BoardService } from '@shared-services/board/board.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
-import { Connection, Overlay, OverlaySpec } from '@jsplumb/browser-ui';
-import { SavedNode } from '@custom-interfaces/saved-node';
-import { Board } from '@custom-interfaces/board';
-import { SavedConnection } from '@custom-interfaces/saved-connection';
 import { CookiesService } from '@core-services/cookies/cookies.service';
 
 @Component({ selector: 'board',
@@ -75,6 +71,24 @@ export class BoardComponent implements AfterViewInit, OnInit{
       }
     }
 
+  @HostListener('window:unload', ['$event'])
+    unloadHandler(event: Event) {
+        this.PostCall();
+    }
+
+  @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHander(event: Event) {
+        this.boardData.saveData().then(()=>{
+          return true;
+        }).catch(()=>{
+          return false;
+        })
+    }
+
+  PostCall() {
+        console.log('PostCall');
+    }
+
 
   editNode(attribute: string, value: string) {
     if(!this.nodeService.activeNode) return;
@@ -126,6 +140,8 @@ export class BoardComponent implements AfterViewInit, OnInit{
       if(!(event.target instanceof Element)) return;
 
     })
+
+
   }
 
   constructor(
@@ -135,6 +151,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
     public boardService: BoardService,
     public boardData: BoardDataService,
     private cookiesService: CookiesService) {
+
       boardService.appRenderer = renderer
     }
 
@@ -154,4 +171,3 @@ export class BoardComponent implements AfterViewInit, OnInit{
   }
 
 }
-

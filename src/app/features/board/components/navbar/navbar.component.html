@@ -1,26 +1,31 @@
 <nav>
   <div class="flex flex-row items-center justify-between">
-    <button class="me-4 flex items-center justify-center" [matMenuTriggerFor]="boardMenu">
+    <button class="me-4 btn-shadow" [matMenuTriggerFor]="boardConfig">
       <mat-icon svgIcon="menu"></mat-icon>
     </button>
     <input type="text" class="px-2 outline-none bg-transparent text-lg" id="nameInput" [value]="boardData.getActiveBoard()?.name"
     (blur)="changeName($event)">
 
   </div>
-  <button (click)="saveData()" class="btn-shadow">
-    <mat-icon svgIcon="person"></mat-icon>
-  </button>
+  <div class="flex flex-row items-center justify-between">
+    <button (click)="settingsModal()" class="flex justify-start items-center me-4">
+      <mat-icon svgIcon="settings"></mat-icon>
+    </button>
+    <button (click)="saveData()" class="flex justify-start items-center">
+      <img src="../../../../../assets/user_placeholder.svg" alt="" class="rounded-full w-[35px] h-[35px]" matTooltip="Dashboard">
+    </button>
+  </div>
 
-  <mat-menu #boardMenu="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">
+  <!-- <mat-menu #boardMenu="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">
     <button mat-menu-item [matMenuTriggerFor]="boardConfig">
       <mat-icon style="transform: scale(0.85);" svgIcon="clipboard"></mat-icon>
       <span>Board</span>
     </button>
-    <!-- <button mat-menu-item>
+    <button mat-menu-item>
       <mat-icon style="transform: scale(0.85);">grid_3x3</mat-icon>
       <span>Enable grid</span>
-    </button> -->
-  </mat-menu>
+    </button>
+  </mat-menu> -->
   <!-- <mat-menu #viewConfig="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">
     <button mat-menu-item (click)="boardData.createBoard()">
       <mat-icon style="transform: scale(0.85);">add</mat-icon>
@@ -37,9 +42,17 @@
       <mat-icon style="transform: scale(0.85);" svgIcon="color_fill"></mat-icon>
       <span>Background Color</span>
     </button> -->
-    <button mat-menu-item (click)="deleteBoard()">
-      <mat-icon style="transform: scale(0.85);" svgIcon="trash">delete</mat-icon>
-      <span>Delete</span>
+    <button mat-menu-item (click)="boardData.createBoard()">
+      <mat-icon style="transform: scale(0.85);" svgIcon="duplicate"></mat-icon>
+      <span>Duplicate</span>
+    </button>
+    <button mat-menu-item (click)="boardData.createBoard()">
+      <mat-icon style="transform: scale(0.85);" svgIcon="download"></mat-icon>
+      <span>Export board</span>
+    </button>
+    <button mat-menu-item (click)="confirmDelete()">
+      <mat-icon style="transform: scale(0.85);" svgIcon="trash" class="icon-warn">delete</mat-icon>
+      <span class="text-alert-800">Delete</span>
     </button>
   </mat-menu>
     <mat-menu #bgColor="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">

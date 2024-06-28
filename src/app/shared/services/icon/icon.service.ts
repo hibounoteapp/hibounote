@@ -132,6 +132,10 @@ export class IconService {
       name: "star",
       url: "../../../../assets/icons/star.svg"
     },
+    {
+      name: "duplicate",
+      url: "../../../../assets/icons/duplicate-outline.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

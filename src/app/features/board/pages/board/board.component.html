@@ -1,6 +1,4 @@
-<ng-container *ngIf="boardData.activeId; else idNull">
-
-  <main>
+<main [style.display]="boardData.activeId ? 'flex' : 'none'">
   <context-menu-component
       #contextMenu
       (renderer)="renderer"
@@ -20,22 +18,22 @@
 
       </div>
     </div>
-  </main>
+</main>
+
+
 
   <div id="mobile-msg">
     <h1 class="sub-title-2xl">Oh no!</h1>
     <p>You can't open a board in a smartphone</p>
     <a [routerLink]="['/account']" class="underline text-accent-base-800">Return to homepage</a>
   </div>
-</ng-container>
 
-<ng-template #idNull>
-  <div id="idNull">
+  <div id="idNull" [style.display]="!boardData.activeId ? 'flex':'none'">
     <h1 class="sub-title-2xl">Board not found...</h1>
     <p>The board you are trying to access was not found in your device</p>
     <a [routerLink]="['/']" class="underline text-accent-base-800" id="mobile">Return to homepage</a>
     <a [routerLink]="['/account']" class="underline text-accent-base-800" id="desktop">Return to account</a>
   </div>
-</ng-template>
+
 
 

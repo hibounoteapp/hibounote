@@ -13,5 +13,7 @@ import { MarkdownModule } from 'ngx-markdown';
     ],
   })
 
-export class AppComponent{}
+export class AppComponent{
+
+}
 

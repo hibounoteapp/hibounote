@@ -25,6 +25,7 @@ export class BoardDataService implements OnInit{
 
   _boards: Board[] = [];
   activeId!: string;
+  activeBoard!: Board;
   renderer!: Renderer2;
 
 
@@ -46,7 +47,14 @@ export class BoardDataService implements OnInit{
   ) {
     this.activatedRoute.queryParamMap.subscribe((p)=>{
       this.activeId = p.get("id") ?? '';
+      const selectedBoard = this.boards.find(e=>e.id===this.activeId);
+
+      if(selectedBoard) {
+        this.activeBoard = selectedBoard;
+      }
     })
+
+
 
     this.loadBoards();
   }
@@ -168,6 +176,10 @@ export class BoardDataService implements OnInit{
     }
   }
 
+  checkIfSaved() {
+
+  }
+
   createBoard(board?: Board) {
     const id = uuid();
 
@@ -203,6 +215,7 @@ export class BoardDataService implements OnInit{
     }).then(()=>{
       try {
         this.nodeService.clearAll();
+        this.saveData();
       } catch (error) {}
     })
 
@@ -440,7 +453,7 @@ export class BoardDataService implements OnInit{
     db.boards.update(id, {
       name,
     });
-    
+
     this.boards = newBoards;
   }
 
