@@ -19,7 +19,7 @@ div.landing-container {
   }
 
   h2 {
-    @apply text-[3rem] mb-2 pt-10;
+    @apply text-[3rem] pt-10;
 
     @media screen and (max-width: 768px) {
       @apply flex flex-col mx-4 pt-0;
