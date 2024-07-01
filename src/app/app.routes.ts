@@ -11,6 +11,7 @@ import { TermsComponent } from './features/terms/pages/terms/terms.component';
 import { SupportComponent } from './features/support/pages/support/support.component';
 import { BlogComponent } from './features/blog/pages/blog/blog.component';
 import { PostComponent } from './features/blog/pages/post/post.component';
+import { NotFoundComponent } from './features/notfound/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -62,4 +63,6 @@ export const routes: Routes = [
     path: 'blog/post',
     component: PostComponent
   },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
