@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { EditBoardModalComponent } from '../edit-board-modal/edit-board-modal.component';
 import { DeleteConfirmationComponent } from '../edit-board-modal/components/delete-confirmation/delete-confirmation.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'account-sidebar',
@@ -25,7 +26,7 @@ export class SidebarComponent implements OnChanges{
   @Input() boardsData!: Board[];
   favBoards: Board[]=[];
 
-  constructor(icon: IconService, protected dialog: MatDialog, protected renderer: Renderer2, protected boardData: BoardDataService, public userData: UserDataService){}
+  constructor(icon: IconService, protected dialog: MatDialog, protected renderer: Renderer2, protected boardData: BoardDataService, public userData: UserDataService, protected snackBar: MatSnackBar){}
 
   settingsModal() {
     const modalCookies = this.dialog.open(SettingsModalComponent);
@@ -64,9 +65,19 @@ export class SidebarComponent implements OnChanges{
     if(!(event.target instanceof HTMLInputElement)) return
     if(!(event.target.files)) return;
 
-    const board: Board = await this.parseJsonFile(event.target.files[0])
 
-    this.boardData.createBoard(board)
+    const board: Board = await this.parseJsonFile(event.target.files[0])
+    const isBoard = (value: Board): value is Board => !!value?.name;
+
+    if(isBoard(board)) {
+      this.boardData.createBoard(board)
+      return;
+    }
+
+    this.snackBar.open('Board file not valid','Close',{
+      duration: 5000,
+    })
+
   }
 
   async parseJsonFile(file: File): Promise<Board> {
