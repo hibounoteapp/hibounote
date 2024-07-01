@@ -39,7 +39,7 @@ export class ContentService {
 
       <br>
 
-      If you can, consider support the project in patreon or even contributing to it! Every action helps the project to be alive and running!
+      If you can, consider support the project on patreon or even contributing to it! Every action helps the project to be alive and running!
 
       `
       ,
@@ -54,6 +54,8 @@ export class ContentService {
       desc: `
 
       You can follow us in instagram, twitter and github, where all updates will be notified. Waiting for the MVP launch? Just follow us in one of them (or all of them!) to stay up with the updates.
+
+      <br>
 
       [Github](https://github.com/hibounoteapp/hibounote) <br>
       [Twitter](https://x.com/hibounote) <br>
@@ -83,7 +85,7 @@ export class ContentService {
 
       ## Data storage
 
-      All your board data is saved in your device by clicking the save button in board screen. The data is automatically saved from time to time and if the app didn't saved the last change, you'll receive an alert message remembering you to save it.
+      All your board data is saved in your device every time you exit. The data is automatically saved.
 
       <br>
 
