@@ -64,9 +64,9 @@ export class SidebarComponent implements OnChanges{
     if(!(event.target instanceof HTMLInputElement)) return
     if(!(event.target.files)) return;
 
-    const object: Board = await this.parseJsonFile(event.target.files[0])
+    const board: Board = await this.parseJsonFile(event.target.files[0])
 
-    this.boardData.createBoard(object)
+    this.boardData.createBoard(board)
   }
 
   async parseJsonFile(file: File): Promise<Board> {

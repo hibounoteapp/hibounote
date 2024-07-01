@@ -105,6 +105,7 @@ html, body { height: 100%; }
 
 }
 
+
 .linkActionButton {
   @layer linkAction;
   @apply bg-background-600 bg-opacity-50 w-4 h-4 -m-5 rounded absolute transition-all centerItems;
@@ -213,6 +214,10 @@ html, body { height: 100%; }
     filter: brightness(0) saturate(100%) invert(11%) sepia(92%) saturate(4605%) hue-rotate(358deg) brightness(106%) contrast(117%);
   }
 
+  .icon-accent {
+    filter: brightness(0) saturate(100%) invert(69%) sepia(92%) saturate(1182%) hue-rotate(327deg) brightness(103%) contrast(95%);
+  }
+
 //?
 
 //? Shared navbar
@@ -255,6 +260,25 @@ html, body { height: 100%; }
     @apply w-[90vw] my-2 overflow-scroll text-[0.9rem];
   }
 }
+
+
+.buttonHover {
+  @apply transition-all rounded;
+
+  &:hover {
+    @apply bg-background-200 transition-all rounded;
+  }
+}
+
+//? Snack bar
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: #fffdf6 !important;
+}
+
+.mdc-snackbar--open .mdc-snackbar__label{
+  color: #050115 !important;
+}
+
 
 //? Markdown to HTML configuration
 #markdown {

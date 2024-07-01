@@ -62,13 +62,16 @@ export class BoardDataService implements OnInit{
   loadBoards() {
     this.getBoards().then((res)=>{
       this.boards = res;
-      console.log(res)
       this.checkData(this.renderer)
     });
   }
 
   async getBoards():Promise<Board[]> {
     return await db.boards.toArray()
+  }
+
+  getBoard(id:string) {
+    return this.boards.find(e=>e.id===id);
   }
 
   checkData( renderer: Renderer2) {
@@ -180,7 +183,7 @@ export class BoardDataService implements OnInit{
 
   }
 
-  createBoard(board?: Board) {
+  createBoard(board?: Board, clearNotes?: boolean) {
     const id = uuid();
 
     if(board) {
@@ -214,8 +217,8 @@ export class BoardDataService implements OnInit{
       }
     }).then(()=>{
       try {
-        this.nodeService.clearAll();
-        this.saveData();
+        if(clearNotes)
+          this.nodeService.clearAll();
       } catch (error) {}
     })
 
@@ -290,7 +293,6 @@ export class BoardDataService implements OnInit{
       const boardInDb = await db.boards.get(board.id)
 
       if(boardInDb) {
-        console.log(boardInDb)
         await db.boards.update(board.id,{
           name: board.name,
           connetions: board.connetions,
@@ -299,7 +301,6 @@ export class BoardDataService implements OnInit{
           zoomScale: board.zoomScale
         })
       } else {
-        console.log(JSON.stringify(board))
         await db.boards.add(board);
       }
     }
@@ -463,7 +464,6 @@ export class BoardDataService implements OnInit{
 
     if(board.tag) {
       let selectedTag = board.tag.find(e=>e.id === tag.id)
-      console.log(selectedTag)
     } else {
       board.tag = [tag]
     }

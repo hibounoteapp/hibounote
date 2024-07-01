@@ -28,6 +28,7 @@
       "@custom-icons/*":["./src/assets/icons/*"],
       "@core-services/*":["./src/app/core/services/*"],
       "@core-board-templates/*":["./src/app/core/constants/board-templates/*"],
+      "@util-functions/*":["./src/app/core/utils/*"],
     }
   },
   "angularCompilerOptions": {

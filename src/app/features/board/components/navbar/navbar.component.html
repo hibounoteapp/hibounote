@@ -3,6 +3,9 @@
     <button class="me-4 btn-shadow" [matMenuTriggerFor]="boardConfig">
       <mat-icon svgIcon="menu"></mat-icon>
     </button>
+    <button class="me-2 flex justify-center items-center" (click)="boardData.toggleFavorite(boardData.activeId)" matTooltip="{{boardData.getActiveBoard()?.favorite ? 'Unfavorite': 'Favorite'}}">
+      <mat-icon svgIcon="star" style="scale: 0.8;" class="{{boardData.getActiveBoard()?.favorite ? 'icon-accent': ''}}"></mat-icon>
+    </button>
     <input type="text" class="px-2 outline-none bg-transparent text-lg" id="nameInput" [value]="boardData.getActiveBoard()?.name"
     (blur)="changeName($event)">
 
@@ -34,7 +37,7 @@
   </mat-menu> -->
 
   <mat-menu #boardConfig="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">
-    <button mat-menu-item (click)="boardData.createBoard()">
+    <button mat-menu-item (click)="saveAndCreate()">
       <mat-icon style="transform: scale(0.85);" svgIcon="add"></mat-icon>
       <span>New board</span>
     </button>
@@ -42,11 +45,11 @@
       <mat-icon style="transform: scale(0.85);" svgIcon="color_fill"></mat-icon>
       <span>Background Color</span>
     </button> -->
-    <button mat-menu-item (click)="boardData.createBoard()">
+    <button mat-menu-item (click)="saveAndDuplicate()">
       <mat-icon style="transform: scale(0.85);" svgIcon="duplicate"></mat-icon>
       <span>Duplicate</span>
     </button>
-    <button mat-menu-item (click)="boardData.createBoard()">
+    <button mat-menu-item (click)="downloadBoard()">
       <mat-icon style="transform: scale(0.85);" svgIcon="download"></mat-icon>
       <span>Export board</span>
     </button>
@@ -55,6 +58,8 @@
       <span class="text-alert-800">Delete</span>
     </button>
   </mat-menu>
+
+
     <mat-menu #bgColor="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">
       <button mat-menu-item >Color 1</button>
       <button mat-menu-item >Color 2</button>
