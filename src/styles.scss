@@ -37,13 +37,17 @@ $mnos-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 
+:root {
+
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
   @apply text-text-base-900;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif !important;
 }
 
 
@@ -101,6 +105,7 @@ html, body { height: 100%; }
 
 }
 
+
 .linkActionButton {
   @layer linkAction;
   @apply bg-background-600 bg-opacity-50 w-4 h-4 -m-5 rounded absolute transition-all centerItems;
@@ -130,7 +135,7 @@ html, body { height: 100%; }
 }
 
 .controlTools {
-  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center;
+  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center border-[1px] border-background-400;
 
   &:hover {
     @apply shadow-lg transition-all;
@@ -138,7 +143,7 @@ html, body { height: 100%; }
 }
 
 .grab {
-  @apply shadow transition-all w-10 h-10 m-2 flex justify-center items-center;
+  @apply shadow transition-all m-2 flex justify-center items-center;
   cursor: move;
   cursor: grab;
   cursor: -moz-grab;
@@ -188,11 +193,124 @@ html, body { height: 100%; }
   height: 50px;
 }
 
+.bg-blob-nude {
+  background-image: url('assets/images/bg-blob-single-nude.svg');
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+//? Icon coloring
+
+  .icon-white {
+    filter: invert(100%)
+  }
+
+  .icon-background-400 {
+    filter: brightness(0) saturate(100%) invert(78%) sepia(13%) saturate(286%) hue-rotate(207deg) brightness(81%) contrast(82%);
+  }
+
+  .icon-warn {
+    filter: brightness(0) saturate(100%) invert(11%) sepia(92%) saturate(4605%) hue-rotate(358deg) brightness(106%) contrast(117%);
+  }
+
+  .icon-accent {
+    filter: brightness(0) saturate(100%) invert(69%) sepia(92%) saturate(1182%) hue-rotate(327deg) brightness(103%) contrast(95%);
+  }
+
+//?
+
+//? Shared navbar
+  .menuButton { //shared navbar menu button
+    @apply block w-full my-1 p-2 text-start font-semibold rounded transition-all;
+
+    &:hover {
+      @apply bg-background-300 transition-all;
+    }
+  }
+
+  .menuItem { //shared navbar menu button
+    @apply block w-full my-1 p-2 text-start font-semibold rounded transition-all;
+
+  }
+
+//?
+
+//?
+
+//? Blog
+
+.mdc-tab__text-label {
+  transition: 100ms !important;
+}
+
+.mat-mdc-tab-group {
+	--mdc-tab-indicator-active-indicator-color: #4e0bf7; //primary
+}
+
+.mdc-tab--active .mdc-tab__text-label{
+  color: #4e0bf7 !important;
+}
+
+
+//?
+
 .cookieModal {
   @apply w-[50vw];
 
   @media screen and (max-width: 1000px)  {
     @apply w-[90vw] my-2 overflow-scroll text-[0.9rem];
+  }
+}
+
+
+.buttonHover {
+  @apply transition-all rounded;
+
+  &:hover {
+    @apply bg-background-200 transition-all rounded;
+  }
+}
+
+//? Snack bar
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: #fffdf6 !important;
+}
+
+.mdc-snackbar--open .mdc-snackbar__label{
+  color: #050115 !important;
+}
+
+
+//? Markdown to HTML configuration
+#markdown {
+
+  h1 {
+    @apply font-semibold text-2xl;
+  }
+
+  h2 {
+    @apply font-semibold text-xl;
+  }
+
+  h3 {
+    @apply font-semibold text-lg;
+  }
+
+  p {
+    @apply text-justify;
+  }
+
+  a {
+    @apply underline font-semibold;
+  }
+
+  ul {
+    @apply ps-6;
+
+    li {
+      list-style-type: disc;
+    }
   }
 }
 

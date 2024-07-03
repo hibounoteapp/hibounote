@@ -1,0 +1,73 @@
+<main class="bg-blob-nude">
+  <div class="content-container">
+    <mat-tab-group animationDuration="0ms" [disableRipple]="true" class="tab-container !-z-10">
+      <mat-tab label="All" class="!z-10">
+        <ng-container *ngFor="let item of content.posts">
+          <blog-post
+          [id]="item.id"
+          [imageURL]="item.imageURL"
+          [title]="item.title"
+          [tag]="item.tag"
+          [date]="item.date"
+          [shortDesc]="item.shortDesc"
+          [desc]="item.desc"
+          ></blog-post>
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="Release Notes" class="!z-10">
+        <ng-container *ngFor="let item of releaseNotesPosts">
+          <blog-post
+          [id]="item.id"
+          [title]="item.title"
+          [imageURL]="item.imageURL"
+          [tag]="item.tag"
+          [date]="item.date"
+          [shortDesc]="item.shortDesc"
+          [desc]="item.desc"
+          ></blog-post>
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="FAQ" class="!z-0">
+        <ng-container *ngFor="let item of FAQPosts">
+          <blog-post
+          [id]="item.id"
+          [title]="item.title"
+          [imageURL]="item.imageURL"
+          [tag]="item.tag"
+          [date]="item.date"
+          [shortDesc]="item.shortDesc"
+          [desc]="item.desc"
+          ></blog-post>
+        </ng-container>
+      </mat-tab>
+
+      <mat-tab label="User Guide" class="!z-0">
+        <ng-container *ngFor="let item of userGuidePosts">
+          <blog-post
+          [id]="item.id"
+          [title]="item.title"
+          [imageURL]="item.imageURL"
+          [tag]="item.tag"
+          [date]="item.date"
+          [shortDesc]="item.shortDesc"
+          [desc]="item.desc"
+          ></blog-post>
+        </ng-container>
+      </mat-tab>
+
+      <mat-tab label="Community" class="!z-0">
+        <ng-container *ngFor="let item of communityPosts">
+          <blog-post
+          [id]="item.id"
+          [title]="item.title"
+          [imageURL]="item.imageURL"
+          [tag]="item.tag"
+          [date]="item.date"
+          [shortDesc]="item.shortDesc"
+          [desc]="item.desc"
+          ></blog-post>
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</main>

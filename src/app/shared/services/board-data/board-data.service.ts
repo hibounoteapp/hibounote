@@ -13,10 +13,10 @@ import sprintRetro2 from '@core-board-templates/sprint-retrospective2';
 import sprintRetro from '@core-board-templates/sprint-retrospective';
 import useCase from '@core-board-templates/usecase';
 import Dexie from 'dexie';
-import { DbService } from '@core-services/db/db.service';
 import { db } from '../../../../../db';
 import { SavedConnection } from '@custom-interfaces/saved-connection';
 import { SavedNode } from '@custom-interfaces/saved-node';
+import { Tag } from '@custom-interfaces/tag';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,7 @@ export class BoardDataService implements OnInit{
 
   _boards: Board[] = [];
   activeId!: string;
+  activeBoard!: Board;
   renderer!: Renderer2;
 
 
@@ -46,21 +47,35 @@ export class BoardDataService implements OnInit{
   ) {
     this.activatedRoute.queryParamMap.subscribe((p)=>{
       this.activeId = p.get("id") ?? '';
+      const selectedBoard = this.boards.find(e=>e.id===this.activeId);
+
+      if(selectedBoard) {
+        this.activeBoard = selectedBoard;
+      }
     })
 
+
+
     this.loadBoards();
+  }
+
+  async deleteAll() {
+    db.boards.clear();
   }
 
   loadBoards() {
     this.getBoards().then((res)=>{
       this.boards = res;
-      console.log(res)
       this.checkData(this.renderer)
     });
   }
 
   async getBoards():Promise<Board[]> {
     return await db.boards.toArray()
+  }
+
+  getBoard(id:string) {
+    return this.boards.find(e=>e.id===id);
   }
 
   checkData( renderer: Renderer2) {
@@ -168,19 +183,33 @@ export class BoardDataService implements OnInit{
     }
   }
 
-  createBoard() {
-
+  createBoard(board?: Board, clearNotes?: boolean) {
     const id = uuid();
 
-    this.boards.push({
-      id,
-      dateCreated: new Date(),
-      name: `Untitled board`,
-      connetions: [],
-      elements: [],
-      groups: [],
-      zoomScale: 1,
-    })
+    if(board) {
+      this.boards.push({
+        id,
+        dateCreated: board.dateCreated,
+        name: board.name,
+        connetions: board.connetions,
+        elements: board.elements,
+        groups: board.groups,
+        zoomScale: 1,
+        favorite: board.favorite,
+        tag: board.tag,
+      })
+    } else {
+      this.boards.push({
+        id,
+        dateCreated: new Date(),
+        name: `Untitled board`,
+        connetions: [],
+        elements: [],
+        groups: [],
+        zoomScale: 1,
+      })
+
+    }
 
     this.router.navigate(['/board'], {
       queryParams: {
@@ -188,7 +217,8 @@ export class BoardDataService implements OnInit{
       }
     }).then(()=>{
       try {
-        this.nodeService.clearAll();
+        if(clearNotes)
+          this.nodeService.clearAll();
       } catch (error) {}
     })
 
@@ -263,7 +293,6 @@ export class BoardDataService implements OnInit{
       const boardInDb = await db.boards.get(board.id)
 
       if(boardInDb) {
-        console.log(boardInDb)
         await db.boards.update(board.id,{
           name: board.name,
           connetions: board.connetions,
@@ -272,7 +301,6 @@ export class BoardDataService implements OnInit{
           zoomScale: board.zoomScale
         })
       } else {
-        console.log(boardInDb)
         await db.boards.add(board);
       }
     }
@@ -392,6 +420,27 @@ export class BoardDataService implements OnInit{
     db.boards.delete(id);
   }
 
+  toggleFavorite(id: string) {
+
+    let newBoards: Board[] = this.boards.map(element=>{
+      if(element.id === id) {
+        if(element.favorite) {
+          element.favorite = !element.favorite;
+
+        } else {
+          element.favorite = true;
+        }
+
+        db.boards.update(id, {
+          favorite: element.favorite
+        });
+      }
+      return element
+    })
+
+    this.boards = newBoards;
+  }
+
   editBoardName(id: string, name: string) {
     let newBoards: Board[] = this.boards.map((board: Board)=>{
       if(board.id === id) {
@@ -402,7 +451,22 @@ export class BoardDataService implements OnInit{
       }
       return board
     })
+    db.boards.update(id, {
+      name,
+    });
+
     this.boards = newBoards;
+  }
+
+  toggleTag(tag: Tag,id: string) {
+    let board = this.boards.find(e=>e.id===id)
+    if(!board) return
+
+    if(board.tag) {
+      let selectedTag = board.tag.find(e=>e.id === tag.id)
+    } else {
+      board.tag = [tag]
+    }
   }
 
   ngOnInit(): void {

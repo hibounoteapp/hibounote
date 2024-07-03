@@ -1,19 +1,23 @@
 <div>
   <app-navbar
-  [accountButton]="{
-    visible: true,
-    theme: 'btn-secondary'
-  }"
-
-  [loginButton]="{
-    visible: false,
-    theme: 'btn-secondary'
-  }"
-
-  [signupButton]="{
-    visible: true,
-    theme: 'btn-primary'
-  }">
+    [buttons]="[
+      {
+        elementType: 'a',
+        routerLink: '/account',
+        text: 'Account',
+        theme: 'btn-primary',
+      },
+      {
+        elementType: 'a',
+        text: 'Login',
+        theme: 'btn-primary',
+      },
+      {
+        elementType: 'a',
+        text: 'Sign up',
+        theme: 'btn-primary',
+      },
+    ]">
 
   </app-navbar>
 

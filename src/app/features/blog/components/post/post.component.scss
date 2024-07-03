@@ -1,0 +1,40 @@
+.post-container {
+  @apply flex flex-col items-start justify-between;
+
+  #info{
+    @apply flex flex-row justify-between items-center w-full px-1 pt-5 pb-2;
+  }
+
+  #bgImage {
+    @apply h-32;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .nameInfo {
+    @apply pe-2;
+  }
+
+  @media screen and (max-width:768px) {
+
+    h2, p {
+      @apply my-1;
+    }
+
+    .nameInfo {
+      @apply self-start pb-2;
+    }
+
+    .tag {
+      @apply flex-row justify-between w-full;
+    }
+
+    #info {
+      @apply flex-col pb-0;
+    }
+
+    @apply flex-col items-start;
+
+  }
+}

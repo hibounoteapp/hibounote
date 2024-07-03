@@ -1,9 +1,43 @@
 <div class="board-container" id='{{item.id}}'>
-  <button class="all-center rounded p-1 shadow m-1" (click)="editBoard.emit($event)">
+  <button class="flex-grow justify-start items-start p-2"  (click)="enterBoard($event)">
+    <div class="flex flex-row justify-start">
+    <!-- <img src="https://placehold.co/128x128?text=✨" alt="board emoji" class="w-10 rounded-[50%]"> -->
+    <div class="flex flex-col justify-start ms-3">
+      <div class="flex flex-row items-center">
+        <p class="text-start">{{item.name}}</p>
+        <mat-icon svgIcon="star" style="scale: 0.6;" [style.display]="item.favorite ? 'flex':'none'" class="ms-1 icon-accent"></mat-icon>
+      </div>
+      <p class="text-start">Created at: {{item.dateCreated | date}}</p>
+    </div>
+  </div>
+  </button>
+  <button class="flex items-center justify-center me-4" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" id="moreButton">
+    <mat-icon svgIcon="more"></mat-icon>
+    <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-sm !shadow-md" xPosition="before">
+      <button class="menuButton !flex !items-center !justify-start" (click)="editBoard.emit($event)">
+        <mat-icon style="transform: scale(0.7);" svgIcon="edit" class="me-2"></mat-icon>
+        <span class="font-normal">Rename</span>
+      </button>
+      <button class="menuButton !flex !items-center !justify-start" (click)="toggleFavorite()">
+        <mat-icon style="transform: scale(0.7);" svgIcon="star" class="me-2"></mat-icon>
+        <span class="font-normal">{{item.favorite ? 'Remove from favorites' : 'Add to favorites'}}</span>
+      </button>
+      <!-- <button class="menuButton !flex !items-center !justify-start" (click)="$event.stopPropagation()">
+        <mat-icon style="transform: scale(0.7);" svgIcon="star" class="me-2"></mat-icon>
+        <span class="font-normal">Tags</span>
+      </button> -->
+      <button class="menuButton !flex !items-center !justify-start" (click)="confirmDelete(item.id)">
+        <mat-icon style="transform: scale(0.7);" svgIcon="trash" class="me-2 icon-warn">delete</mat-icon>
+        <span class="text-alert-base-900 font-normal">Delete</span>
+      </button>
+    </mat-menu>
+  </button>
+
+  <!-- <button class="all-center rounded p-1 shadow m-1" (click)="editBoard.emit($event)">
     <mat-icon svgIcon="edit" style="width: 80%;"></mat-icon>
   </button>
   <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="h-full flex-grow rounded  flex-row-center justify-between px-2 py-2">
     <p class="me-5 text-start">{{item.name}}</p>
     <p class="text-end">Created at: {{item.dateCreated | date}} </p>
-  </a>
+  </a> -->
 </div>

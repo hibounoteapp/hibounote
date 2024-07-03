@@ -1,0 +1,77 @@
+<div class="w-full h-full flex flex-col p-6">
+  <div class="flex flex-row justify-between items-center">
+    <p class="sub-title-2xl !font-semibold !self-start">Settings</p>
+    <button  mat-dialog-close class="flex justify-center items-center">
+      <mat-icon svgIcon="close" style="scale: 1.2;"></mat-icon>
+    </button>
+  </div>
+  <div class="flex flex-row">
+    <mat-tab-group class="tab-container" animationDuration="0ms">
+      <mat-tab label="Board" class="tab" id="Board">
+        <div class="flex flex-col items-center justify-center !w-full !h-[45vh]">
+          <div class="flex flex-row items-center justify-normal my-2">
+            <p class="font-semibold me-2 text-lg">Language: </p>
+            <mat-form-field class="!mt-6">
+              <mat-select [value]="'English'" class="">
+                <mat-option value="English">English</mat-option>
+                <mat-option value="Portuguese" disabled>Portuguese</mat-option>
+                <mat-option value="Spanish" disabled>Spanish</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="flex flex-row items-center justify-normal my-2">
+            <p class="font-semibold me-2 text-lg text-alert-700">Delete all data: </p>
+            <app-simple-button
+            [elementType]="'button'"
+            [theme]="'btn-warn'"
+            [text]="'Delete'"
+            (click)="confirmDelete()">
+
+            </app-simple-button>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- <mat-tab label="Shortcuts" class="!z-10" id="Shortcuts">
+        <div class="flex flex-col items-center justify-center !w-full !h-[40vh]">
+
+        </div>
+      </mat-tab> -->
+
+      <mat-tab label="About" id="About" class=" flex justify-center items-center">
+        <div class="flex flex-col items-center justify-center !w-full !h-[45vh]">
+          <div class="flex flex-row items-center justify-center mt-5 mb-4">
+            <img src="../../assets/logo.svg" alt="icon" id="logo" style="width: 80px; height: 80px;">
+            <div>
+              <p class="font-semibold">Hibounote</p>
+              <p class="text-sm">Logo sourced from <a href="https://openmoji.org">OpenMoji</a></p>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center justify-center my-2">
+            <p class="font-semibold me-2">Version:</p>
+            <p>0.1.0</p>
+          </div>
+
+          <div class="flex flex-row items-center justify-center my-2">
+            <p class="font-semibold me-2">Social:</p>
+            <a href="https://github.com/hibounoteapp" target="_blank" class="me-2">
+              <mat-icon svgIcon="github"></mat-icon>
+            </a>
+            <a href="https://x.com/hibounote" target="_blank" class="me-2">
+              <mat-icon svgIcon="twitter"></mat-icon>
+            </a>
+            <a href="https://www.instagram.com/hibounote/" target="_blank">
+              <mat-icon svgIcon="instagram"></mat-icon>
+            </a>
+          </div>
+
+          <div class="flex flex-row items-center justify-center my-2">
+            <p class="font-semibold me-2">Useful Links:</p>
+            <a href="https://hibounote.netlify.app/blog" target="_blank" class="me-2">Blog</a> <a href="https://hibounote.netlify.app/terms" target="_blank" >Terms</a>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

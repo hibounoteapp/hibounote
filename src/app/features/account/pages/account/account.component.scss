@@ -1,1 +1,17 @@
 
+::-webkit-scrollbar {
+  width: 6px;
+  @apply rounded;
+}
+
+::-webkit-scrollbar-track {
+  @apply rounded bg-background-200 m-1;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-background-500 transition-all m-1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply rounded bg-background-600 transition-all;
+}

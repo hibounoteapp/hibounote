@@ -8,12 +8,26 @@
       <p class="ms-5 text-[0.8em]" id="logoCP">Logo sourced from <a href="https://openmoji.org" class="underline" target="_blank">OpenMoji.</a></p>
     </div>
   </div>
-  <div class="flex flex-row items-center justify-center" id="footer-links-container">
-    <a [routerLink]="['/support']">Support</a>
-    <a [routerLink]="['/terms']">Terms of use</a>
-    <button (click)="openModalCookies()">Manage Cookies</button>
-    <a href="https://github.com/hibounoteapp/hibounote/releases" target="_blank">Release notes</a>
-    <a href="https://github.com/hibounoteapp/hibounote/discussions/19" target="_blank">Roadmap</a>
-    <a [routerLink]="['/account']">Get Started</a>
+  <div class="flex flex-row items-start justify-center pt-2" id="footer-links-container">
+    <section >
+      <span>User</span>
+      <a [routerLink]="['/support']">Support</a>
+      <button (click)="openModalCookies()">Manage Cookies</button>
+      <a [routerLink]="['/account']">Get Started</a>
+    </section>
+    <section >
+      <span>Resources</span>
+      <a [routerLink]="['/terms']">Terms of use</a>
+      <a [routerLink]="['/about']">About</a>
+      <a [routerLink]="['/blog']">Blog</a>
+    </section>
+    <section >
+      <span>Stay in tune</span>
+      <a href="https://github.com/hibounoteapp/hibounote/releases" target="_blank">Release notes</a>
+      <a href="https://github.com/hibounoteapp/hibounote/discussions/19" target="_blank">Roadmap</a>
+      <a href="https://github.com/hibounoteapp/hibounote" target="_blank">Github</a>
+      <a href="https://www.instagram.com/hibounote/" target="_blank">Instagram</a>
+      <a href="https://x.com/hibounote" target="_blank">Twitter</a>
+    </section>
   </div>
 </footer>

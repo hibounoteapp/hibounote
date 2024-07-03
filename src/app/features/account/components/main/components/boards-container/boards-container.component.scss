@@ -1,5 +1,5 @@
 .boardsCard-container {
-  @apply shadow rounded py-4 px-6 min-h-60 flex flex-col mb-10 bg-background-base-50;
+  @apply shadow rounded py-4 px-6 min-h-60 flex flex-col mb-10 bg-background-base-50 border-[1px] border-background-400;
 
   @media screen and (max-width: 768px) {
     @apply px-2;

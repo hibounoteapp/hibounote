@@ -1,21 +1,16 @@
 nav {
-  @apply flex flex-row justify-between items-center;
+  @apply flex flex-row justify-between items-center px-8 py-2;
 }
 
-div#desktop-port {
+.link {
+  @apply flex flex-row items-center justify-start my-1 transition-all py-1 px-6 rounded-full border-[1px] border-background-400 mx-2;
 
-  @apply flex flex-row justify-between items-center w-full h-full mx-8 my-4;
-
-  @media screen and (max-width: 768px) {
-    @apply hidden
+  &:hover {
+    @apply bg-background-200 transition-all;
   }
-}
 
-div#mobile-port {
+  p {
+    @apply ms-2;
 
-  @apply hidden;
-
-  @media screen and (max-width: 768px) {
-    @apply flex flex-row justify-between items-center w-full h-full m-4;
   }
 }

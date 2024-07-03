@@ -76,6 +76,66 @@ export class IconService {
       name: "edit",
       url: "../../../../assets/icons/edit-outline.svg"
     },
+    {
+      name: "chevron-down",
+      url: "../../../../assets/icons/chevron-down-outline.svg"
+    },
+    {
+      name: "twitter",
+      url: "../../../../assets/icons/twitter-outline.svg"
+    },
+    {
+      name: "instagram",
+      url: "../../../../assets/icons/logo-instagram.svg"
+    },
+    {
+      name: "add",
+      url: "../../../../assets/icons/add-outline.svg"
+    },
+    {
+      name: "zoom_in",
+      url: "../../../../assets/icons/zoom-in.svg"
+    },
+    {
+      name: "zoom_out",
+      url: "../../../../assets/icons/zoom-out.svg"
+    },
+    {
+      name: "repan",
+      url: "../../../../assets/icons/repan-outline.svg"
+    },
+    {
+      name: "return2",
+      url: "../../../../assets/icons/chevron-back-outline.svg"
+    },
+    {
+      name: "settings",
+      url: "../../../../assets/icons/settings-outline.svg"
+    },
+    {
+      name: "upload",
+      url: "../../../../assets/icons/upload-outline.svg"
+    },
+    {
+      name: "template",
+      url: "../../../../assets/icons/template-outline.svg"
+    },
+    {
+      name: "download",
+      url: "../../../../assets/icons/download-outline.svg"
+    },
+    {
+      name: "more",
+      url: "../../../../assets/icons/more-horizontal.svg"
+    },
+    {
+      name: "star",
+      url: "../../../../assets/icons/star.svg"
+    },
+    {
+      name: "duplicate",
+      url: "../../../../assets/icons/duplicate-outline.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

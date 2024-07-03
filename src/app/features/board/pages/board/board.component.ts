@@ -11,10 +11,6 @@ import { NodeService } from '../../services/node/node.service';
 import { BoardService } from '@shared-services/board/board.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
-import { Connection, Overlay, OverlaySpec } from '@jsplumb/browser-ui';
-import { SavedNode } from '@custom-interfaces/saved-node';
-import { Board } from '@custom-interfaces/board';
-import { SavedConnection } from '@custom-interfaces/saved-connection';
 import { CookiesService } from '@core-services/cookies/cookies.service';
 
 @Component({ selector: 'board',
@@ -75,6 +71,24 @@ export class BoardComponent implements AfterViewInit, OnInit{
       }
     }
 
+  @HostListener('window:unload', ['$event'])
+    unloadHandler(event: Event) {
+        this.PostCall();
+    }
+
+  @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHander(event: Event) {
+        this.boardData.saveData().then(()=>{
+          return true;
+        }).catch(()=>{
+          return false;
+        })
+    }
+
+  PostCall() {
+        console.log('PostCall');
+    }
+
 
   editNode(attribute: string, value: string) {
     if(!this.nodeService.activeNode) return;
@@ -88,12 +102,13 @@ export class BoardComponent implements AfterViewInit, OnInit{
   initEvents() {
     this.renderer.listen(document, 'pointerup',this.boardService.pointerUp)
 
+
     this.renderer.listen(this.boardContainer.nativeElement,
       'pointerdown',
       (event: PointerEvent)=>{
         if(event.button != 2) this.boardService.contextMenu.show = false;
         this.boardService.contextMenu.show = false
-        this.boardService.pointerDown(event,this.nodeService,this.renderer)
+        this.boardService.pointerDown(event,this.nodeService,this.renderer, this.boardContainer.nativeElement)
     })
 
     this.renderer.listen(this.boardContainer.nativeElement,
@@ -117,6 +132,17 @@ export class BoardComponent implements AfterViewInit, OnInit{
         this.boardService.dropNode(event,this.nodeService,this.container, this.renderer)
     });
 
+    this.renderer.listen(window,'keydown',(event:KeyboardEvent)=>{
+      this.boardService.keydown(event);
+      if(event.code === "Space") this.boardContainer.nativeElement .style.cursor = 'grab'
+    })
+
+    this.renderer.listen(window,'keyup',(event:KeyboardEvent)=>{
+      this.boardService.keyup(event);
+      if(event.code === "Space") this.boardContainer.nativeElement .style.cursor = ''
+    })
+
+
     this.renderer.listen(this.boardContainer.nativeElement,'contextmenu',(event: MouseEvent)=>{
       event.preventDefault()
       this.boardService.contextMenu.show = true;
@@ -126,6 +152,8 @@ export class BoardComponent implements AfterViewInit, OnInit{
       if(!(event.target instanceof Element)) return;
 
     })
+
+
   }
 
   constructor(
@@ -135,6 +163,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
     public boardService: BoardService,
     public boardData: BoardDataService,
     private cookiesService: CookiesService) {
+
       boardService.appRenderer = renderer
     }
 
@@ -154,4 +183,3 @@ export class BoardComponent implements AfterViewInit, OnInit{
   }
 
 }
-

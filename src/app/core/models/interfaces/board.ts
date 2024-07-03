@@ -1,6 +1,7 @@
 
 import { SavedNode } from "./saved-node";
 import { SavedConnection } from "./saved-connection";
+import { Tag } from "./tag";
 
 export interface Board {
   id: string,
@@ -15,4 +16,6 @@ export interface Board {
     }[]
   }[],
   zoomScale: number,
+  tag?: Tag[],
+  favorite?: boolean,
 }

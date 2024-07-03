@@ -11,18 +11,18 @@ div.landing-container {
   }
 
   #title-info {
-    @apply ms-12 pe-10 px-2;
+    @apply ms-12 pe-10 px-2 flex flex-col;
 
     @media screen and (max-width: 768px) {
-      @apply ms-0 p-0 flex flex-col items-center text-center;
+      @apply ms-0 p-0 items-center text-center;
     }
   }
 
   h2 {
-    @apply text-[3rem] mb-2;
+    @apply text-[3rem] pt-10;
 
     @media screen and (max-width: 768px) {
-      @apply flex flex-col mx-4;
+      @apply flex flex-col mx-4 pt-0;
     }
 
     @media screen and (max-width: 1000px) {
@@ -31,10 +31,29 @@ div.landing-container {
   }
 
   h1 {
-    @apply text-[3rem] mb-5;
+    @apply text-[3rem] mb-1;
 
     @media screen and (max-width: 1000px) {
       @apply text-[2rem];
+    }
+  }
+
+  p {
+    @apply text-[1.2rem] mb-5 pe-16;
+
+
+    @media screen and (max-width: 768px) {
+      @apply text-[0.9rem] px-4;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1000px) {
+      @apply text-[0.9rem] pe-2;
+    }
+  }
+
+  #buttonGetStarted {
+    @media screen and (max-width: 768px) {
+      @apply w-full px-10;
     }
   }
 
@@ -52,7 +71,7 @@ div.row-between-center {
 }
 
 div#three-paragraph-container{
-  @apply bg-background-200 flex items-center flex-col py-20;
+  @apply bg-background-200 flex items-center flex-col py-20 border-y-[1px] border-y-background-400;
 
   @media screen and (max-width:768px) {
     @apply py-10;
@@ -119,8 +138,6 @@ div.text-sections {
   background-size: cover;
   background-repeat: no-repeat;
 
-
-
   @media screen and (max-width: 768px) {
 
     h3 {
@@ -185,4 +202,3 @@ div#text-and-image {
     }
   }
 }
-

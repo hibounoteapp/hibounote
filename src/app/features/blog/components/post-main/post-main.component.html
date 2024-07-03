@@ -1,0 +1,22 @@
+<main class="bg-blob-nude">
+  <div class="content-container">
+    <!-- <div class="bg-red-400 image w-full "></div> -->
+
+    <div class="flex flex-row items-center my-6">
+      <a [routerLink]="['/blog']" class="me-6">
+        <mat-icon svgIcon="return2"></mat-icon>
+      </a>
+      <h1 class="main-title !text-start">{{post?.title}}</h1>
+    </div>
+
+    <aside class="border-[1px] border-primary-base-600 text-primary-base-600 rounded-full py-1 px-4 inline my-3 text-sm">{{post?.tag}}</aside>
+    <img [src]="post?.imageURL" alt="example" class="rounded border-[1px] border-background-400 my-6 self-center">
+      <hr class="self-center">
+      <div class="content p-3">
+        <markdown
+        id="markdown"
+        [data]="post?.desc">
+        </markdown>
+      </div>
+  </div>
+</main>

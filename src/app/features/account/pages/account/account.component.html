@@ -1,5 +1,12 @@
-<div class="bg-background-base-50">
-  <account-navbar></account-navbar>
-  <account-main></account-main>
-  <app-footer></app-footer>
+<div class="bg-background-base-50 bg-blob-nude flex flex-row w-screen h-screen">
+  <account-sidebar [boardsData]="boardData.boards"></account-sidebar>
+
+  <div class="h-full flex-grow flex flex-col">
+    <account-navbar></account-navbar>
+    <div class="overflow-auto me-1">
+    <account-main></account-main>
+    </div>
+  </div>
+  <!-- <account-navbar></account-navbar> -->
+  <!-- <account-main></account-main> -->
 </div>

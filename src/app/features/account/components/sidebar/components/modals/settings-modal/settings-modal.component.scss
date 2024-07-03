@@ -1,0 +1,20 @@
+button.tab {
+  @apply flex flex-row items-center justify-start my-1 transition-all py-2 px-2 rounded;
+
+  &:hover {
+    @apply bg-background-400 transition-all;
+  }
+
+  p {
+    @apply ms-2;
+
+  }
+}
+
+a {
+  @apply underline;
+}
+
+.tab-container {
+  @apply w-[50vw] flex flex-col mt-2;
+}

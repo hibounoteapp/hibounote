@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { SimpleButtonComponent } from '@shared-components/simple-button';
 
 @Component({
@@ -13,5 +13,5 @@ import { SimpleButtonComponent } from '@shared-components/simple-button';
   styleUrl: './delete-confirmation.component.scss'
 })
 export class DeleteConfirmationComponent {
-
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {text:'string'}){}
 }
