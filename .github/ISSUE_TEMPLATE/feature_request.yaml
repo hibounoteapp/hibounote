@@ -21,5 +21,3 @@ body:
     attributes:
       label: Mockups or Images of the feature
       description: Add some images to support your feature.
-    validations:
-      required: true
