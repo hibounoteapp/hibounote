@@ -6,14 +6,71 @@
     </button>
   </div>
   <div class="flex flex-row">
-    <mat-tab-group [disableRipple]="true" class="tab-container">
-      <mat-tab label="Appereance" class="!z-10">
+    <mat-tab-group class="tab-container" animationDuration="0ms">
+      <mat-tab label="Appereance" class="tab" id="Board">
+        <div class="flex flex-col items-center justify-center !w-full !h-[45vh]">
+          <div class="flex flex-row items-center justify-normal my-2">
+            <p class="font-semibold me-2 text-lg">Language: </p>
+            <mat-form-field class="!mt-6">
+              <mat-select [value]="'English'" class="">
+                <mat-option value="English">English</mat-option>
+                <mat-option value="Portuguese" disabled>Portuguese</mat-option>
+                <mat-option value="Spanish" disabled>Spanish</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="flex flex-row items-center justify-normal my-2">
+            <p class="font-semibold me-2 text-lg text-alert-700">Delete all data: </p>
+            <app-simple-button
+            [elementType]="'button'"
+            [theme]="'btn-warn'"
+            [text]="'Delete'"
+            (click)="confirmDelete()">
+
+            </app-simple-button>
+          </div>
+        </div>
       </mat-tab>
 
-      <mat-tab label="Shortcuts" class="!z-10">
-      </mat-tab>
+      <!-- <mat-tab label="Shortcuts" class="!z-10" id="Shortcuts">
+        <div class="flex flex-col items-center justify-center !w-full !h-[40vh]">
 
-      <mat-tab label="About" class="!z-0">
+        </div>
+      </mat-tab> -->
+
+      <mat-tab label="About" id="About" class=" flex justify-center items-center">
+        <div class="flex flex-col items-center justify-center !w-full !h-[45vh]">
+          <div class="flex flex-row items-center justify-center mt-5 mb-4">
+            <img src="../../assets/logo.svg" alt="icon" id="logo" style="width: 80px; height: 80px;">
+            <div>
+              <p class="font-semibold">Hibounote</p>
+              <p class="text-sm">Logo sourced from <a href="https://openmoji.org">OpenMoji</a></p>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center justify-center my-2">
+            <p class="font-semibold me-2">Version:</p>
+            <p>0.1.0</p>
+          </div>
+
+          <div class="flex flex-row items-center justify-center my-2">
+            <p class="font-semibold me-2">Social:</p>
+            <a [routerLink]="['blog']" class="me-2">
+              <mat-icon svgIcon="github"></mat-icon>
+            </a>
+            <a [routerLink]="['docs']" class="me-2">
+              <mat-icon svgIcon="twitter"></mat-icon>
+            </a>
+            <a [routerLink]="['terms']">
+              <mat-icon svgIcon="instagram"></mat-icon>
+            </a>
+          </div>
+
+          <div class="flex flex-row items-center justify-center my-2">
+            <p class="font-semibold me-2">Useful Links:</p>
+            <a [routerLink]="['blog']" class="me-2">Blog</a> <a [routerLink]="['docs']" class="me-2">Docs</a>  <a [routerLink]="['terms']">Terms</a>
+          </div>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

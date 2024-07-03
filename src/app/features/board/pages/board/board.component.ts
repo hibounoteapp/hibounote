@@ -102,12 +102,13 @@ export class BoardComponent implements AfterViewInit, OnInit{
   initEvents() {
     this.renderer.listen(document, 'pointerup',this.boardService.pointerUp)
 
+
     this.renderer.listen(this.boardContainer.nativeElement,
       'pointerdown',
       (event: PointerEvent)=>{
         if(event.button != 2) this.boardService.contextMenu.show = false;
         this.boardService.contextMenu.show = false
-        this.boardService.pointerDown(event,this.nodeService,this.renderer)
+        this.boardService.pointerDown(event,this.nodeService,this.renderer, this.boardContainer.nativeElement)
     })
 
     this.renderer.listen(this.boardContainer.nativeElement,
@@ -130,6 +131,17 @@ export class BoardComponent implements AfterViewInit, OnInit{
       (event: DragEvent)=>{
         this.boardService.dropNode(event,this.nodeService,this.container, this.renderer)
     });
+
+    this.renderer.listen(window,'keydown',(event:KeyboardEvent)=>{
+      this.boardService.keydown(event);
+      if(event.code === "Space") this.boardContainer.nativeElement .style.cursor = 'grab'
+    })
+
+    this.renderer.listen(window,'keyup',(event:KeyboardEvent)=>{
+      this.boardService.keyup(event);
+      if(event.code === "Space") this.boardContainer.nativeElement .style.cursor = ''
+    })
+
 
     this.renderer.listen(this.boardContainer.nativeElement,'contextmenu',(event: MouseEvent)=>{
       event.preventDefault()

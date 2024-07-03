@@ -59,6 +59,10 @@ export class BoardDataService implements OnInit{
     this.loadBoards();
   }
 
+  async deleteAll() {
+    db.boards.clear();
+  }
+
   loadBoards() {
     this.getBoards().then((res)=>{
       this.boards = res;
@@ -177,10 +181,6 @@ export class BoardDataService implements OnInit{
 
       }
     }
-  }
-
-  checkIfSaved() {
-
   }
 
   createBoard(board?: Board, clearNotes?: boolean) {

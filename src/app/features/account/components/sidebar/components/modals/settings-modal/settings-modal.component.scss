@@ -11,6 +11,10 @@ button.tab {
   }
 }
 
+a {
+  @apply underline;
+}
+
 .tab-container {
-  @apply w-[50vw] h-[30vw] flex flex-col mt-2;
+  @apply w-[50vw] flex flex-col mt-2;
 }
