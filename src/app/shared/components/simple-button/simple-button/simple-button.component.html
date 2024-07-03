@@ -2,7 +2,7 @@
   <ng-container *ngIf="routerLink; else ahref">
     <a
       [id]="id"
-      [routerLink]="[routerLink]"
+      [routerLink]="['/',routerLink]"
 
       [href]="url"
       class="btn {{theme}} {{customStyles}}">

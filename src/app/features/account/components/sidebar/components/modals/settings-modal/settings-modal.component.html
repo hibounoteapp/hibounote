@@ -7,7 +7,7 @@
   </div>
   <div class="flex flex-row">
     <mat-tab-group class="tab-container" animationDuration="0ms">
-      <mat-tab label="Appereance" class="tab" id="Board">
+      <mat-tab label="Board" class="tab" id="Board">
         <div class="flex flex-col items-center justify-center !w-full !h-[45vh]">
           <div class="flex flex-row items-center justify-normal my-2">
             <p class="font-semibold me-2 text-lg">Language: </p>
@@ -55,20 +55,20 @@
 
           <div class="flex flex-row items-center justify-center my-2">
             <p class="font-semibold me-2">Social:</p>
-            <a [routerLink]="['blog']" class="me-2">
+            <a href="https://github.com/hibounoteapp" target="_blank" class="me-2">
               <mat-icon svgIcon="github"></mat-icon>
             </a>
-            <a [routerLink]="['docs']" class="me-2">
+            <a href="https://x.com/hibounote" target="_blank" class="me-2">
               <mat-icon svgIcon="twitter"></mat-icon>
             </a>
-            <a [routerLink]="['terms']">
+            <a href="https://www.instagram.com/hibounote/" target="_blank">
               <mat-icon svgIcon="instagram"></mat-icon>
             </a>
           </div>
 
           <div class="flex flex-row items-center justify-center my-2">
             <p class="font-semibold me-2">Useful Links:</p>
-            <a [routerLink]="['blog']" class="me-2">Blog</a> <a [routerLink]="['docs']" class="me-2">Docs</a>  <a [routerLink]="['terms']">Terms</a>
+            <a href="https://hibounote.netlify.app/blog" target="_blank" class="me-2">Blog</a> <a href="https://hibounote.netlify.app/terms" target="_blank" >Terms</a>
           </div>
         </div>
       </mat-tab>
