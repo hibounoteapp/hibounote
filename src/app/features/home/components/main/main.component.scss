@@ -1,10 +1,10 @@
 main {
-  @apply bg-background-base-50;
+  @apply bg-background-base-50 dark:bg-background-dark-900;
 
 }
 
 div.landing-container {
-  @apply flex flex-row justify-between items-center min-h-screen pt-4;
+  @apply flex flex-row justify-between items-center min-h-screen pt-4 dark:bg-background-dark-900;
 
   @media screen and (max-width: 768px) {
     @apply flex flex-col pt-32 min-h-0;
@@ -71,7 +71,7 @@ div.row-between-center {
 }
 
 div#three-paragraph-container{
-  @apply bg-background-200 flex items-center flex-col py-20 border-y-[1px] border-y-background-400;
+  @apply bg-background-200 dark:bg-background-dark-800 flex items-center flex-col py-20 border-y-[1px] border-y-background-400 dark:border-background-dark-700;
 
   @media screen and (max-width:768px) {
     @apply py-10;
@@ -112,7 +112,7 @@ div.text-sections {
 }
 
 #layeredWaves {
-  @apply bg-background-base-50;
+  @apply bg-background-base-50 dark:bg-background-dark-900;
   background-image: url('../../../../../assets/images/bg-layered-waves.svg');
   background-position: bottom;
   background-size: cover;
@@ -132,7 +132,7 @@ div.text-sections {
 }
 
 #bgBlob {
-  @apply bg-background-base-50;
+  @apply bg-background-base-50 dark:bg-background-dark-900;
   background-image: url('../../../../../assets/images/bg-blob.svg');
   background-position: center;
   background-size: cover;

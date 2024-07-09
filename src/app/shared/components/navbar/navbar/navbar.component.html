@@ -2,7 +2,7 @@
   <div id="desktop-port">
     <div class="flex flex-row items-center">
       <a [routerLink]="['/']">
-        <img src="../../assets/logo.svg" alt="icon" id="logo">
+        <img src="../../assets/logo.svg" alt="icon" id="logo" [class]="userData.theme==='light'?'':'icon-white'">
       </a>
       <button class="flex flex-row justify-center items-center ms-[5vw] navbarButton" [matMenuTriggerFor]="menu">
         <p class="font-semibold">Resources</p>
@@ -10,10 +10,10 @@
       </button>
 
       <a [routerLink]="['']" class="flex flex-row justify-center items-center ms-2 navbarButton" matTooltip="In progress 🚧">
-        <p class="font-semibold text-background-600">Download</p>
+        <p class="font-semibold text-background-600 dark:text-background-600">Download</p>
       </a>
 
-      <mat-menu #menu id="resourcesMenu" class="!bg-background-100 !px-2 !shadow border-[1px] border-background-400">
+      <mat-menu #menu id="resourcesMenu" class="!px-2 !shadow border-[1px] {{userData.theme}} {{userData.theme === 'light' ? ' !bg-background-base-50 border-background-400':' !bg-background-dark-800 border-background-dark-700'}}">
         <div class="!flex !flex-row ">
           <div class="!flex !flex-col me-6">
             <a class="menuButton" [routerLink]="['/about']">About us</a>

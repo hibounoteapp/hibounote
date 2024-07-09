@@ -1,5 +1,5 @@
 div.sidebar-container {
-  @apply h-full border-e-[1px] border-e-background-400 shadow px-8 bg-background-base-50 w-[20vw];
+  @apply h-full border-e-[1px] border-e-background-400 dark:border-background-dark-700  shadow px-8 bg-background-base-50 dark:bg-background-dark-900 w-[20vw];
 
   @media screen and (max-width: 1000px) {
     @apply px-1 ;
@@ -30,7 +30,7 @@ div#utilLinks {
     @apply flex flex-row items-center justify-start my-1 transition-all py-2 px-2 rounded;
 
     &:hover {
-      @apply bg-background-200 transition-all;
+      @apply bg-background-200 dark:bg-background-dark-800 transition-all;
     }
 
     p {
@@ -62,14 +62,14 @@ div#utilLinks {
 
   &:hover {
 
-    @apply bg-background-200 transition-all;
+    @apply bg-background-200 dark:bg-background-dark-800 transition-all;
 
     button {
       @apply flex transition-all;
 
       &:hover {
         filter: brightness(0.95);
-        @apply bg-background-300 rounded;
+        @apply bg-background-300 dark:bg-background-dark-700 rounded;
       }
     }
   }
@@ -96,14 +96,14 @@ div#utilLinks {
 
   &:hover {
 
-    @apply bg-background-200 transition-all;
+    @apply bg-background-200 dark:bg-background-dark-800 transition-all;
 
     button#more {
       @apply flex transition-all;
 
       &:hover {
         filter: brightness(0.95);
-        @apply bg-background-300 rounded;
+        @apply bg-background-300 dark:bg-background-dark-700 rounded;
       }
     }
   }
@@ -119,7 +119,7 @@ div.iconText {
 
 div#tags-fav-container {
   grid-area: tags-fav-container;
-  @apply border-[1px] border-background-400 rounded overflow-auto flex flex-col items-center;
+  @apply border-[1px] border-background-400 dark:border-background-dark-700 rounded overflow-auto flex flex-col items-center;
 
 
 
@@ -142,9 +142,9 @@ div#tags-fav-container {
 
 button#download {
   grid-area: download;
-  @apply border-[1px] border-background-400 rounded p-3 justify-self-end my-3 transition-all flex flex-row items-center w-full justify-center;
+  @apply border-[1px] border-background-400 dark:border-background-dark-700 rounded p-3 justify-self-end my-3 transition-all flex flex-row items-center w-full justify-center;
   &:hover {
-    @apply bg-background-200 transition-all;
+    @apply bg-background-200 dark:bg-background-dark-800 transition-all;
   }
 }
 
@@ -154,7 +154,7 @@ button#download {
 }
 
 ::-webkit-scrollbar-track {
-  @apply rounded bg-background-200 m-1;
+  @apply rounded bg-background-200 dark:bg-background-dark-900 m-1;
 }
 
 ::-webkit-scrollbar-thumb {

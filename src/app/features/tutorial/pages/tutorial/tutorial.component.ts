@@ -7,6 +7,7 @@ import { NavbarComponent } from '@shared-components/navbar';
 import { FeatureCardComponent } from '../../components/feature-card/feature-card.component';
 import { TutorialService } from '../../services/tutorial/tutorial.service';
 import { CommonModule } from '@angular/common';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'app-tutorial',
@@ -23,5 +24,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './tutorial.component.scss'
 })
 export class TutorialComponent {
-  constructor(protected tutorialService: TutorialService) {}
+  constructor(protected tutorialService: TutorialService, public userData: UserDataService) {}
 }

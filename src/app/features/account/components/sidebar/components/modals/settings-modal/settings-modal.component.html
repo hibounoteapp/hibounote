@@ -1,18 +1,18 @@
-<div class="w-full h-full flex flex-col p-6">
+<div class="w-full h-full flex flex-col p-6 {{userData.theme}} {{userData.theme === 'light' ? '!bg-background-base-50':'!bg-background-dark-800'}}">
   <div class="flex flex-row justify-between items-center">
     <p class="sub-title-2xl !font-semibold !self-start">Settings</p>
     <button  mat-dialog-close class="flex justify-center items-center">
       <mat-icon svgIcon="close" style="scale: 1.2;"></mat-icon>
     </button>
   </div>
-  <div class="flex flex-row">
+  <div class="flex flex-row ">
     <mat-tab-group class="tab-container" animationDuration="0ms">
-      <mat-tab label="Board" class="tab" id="Board">
-        <div class="flex flex-col items-center justify-center !w-full !h-[45vh]">
-          <div class="flex flex-row items-center justify-normal my-2">
+      <mat-tab label="Board" class="tab " id="Board">
+        <div class="flex flex-col items-center justify-center !w-full !h-[45vh] ">
+          <div class="flex flex-row items-center justify-normal my-2 ">
             <p class="font-semibold me-2 text-lg">Language: </p>
-            <mat-form-field class="!mt-6">
-              <mat-select [value]="'English'" class="">
+            <mat-form-field class="!mt-6 ">
+              <mat-select [value]="'English' ">
                 <mat-option value="English">English</mat-option>
                 <mat-option value="Portuguese" disabled>Portuguese</mat-option>
                 <mat-option value="Spanish" disabled>Spanish</mat-option>
@@ -29,6 +29,17 @@
 
             </app-simple-button>
           </div>
+          <div class="flex flex-row items-center justify-normal my-2">
+            <p class="font-semibold me-2 text-lg">Toggle theme: </p>
+            <app-simple-button
+            [customStyles]="'!px-4'"
+            [elementType]="'button'"
+            [theme]="'btn-secondary'"
+            [icon]="userData.theme === 'light' ? 'dark-mode':'light-mode'"
+            [text]="userData.theme === 'light' ? 'Set to dark':'Set to light'"
+            (click)="userData.toggleTheme()">
+            </app-simple-button>
+          </div>
         </div>
       </mat-tab>
 
@@ -41,8 +52,8 @@
       <mat-tab label="About" id="About" class=" flex justify-center items-center">
         <div class="flex flex-col items-center justify-center !w-full !h-[45vh]">
           <div class="flex flex-row items-center justify-center mt-5 mb-4">
-            <img src="../../assets/logo.svg" alt="icon" id="logo" style="width: 80px; height: 80px;">
-            <div>
+            <img src="../../assets/logo.svg" alt="icon" id="logo" [class]="userData.theme==='light'?'':'icon-white'">
+            <div class="ms-2">
               <p class="font-semibold">Hibounote</p>
               <p class="text-sm">Logo sourced from <a href="https://openmoji.org">OpenMoji</a></p>
             </div>

@@ -6,6 +6,7 @@ import { FooterComponent } from '@shared-components/footer/footer/footer.compone
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogModule } from '@angular/material/dialog';
 import { IconService } from '@shared-services/icon/icon.service';
 import { MatIconModule } from '@angular/material/icon';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'footer-cookies-modal',
@@ -37,7 +38,8 @@ export class CookiesModalComponent {
   constructor(
     protected cookiesService : CookiesService,
     public matDialog: MatDialog,
-    public iconService: IconService
+    public iconService: IconService,
+    public userData: UserDataService
   ) {
 
   }

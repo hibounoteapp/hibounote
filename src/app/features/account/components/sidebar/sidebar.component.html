@@ -1,7 +1,9 @@
 <div class="sidebar-container">
   <div class="flex flex-row items-center my-2" id="logo-container">
-    <a [routerLink]="['/']"><img src="../../assets/logo.svg" alt="logoHibounote" id="logo"></a>
-    <aside class="ms-2 font-semibold" id="logo-label">Hibounote</aside>
+    <a [routerLink]="['/']">
+      <img src="../../assets/logo.svg" alt="icon" id="logo" [class]="userData.theme==='light'?'':'icon-white'">
+    </a>
+    <aside class="ms-2 font-semibold " id="logo-label">Hibounote</aside>
   </div>
   <div id='utilLinks'>
     <button class="link" (click)="settingsModal()">
@@ -13,9 +15,9 @@
       <p>Import board</p>
       <input type="file" class="hidden" id="importJSON" accept=".json" (change)="createFromImport($event)">
     </button>
-    <button class="link" matTooltip="🚧In progress.">
+    <button class="link" matTooltip="🚧In progress">
       <mat-icon svgIcon="template" class="icon-background-400"></mat-icon>
-      <p class="text-background-500">Templates</p>
+      <p class="text-background-500 dark:text-background-dark-500">Templates</p>
     </button>
   </div>
   <div id="tags-fav-container">
@@ -100,7 +102,7 @@
       </ng-template>
     </div> -->
   </div>
-  <button id="download">
+  <button id="download" matTooltip="🚧In progress">
     <mat-icon svgIcon="download"></mat-icon>
     <p class="ms-2">Download the app</p>
   </button>

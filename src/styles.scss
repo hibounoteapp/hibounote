@@ -1,53 +1,98 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$mnos-primary: mat.define-palette(mat.$indigo-palette);
+$primary-palette:(
+  50:#f0e6ff,
+  100:#d5c1fe,
+  200:#b997fe,
+  300:#996aff,
+  400:#7e44ff,
+  500:#5d11fd,
+  600:#4e0bf7,
+  700:#3300ef,
+  800:#0000eb,
+  900:#0000e7,
+  contrast: (
+    50:#000,
+    100:#000,
+    200:#000,
+    300:#fff,
+    400:#fff,
+    500:#fff,
+    600:#fff,
+  )
+);
 
-$mnos-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$secondary-palette:(
+  50:#ffedf1,
+  100:#ffd2d9,
+  200:#ffa1a4,
+  300:#fb7c80,
+  400:#ff5b5e,
+  500:#ff4a44,
+  600:#ff4244,
+  700:#ef383e,
+  800:#e23136,
+  900:#d2252a,
+  contrast: (
+    50:#000,
+    100:#000,
+    200:#000,
+    300:#fff,
+    400:#fff,
+    500:#fff,
+    600:#fff,
+  )
+);
 
-// The warn palette is optional (defaults to red).
-$mnos-warn: mat.define-palette(mat.$red-palette);
+$accent-palette:(
+  50:#fff9e6,
+  100:#ffeebf,
+  200:#ffe497,
+  300:#ffdb71,
+  400:#ffd15b,
+  500:#ffca54,
+  600:#ffbd4e,
+  700:#fcab49,
+  800:#f99d46,
+  900:#f48341,
+  contrast: (
+    50:#000,
+    100:#000,
+    200:#000,
+    300:#fff,
+    400:#fff,
+    500:#fff,
+    600:#fff,
+  )
+);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$mnos-theme: mat.define-light-theme((
+
+
+$primary: mat.define-palette($primary-palette);
+$secondary: mat.define-palette($secondary-palette);
+$accent: mat.define-palette($accent-palette);
+
+$theme-light: mat.define-light-theme((
   color: (
-    primary: $mnos-primary,
-    accent: $mnos-accent,
-    warn: $mnos-warn,
+    primary: $primary,
+    secondary: $secondary,
+    accent: $accent,
   ),
-  typography: mat.define-typography-config(),
-  density: 0
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($mnos-theme);
+@include mat.all-component-themes($theme-light);
 
 html, body { height: 100%; }
-
-:root {
-
-}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  @apply text-text-base-900;
   font-family: "Inter", sans-serif !important;
+  @apply  dark:text-text-50;
 }
 
 
@@ -66,7 +111,7 @@ html, body { height: 100%; }
 }
 
 .nodeContainer {
-  @apply min-w-48 max-w-56 min-h-12 max-h-44 bg-background-base-50 absolute p-2 box-border rounded shadow;
+  @apply min-w-48 max-w-56 min-h-12 max-h-44 bg-background-base-50 dark:bg-background-dark-900 dark:border-[1px] dark:border-background-dark-800  absolute p-2 box-border rounded shadow;
 
   &:hover {
     @apply shadow-md;
@@ -81,7 +126,7 @@ html, body { height: 100%; }
   }
 
   .desc::placeholder {
-    @apply opacity-50 text-text-base-900;
+    @apply opacity-50 text-text-base-900 dark:text-text-50;
   }
 
   .fadeDiv {
@@ -93,10 +138,10 @@ html, body { height: 100%; }
 }
 
 .resizeButton {
-  @apply  bg-background-500 bg-opacity-50 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
+  @apply  bg-background-500 dark:bg-background-dark-700  bg-opacity-50 w-4 h-4 rounded absolute bottom-0 right-0 cursor-nw-resize transition-all centerItems;
 
   &:hover {
-    @apply bg-background-600 bg-opacity-50 transition-all;
+    @apply bg-background-600 dark:bg-background-dark-600  bg-opacity-50 transition-all;
   }
 
   .mat-icon {
@@ -108,17 +153,17 @@ html, body { height: 100%; }
 
 .linkActionButton {
   @layer linkAction;
-  @apply bg-background-600 bg-opacity-50 w-4 h-4 -m-5 rounded absolute transition-all centerItems;
+  @apply bg-background-600 dark:bg-background-dark-700  bg-opacity-50 w-4 h-4 -m-5 rounded absolute transition-all centerItems;
 
   &:hover {
-    @apply w-5 h-5 transition-all bg-background-500 bg-opacity-50;
+    @apply w-5 h-5 transition-all bg-background-500 dark:bg-background-dark-600  bg-opacity-50;
   }
 }
 
 }
 
 .labelConnection {
-  @apply bg-background-base-50 rounded shadow py-2 px-1 outline-none text-center min-w-20 max-w-60;
+  @apply bg-background-base-50 dark:bg-background-dark-900  rounded shadow py-2 px-1 outline-none text-center min-w-20 max-w-60;
 }
 
 .nodeGroup {
@@ -126,7 +171,7 @@ html, body { height: 100%; }
 }
 
 .activeNode {
-  @apply border-2 border-black;
+  @apply border-2 border-black dark:border-background-dark-400 ;
   z-index: 8;
 
   &:has(.nodeContainer) {
@@ -135,7 +180,7 @@ html, body { height: 100%; }
 }
 
 .controlTools {
-  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center border-[1px] border-background-400;
+  @apply shadow p-1 m-2 rounded transition-all flex justify-center items-center border-[1px] border-background-400 dark:border-background-dark-500 ;
 
   &:hover {
     @apply shadow-lg transition-all;
@@ -143,7 +188,7 @@ html, body { height: 100%; }
 }
 
 .grab {
-  @apply shadow transition-all m-2 flex justify-center items-center;
+  @apply shadow transition-all m-2 flex justify-center rounded items-center dark:border-background-dark-800 dark:border-[1px];
   cursor: move;
   cursor: grab;
   cursor: -moz-grab;
@@ -219,13 +264,13 @@ html, body { height: 100%; }
   }
 
 //?
-
 //? Shared navbar
+
   .menuButton { //shared navbar menu button
     @apply block w-full my-1 p-2 text-start font-semibold rounded transition-all;
 
     &:hover {
-      @apply bg-background-300 transition-all;
+      @apply bg-background-300 dark:bg-background-dark-700  transition-all;
     }
   }
 
@@ -233,27 +278,6 @@ html, body { height: 100%; }
     @apply block w-full my-1 p-2 text-start font-semibold rounded transition-all;
 
   }
-
-//?
-
-//?
-
-//? Blog
-
-.mdc-tab__text-label {
-  transition: 100ms !important;
-}
-
-.mat-mdc-tab-group {
-	--mdc-tab-indicator-active-indicator-color: #4e0bf7; //primary
-}
-
-.mdc-tab--active .mdc-tab__text-label{
-  color: #4e0bf7 !important;
-}
-
-
-//?
 
 .cookieModal {
   @apply w-[50vw];
@@ -268,8 +292,29 @@ html, body { height: 100%; }
   @apply transition-all rounded;
 
   &:hover {
-    @apply bg-background-200 transition-all rounded;
+    @apply bg-background-200 dark:bg-background-dark-700  transition-all rounded;
   }
+}
+
+//? Blog
+
+.mdc-tab__text-label {
+  --mat-tab-header-inactive-label-text-color: none;
+  --mat-tab-header-inactive-hover-label-text-color: none;
+}
+
+.mat-mdc-tab-group {
+	--mdc-tab-indicator-active-indicator-color: #996aff; //primary
+}
+
+.mdc-tab--active .mdc-tab__text-label{
+  color: #996aff !important;
+}
+
+//?
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  --mdc-filled-text-field-container-color: none;
 }
 
 //? Snack bar
@@ -278,9 +323,12 @@ html, body { height: 100%; }
 }
 
 .mdc-snackbar--open .mdc-snackbar__label{
-  color: #050115 !important;
+  color: var(--text-color) !important;
 }
 
+.mdc-dialog__container {
+  color: var(--text-color) !important;
+}
 
 //? Markdown to HTML configuration
 #markdown {

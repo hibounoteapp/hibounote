@@ -1,5 +1,5 @@
 nav {
-  @apply bg-background-100 w-full shadow-sm flex flex-row items-center justify-between border-b-[1px] border-b-background-400;
+  @apply bg-background-100 dark:bg-background-dark-800 w-full shadow-sm flex flex-row items-center justify-between border-b-[1px] border-b-background-400 dark:border-b-background-dark-700;
 
   #desktop-port {
     @apply w-full flex flex-row items-center justify-between mx-10 my-4;
@@ -8,7 +8,7 @@ nav {
       @apply flex my-1 p-2 text-center font-semibold rounded transition-all;
 
       &:hover {
-        @apply bg-background-300 transition-all;
+        @apply bg-background-300 dark:bg-background-dark-700 transition-all;
       }
     }
 
@@ -16,8 +16,6 @@ nav {
       @apply hidden;
     }
   }
-
-
 
 
   #mobile-port {
@@ -28,7 +26,7 @@ nav {
     }
 
     #drawer {
-      @apply h-[100vh] w-[60vw] absolute mt-[-1rem] me-[-1rem] flex flex-col p-4 bg-background-100;
+      @apply h-[100vh] w-[60vw] absolute mt-[-1rem] me-[-1rem] flex flex-col p-4 bg-background-100 dark:bg-background-dark-800;
     }
 
     @media screen and (max-width: 768px){

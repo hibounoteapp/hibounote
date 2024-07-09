@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CookiesModalComponent } from '../components/cookies-modal/cookies-modal.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CookiesService } from '@core-services/cookies/cookies.service';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +14,7 @@ import { CookiesService } from '@core-services/cookies/cookies.service';
 })
 export class FooterComponent {
 
-  constructor(protected dialog: MatDialog, protected cookieService: CookiesService){}
+  constructor(protected dialog: MatDialog, protected cookieService: CookiesService, public userData: UserDataService){}
 
   openModalCookies(){
     const modalCookies = this.dialog.open(CookiesModalComponent,{

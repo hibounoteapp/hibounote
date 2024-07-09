@@ -28,11 +28,11 @@
   @apply border-[1px] border-text-300 transition-all box-border;
 
   p {
-    @apply text-text-base-900;
+    @apply text-text-base-900 dark:text-text-50;
   }
 
   &:hover {
-    @apply bg-background-200 filter-none;
+    @apply bg-background-200 dark:bg-background-dark-700 filter-none;
   }
 }
 

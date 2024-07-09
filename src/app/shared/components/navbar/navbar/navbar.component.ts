@@ -10,6 +10,7 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { SettingsModalComponent } from '../../../../features/account/components/sidebar/components/modals/settings-modal/settings-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +24,11 @@ export class NavbarComponent {
   @Input() fixed: boolean = true;
   @Input() buttons!: Button[];
 
-  constructor(iconService: IconService){ }
+  constructor(iconService: IconService, public userData: UserDataService){ }
+
+  toggleTheme() {
+    this.userData.toggleTheme();
+  }
 
 
 }
