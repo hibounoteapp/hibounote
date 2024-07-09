@@ -103,6 +103,11 @@ Find the contributing guide [here](./contributing.md)
 
 - [Feather Icons](https://feathericons.com)
 - [Ionicons](https://ionic.io/ionicons)
+- [FontAwesome](https://fontawesome.com)
+
+### Background images
+
+- [Haikei](https://app.haikei.app)
 
 <br>
 
