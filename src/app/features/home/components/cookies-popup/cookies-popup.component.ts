@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SimpleButtonComponent } from '@shared-components/simple-button';
 import { HomeComponent } from '../../pages/home/home.component';
 import { CookiesService } from '@core-services/cookies/cookies.service';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'home-cookies-popup',
@@ -34,7 +35,8 @@ export class CookiesPopupComponent {
 
   constructor(
     public homeComponent: HomeComponent,
-    protected cookiesService : CookiesService
+    protected cookiesService : CookiesService,
+    public userData: UserDataService
   ) {
 
   }

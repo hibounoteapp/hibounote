@@ -1,10 +1,10 @@
 nav {
-  @apply absolute w-full bg-background-base-50 p-2 flex flex-row justify-between z-10 shadow items-center px-4;
+  @apply absolute w-full bg-background-base-50 dark:bg-background-dark-900 p-2 flex flex-row justify-between z-10 shadow items-center px-4;
 }
 
 input {
   &:focus {
-    @apply border-b-text-base-900 border-b-[1px];
+    @apply border-b-text-base-900 dark:border-background-dark-600 border-b-[1px];
   }
 }
 

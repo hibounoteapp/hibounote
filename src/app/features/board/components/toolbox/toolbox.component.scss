@@ -1,5 +1,5 @@
 div#toolbox {
-  @apply min-w-20 max-h-[600px] rounded-r bg-background-base-50 shadow border-[1px] border-background-400 absolute flex flex-col justify-center items-center z-10 p-4;
+  @apply min-w-20 max-h-[600px] rounded-r bg-background-base-50 dark:bg-background-dark-900 shadow border-[1px] border-background-400 dark:border-background-dark-700 absolute flex flex-col justify-center items-center z-10 p-4;
   top: 50%;
   transform: translate(0,-50%)
 }

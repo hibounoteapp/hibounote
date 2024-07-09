@@ -28,7 +28,8 @@
     <button
       [id]="id"
       class="btn {{theme}} {{customStyles}}">
-      <p class="{{textCustomStyles}}">{{text}}</p>
+        <mat-icon [svgIcon]="icon" class="icon me-2 !p-0" *ngIf="icon" style="height: 18px;"></mat-icon>
+        <p class="{{textCustomStyles}}">{{text}}</p>
     </button>
   </ng-container>
 

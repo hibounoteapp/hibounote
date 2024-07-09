@@ -1,9 +1,9 @@
 main {
-  @apply min-h-screen pt-28 flex flex-col items-center justify-start bg-background-base-50;
+  @apply min-h-screen pt-28 flex flex-col items-center justify-start bg-background-base-50 dark:bg-background-dark-900;
 }
 
 .content-container {
-  @apply mx-auto p-4 mb-10 border-[1px] border-background-300 shadow bg-background-base-50 rounded w-[60vw] flex flex-col justify-start items-start;
+  @apply mx-auto p-4 mb-10 border-[1px] border-background-300 shadow bg-background-base-50 dark:bg-background-dark-900 dark:border-background-dark-700 rounded w-[60vw] flex flex-col justify-start items-start;
 
   @media screen and (max-width:870px) {
     @apply w-[90vw]

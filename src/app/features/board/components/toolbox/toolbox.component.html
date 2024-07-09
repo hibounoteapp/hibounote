@@ -4,7 +4,7 @@
     <button class="return controlTools" (click)="deactivateNode()">
       <mat-icon svgIcon="return"></mat-icon>
     </button>
-    <div class="mt-10 bg-background-200 rounded p-2">
+    <div class="mt-10 bg-background-200 dark:bg-background-dark-800 rounded p-2">
       <div class="flex flex-col items-center">
         <p class="text-center text-[0.75rem] px-1">Background<br>color:</p>
         <button class="w-10 h-10 bg-[#FE5F55] rounded controlTools" (click)="editNode('backgroundColor','#FE5F55')"></button>
@@ -21,7 +21,7 @@
       <button class="return controlTools" (click)="deactivateConnection()">
         <mat-icon svgIcon="return"></mat-icon>
       </button>
-      <div class="mt-10 bg-background-200 rounded p-2 flex flex-col items-center">
+      <div class="mt-10 bg-background-200 dark:bg-background-dark-800 rounded p-2 flex flex-col items-center">
         <p class="text-center text-[0.75rem] text-sm">Line color:</p>
         <button class="w-10 h-10 bg-[#FE5F55] rounded controlTools" (click)="editConnection('#FE5F55')"></button>
         <button class="w-10 h-10 bg-[#2D93AD] rounded controlTools" (click)="editConnection('#2D93AD')"></button>
@@ -29,7 +29,7 @@
         <button class="w-10 h-10 bg-[#008148] rounded controlTools" (click)="editConnection('#008148')"></button>
         <button class="w-10 h-10 bg-[#fffdf6] rounded controlTools" (click)="editConnection('#fffdf6')"></button>
       </div>
-      <button class="px-2 text-[0.75rem]  bg-[#fffdf6] rounded controlTools" (click)="toggleLabelConnection()">
+      <button class="px-2 text-[0.75rem]  bg-[#fffdf6] dark:bg-background-dark-900 rounded controlTools" (click)="toggleLabelConnection()">
         Toggle<br>label
         </button>
     </div>

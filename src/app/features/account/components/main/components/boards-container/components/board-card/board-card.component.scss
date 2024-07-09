@@ -1,5 +1,5 @@
 .board-container {
-  @apply w-full h-full rounded shadow bg-background-base-50 flex-row-center justify-between transition-all;
+  @apply w-full h-full rounded shadow bg-background-base-50 dark:bg-background-dark-800 flex-row-center justify-between transition-all;
 
   &:hover {
     filter: brightness(0.95);
@@ -23,7 +23,7 @@
   @apply p-1 transition-all;
 
   &:hover {
-    @apply transition-all bg-background-300;
+    @apply transition-all bg-background-300 dark:bg-background-dark-700;
   }
 }
 

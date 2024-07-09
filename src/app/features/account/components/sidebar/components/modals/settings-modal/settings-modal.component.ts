@@ -9,6 +9,7 @@ import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
 import { SimpleButtonComponent } from '@shared-components/simple-button';
 import { DeleteConfirmationComponent } from '../../../../edit-board-modal/components/delete-confirmation/delete-confirmation.component';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'app-settings-modal',
@@ -18,7 +19,7 @@ import { BoardDataService } from '@shared-services/board-data/board-data.service
   styleUrl: './settings-modal.component.scss'
 })
 export class SettingsModalComponent {
-  constructor(icon: IconService, protected dialog: MatDialog, protected boardData: BoardDataService){}
+  constructor(icon: IconService, protected dialog: MatDialog, protected boardData: BoardDataService, public userData: UserDataService){}
 
   confirmDelete() {
     const dialog = this.dialog.open(DeleteConfirmationComponent, {
@@ -27,7 +28,6 @@ export class SettingsModalComponent {
         text: 'Are you sure you want to clean your board data? This action cannot be reversed.'
       }
     })
-
     dialog.afterClosed().subscribe((result)=>{
       if(result==="DELETE") {
         this.boardData.deleteAll().then(()=>{

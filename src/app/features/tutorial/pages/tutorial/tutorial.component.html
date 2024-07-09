@@ -1,7 +1,7 @@
-<div class="bg-blob-nude">
+<div class="bg-blob-nude dark:bg-background-dark-900">
   <nav>
     <div class="flex flex-row items-center">
-      <a [routerLink]="['/']"><img src="../../assets/logo.svg" alt="logoHibounote" id="logo"></a>
+      <a [routerLink]="['/']"><img src="../../assets/logo.svg" alt="icon" id="logo" [class]="userData.theme==='light'?'':'icon-white'"></a>
       <aside class="ms-4 font-bold" id="logo-label">Hibounote</aside>
     </div>
     <div class="flex flex-row items-center">

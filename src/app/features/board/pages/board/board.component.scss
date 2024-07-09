@@ -1,5 +1,5 @@
 main {
-  @apply select-none absolute w-full h-full bg-background-300;
+  @apply select-none absolute w-full h-full bg-background-300 dark:bg-background-dark-800;
 
   @media screen and (max-width: 768px){
     @apply hidden;
@@ -7,7 +7,7 @@ main {
 }
 
 #idNull {
-  @apply w-full h-full flex justify-center items-center flex-col bg-background-100 text-center p-2;
+  @apply w-full h-full flex justify-center items-center flex-col bg-background-100 dark:bg-background-dark-800 text-center p-2;
 
   #desktop {
     @apply flex;
@@ -34,7 +34,7 @@ main {
   @apply hidden;
 
   @media screen and (max-width: 768px){
-    @apply flex items-center justify-center flex-col select-none absolute w-full h-full bg-background-100 px-5 text-center;
+    @apply flex items-center justify-center flex-col select-none absolute w-full h-full bg-background-100 dark:bg-background-dark-800 px-5 text-center;
   }
 }
 

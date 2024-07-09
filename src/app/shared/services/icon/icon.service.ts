@@ -136,6 +136,14 @@ export class IconService {
       name: "duplicate",
       url: "../../../../assets/icons/duplicate-outline.svg"
     },
+    {
+      name: "light-mode",
+      url: "../../../../assets/icons/sunny-outline.svg"
+    },
+    {
+      name: "dark-mode",
+      url: "../../../../assets/icons/moon-outline.svg"
+    },
   ]
 
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

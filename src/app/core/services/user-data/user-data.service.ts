@@ -18,8 +18,24 @@ export class UserDataService {
     name:'Games'
   }];
 
+  private _theme: 'light' | 'dark' = 'light';
+  public get theme(): 'light' | 'dark' {
+    return this._theme;
+  }
+  public set theme(value: 'light' | 'dark') {
+    localStorage.setItem('theme',value);
+    this._theme = value;
+  }
+
+
+
   constructor(){
     this.loadTags();
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme) {
+      if(savedTheme === 'light' || savedTheme === 'dark')
+        this.theme = savedTheme;
+    }
   }
 
   loadTags() {
@@ -72,5 +88,9 @@ export class UserDataService {
     const selectedTag = this.tags.find(e=>e.id===id);
     if(selectedTag)
       db.tags.update(id,selectedTag)
+  }
+
+  toggleTheme() {
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
   }
 }

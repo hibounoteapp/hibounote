@@ -1,28 +1,34 @@
-<button class="flex items-center justify-center mt-4 me-4 self-end" mat-dialog-close>
-  <mat-icon svgIcon="close"></mat-icon>
-</button>
-<div class="w-full h-full px-10 pb-12 pt-4 flex flex-col">
-  <p class="mb-8 text-justify">We use required cookies to perform essential website functions. For example, they're used to log you in and save all board configurations in your browser. If you disable it, these functions will not be available.</p>
+<div class="w-full h-full {{userData.theme}}">
+  <div class="w-full h-full flex justify-center items-center flex-col dark:bg-background-dark-800">
+  <button class="flex items-center justify-center mt-4 me-4 self-end" mat-dialog-close>
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+  <div class="w-full h-full px-10 pb-12 pt-4 flex flex-col">
+    <p class="mb-8 text-justify">We use required cookies to perform essential website functions. For example, they're used to log you in and save all board configurations in your browser. If you disable it, these functions will not be available.</p>
 
-<div class="justify-between flex flex-row items-center w-full" id="buttons">
-  <app-simple-button
-    [customStyles]="'!w-full'"
-    mat-dialog-close="accept"
-    class="closeButton"
-    id="accept"
-    [theme]="'btn-primary'"
-    text="Accept cookies"
-    [elementType]="'button'">
-  </app-simple-button>
-  <app-simple-button
-    [customStyles]="'!w-full'"
-    mat-dialog-close="decline"
-    class="closeButton"
-    id="decline"
-    [theme]="'btn-secondary'"
-    text="Decline cookies"
-    [elementType]="'button'">
-  </app-simple-button>
+  <div class="justify-between flex flex-row items-center w-full" id="buttons">
 
-</div>
+    <app-simple-button
+      [customStyles]="'!w-full'"
+      mat-dialog-close="decline"
+      class="closeButton"
+      id="decline"
+      [theme]="'btn-secondary'"
+      text="Decline cookies"
+      [elementType]="'button'">
+    </app-simple-button>
+
+    <app-simple-button
+      [customStyles]="'!w-full'"
+      mat-dialog-close="accept"
+      class="closeButton"
+      id="accept"
+      [theme]="'btn-primary'"
+      text="Accept cookies"
+      [elementType]="'button'">
+    </app-simple-button>
+
+  </div>
+  </div>
+  </div>
 </div>

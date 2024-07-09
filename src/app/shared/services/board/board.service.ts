@@ -4,6 +4,7 @@ import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 import { NodeService } from '../../../features/board/services/node/node.service';
 import { ActivatedRoute } from '@angular/router';
 import { BoardDataService } from '../board-data/board-data.service';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,8 @@ export class BoardService {
   lockDrag: boolean = false;
 
   constructor(
-    protected activeRoute: ActivatedRoute
+    protected activeRoute: ActivatedRoute,
+    protected userData: UserDataService
   ) {
     this.contextMenu = {
       show: false,
@@ -278,16 +280,18 @@ export class BoardService {
     this.instance.bind(jsplumb.INTERCEPT_BEFORE_DROP,(params: jsplumb.BeforeDropParams)=>{
       const source = this.instance.getManagedElement(params.sourceId)
       const target = this.instance.getManagedElement(params.targetId)
+      const baseColor: string = this.userData.theme === 'light' ? '#030303' : '#fcfcfc';
+
       if(source === target) return
       this.instance.connect({
         source,
         target,
         connector: 'Bezier',
-        color: '#000000',
+        color: baseColor,
         anchor: 'Continuous',
         endpointStyle: {
-          fill: '#030303',
-          stroke:  '#030303',
+          fill: baseColor,
+          stroke:  baseColor,
           strokeWidth: 1,
         }
 
@@ -297,6 +301,8 @@ export class BoardService {
   }
 
   connectorsConfiguration = () => {
+
+    const baseColor: string = this.userData.theme === 'light' ? '#030303' : '#fcfcfc';
 
     this.instance.registerConnectionType('active',{
       paintStyle: {
@@ -315,12 +321,12 @@ export class BoardService {
       anchor: 'Continuous',
       endpoint: "Dot",
       paintStyle:{
-        stroke:'#030303',
-        fill: '#030303',
+        stroke:baseColor,
+        fill: baseColor,
         strokeWidth: 1,
       },
       connectorStyle: {
-        stroke: "#030303",
+        stroke: baseColor,
         strokeWidth: 2
       }
     })
@@ -328,12 +334,12 @@ export class BoardService {
       anchor: 'Continuous',
       endpoint: "Dot",
       paintStyle:{
-        stroke:'#030303',
-        fill: '#030303',
+        stroke:baseColor,
+        fill: baseColor,
         strokeWidth: 1,
       },
       connectorStyle: {
-        stroke: "#030303",
+        stroke: baseColor,
         strokeWidth: 2
       }
     })
